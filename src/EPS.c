@@ -16,7 +16,7 @@ int initEPS(){
 
 int getTelematry(EPSTelematry* data){
 	data->vBat = 5;
-	data->temp = 22;
+	data->temp = 25;
 	return 0;
 }
 
