@@ -1,2 +1,2 @@
 # YcubeSim
-Yerucham cube sat simulator
+Yerucham's cube sat simulator
