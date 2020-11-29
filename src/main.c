@@ -15,7 +15,7 @@
 int main(void) {
 	EPSTelematry epsData;
 
-	printf ("Starting ...\n");
+	printf ("Starting YcubeSim...\n");
 	initEPS();
 	while (1==1){
 		getTelematry(&epsData);
