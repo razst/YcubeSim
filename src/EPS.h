@@ -8,6 +8,17 @@
 #ifndef EPS_H_
 #define EPS_H_
 
+#include <stdint.h>
+
+/*!
+ *  ISIS_EPS instance structure
+ *  */
+typedef struct
+{
+	uint8_t i2cAddr; /*!< I2C address used for this instance */
+}
+ISIS_EPS_t;
+
 
 typedef struct epsTelematry{
 
@@ -31,6 +42,14 @@ int initEPS();
  */
 int getTelematry(EPSTelematry* data);
 
+/*!
+ *	Initialize ISIS_EPS instances
+ *
+ *	@param[in] Pointer to array of ISIS_EPS instances.
+ *	@param[in] Count of ISIS_EPS instances. - Note: the sim supports only 1 instance!
+ * 	@return ISIS_EPS_ERR_t
+ */
+int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount );
 
 
 #endif /* EPS_H_ */
