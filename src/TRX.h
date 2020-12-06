@@ -42,7 +42,7 @@ typedef enum __attribute__ ((__packed__)) _ISIStrxvuBitrate
  *  @param[in]  address array of TRXVU I2C Address structure.
  *  @param[in]  maxFrameLengths array of maximum frame length structures for TRXVU.
  *  @param[in]	default_bitrates initial default bitrate.
- *  @param[in]  number number of attached TRXVU in the system to be initialized.
+ *  @param[in]  number number of attached TRXVU in the system to be initialized. - Note: the sim supports only one TRXVU!
  *  @return     Error code according to <hal/errors.h>
  */
 int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number);
