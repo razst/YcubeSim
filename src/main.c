@@ -16,7 +16,7 @@
 #include "EPS.h"
 
 
-void mkdir(){
+void createDir(){
 
 	struct stat st = {0};
 
@@ -31,7 +31,7 @@ int main(void) {
 	EPSTelematry epsData;
 
 	printf ("Starting YcubeSim...\n");
-	mkdir();
+	createDir();
 	initEPS();
 	while (1==1){
 		getTelematry(&epsData);
