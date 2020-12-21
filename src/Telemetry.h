@@ -42,6 +42,16 @@ int fs_init();
  int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
 
 
+ /*
+  * Desc: Use this function to open a file.
+  * in:const char * filename,const char * mode
+  * return: F_FILE * Pointer to the associated opened file handle, or zero if it could not be opened
+  */
 
-#endif /* TELEMETRY_H_ */
+ F_FILE * f_open (const char * filename,const char * mode );
+
+
+
+
+ #endif /* TELEMETRY_H_ */
 
