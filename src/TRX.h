@@ -7,6 +7,11 @@
 
 #ifndef TRX_H_
 #define TRX_H_
+
+
+#define UDP_PORT     27002 // to send all messages from sat to UDP server
+
+
 /**
  *  Struct for defining ISIS TRXVU I2C Address.
  */
@@ -47,5 +52,27 @@ typedef enum __attribute__ ((__packed__)) _ISIStrxvuBitrate
  */
 int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number);
 
+
+
+
+/**
+ *	Struct for defining ISIS Antenna Systems Status I2C Address.
+ */
+typedef struct _ISISantsI2Caddress
+{
+	unsigned char addressSideA; ///< I2C address of the AntS side A microcontroller
+	unsigned char addressSideB; ///< I2C address of the AntS side B microcontroller
+} ISISantsI2Caddress;
+/*!
+ * 	Initialize the ISIS Antenna Systems with the corresponding i2cAddress from the array of Antenna Systems I2C Address structure.
+ *  @note       This function can only be called once.
+ * 	@param[in]  address array of Antenna Systems I2C Address structure.
+ * 	@param[in]  number number of attached Antenna Systems in the system to be initialized.
+ * 	@return     The error status of the initialization, defined in <hal/errors.h>.
+ */
+int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
+
+
+int sendMessage();
 
 #endif /* TRX_H_ */

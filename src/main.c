@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "EPS.h"
+#include "TRX.h"
 
 
 void createDir(){
@@ -36,7 +37,7 @@ int main(void) {
 	while (1==1){
 		getTelematry(&epsData);
 		printf ("Bat Temp = %d\n",epsData.temp);
-
+		sendMessage();
 		usleep(1000000);
 	}
 	return 0;
