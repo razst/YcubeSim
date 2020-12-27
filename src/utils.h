@@ -13,5 +13,8 @@ typedef int Boolean;
 #define TRUE 0xFFFFFFFF
 #define FALSE 0x0
 
+#define E_SOCKET -1000
+#define E_SOCKET_OPT -1001
 
 #endif /* UTILS_H_ */
+

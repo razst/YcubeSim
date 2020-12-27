@@ -36,16 +36,14 @@ int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number){
 }
 
 
-int sendMessage(){
+int sendUDPMessage(unsigned char *data, unsigned char length){
     int sockfd;
-    char *message = "Hello from Sat";
     struct sockaddr_in     servaddr;
-
     // Creating socket file descriptor
     if ( (sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
         perror("socket creation failed");
         printf("Unable to open socket\n");
-        return -1;
+        return E_SOCKET ;
     }
 
     // set socket options enable broadcast
@@ -54,7 +52,7 @@ int sendMessage(){
 	if (ret) {
 		printf("Unable to set broadcast option\n");
 		close(sockfd);
-		return -2;
+		return E_SOCKET_OPT;
 	}
 
     memset(&servaddr, 0, sizeof(servaddr));
@@ -67,15 +65,24 @@ int sendMessage(){
     //servaddr.sin_addr.s_addr = INADDR_ANY;
 
 
-    int messageX = 30;
-    sendto(sockfd, (const char *)message, strlen(message),
+    sendto(sockfd, (const char *)data,length,
     //sendto(sockfd, &messageX, sizeof(messageX),
         MSG_CONFIRM, (const struct sockaddr *) &servaddr,
             sizeof(servaddr));
     printf("Message sent.\n");
 
     close(sockfd);
-    return 0;
+    return E_NO_SS_ERR ;
+}
+int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail){
+
+
+	if(!_initFlag) return E_NOT_INITIALIZED;
+	if (index!=0) return E_INDEX_ERROR;
+	printf("1.\n");
+
+	sendUDPMessage(data, length);
+	return E_NO_SS_ERR ;
 }
 
 
