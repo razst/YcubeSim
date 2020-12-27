@@ -10,7 +10,16 @@
 
 #include <stdint.h>
 
-typedef enum SPIslave {} SPIslave; // temp enum until raz build the connection
+typedef enum _SPIslave {
+	slave0_spi = 0, //!< slave0_spi In case of bus0, this is the FRAM.
+	slave1_spi = 1, //!< slave1_spi In case of bus0, this is the RTC.
+	slave2_spi = 2, //!< slave2_spi In case of bus0, this is the Supervisor Microcontroller(PIC).
+	slave3_spi = 3, //!< slave3_spi Only available for bus1, uses a GPIO-connector pin, see board.h.
+	slave4_spi = 4, //!< slave4_spi Only available for bus1, uses a GPIO-connector pin, see board.h.
+	slave5_spi = 5, //!< slave5_spi Only available for bus1, uses a GPIO-connector pin, see board.h.
+	slave6_spi = 6, //!< slave6_spi Only available for bus1, uses a GPIO-connector pin, see board.h.
+	slave7_spi = 7, //!< slave7_spi Only available for bus1, uses a GPIO-connector pin, see board.h.
+} SPIslave;
 /*!
  *  ISIS_EPS instance structure
  *  */
