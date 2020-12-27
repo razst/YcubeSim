@@ -28,6 +28,23 @@ void createDir(){
 }
 
 
+int sendMessage(){
+	ISIStrxvuI2CAddress address;
+	address.addressVu_rc = 0; // TODO not in use
+	address.addressVu_tc = 0; // TODO not in use
+ 	 ISIStrxvuFrameLengths maxFrameLengths;
+ 	maxFrameLengths.maxAX25frameLengthRX = 300; // TODO not implemented yet
+ 	maxFrameLengths.maxAX25frameLengthTX = 300; // TODO not implemented yet
+	 ISIStrxvuBitrate default_bitrates;
+	 default_bitrates = trxvu_bitrate_9600;  // TODO not implemented yet
+
+	IsisTrxvu_initialize(&address, &maxFrameLengths, &default_bitrates, 1);
+	char data[] = "test123";
+	char avail=0;
+	IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
+
+}
+
 int main(void) {
 	EPSTelematry epsData;
 
