@@ -4,14 +4,25 @@
  *  Created on: Nov 22, 2020
  *      Author: pc
  */
-
+#include "utils.h"
 #include <stdio.h>
 #include "EPS.h"
 #include "errors.h"
 
 
 ISIS_EPS_t _isis_eps;
-int _flagEpsInit = 0;
+Boolean _flagEpsInit = FALSE;
+Boolean _flagSolarPanelInit = FALSE;
+
+int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount ){
+	_flagEpsInit = TRUE;
+	_isis_eps.i2cAddr = isis_eps->i2cAddr;
+	return E_NO_SS_ERR;
+}
+
+int IsisSolarPanelv2_initialize( SPIslave slave ){
+	 _flagSolarPanelInit = TRUE;
+}
 
 int initEPS(){
 	printf("init EPS...\n");
@@ -23,12 +34,6 @@ int getTelematry(EPSTelematry* data){
 	data->vBat = 5;
 	data->temp = 10;
 	return 0;
-}
-
-int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount ){
-	_flagEpsInit = 1;
-	_isis_eps.i2cAddr = isis_eps->i2cAddr;
-
 }
 
 int getVBat(){

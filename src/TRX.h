@@ -7,6 +7,11 @@
 
 #ifndef TRX_H_
 #define TRX_H_
+
+
+#define UDP_PORT     27002 // to send all messages from sat to UDP server
+
+
 /**
  *  Struct for defining ISIS TRXVU I2C Address.
  */
@@ -66,5 +71,8 @@ typedef struct _ISISantsI2Caddress
  * 	@return     The error status of the initialization, defined in <hal/errors.h>.
  */
 int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
+
+
+int sendMessage();
 
 #endif /* TRX_H_ */
