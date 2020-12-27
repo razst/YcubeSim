@@ -27,6 +27,9 @@ void createDir(){
 
 }
 
+void initEPS(){
+	//ISIS_EPS_Init();
+}
 
 int main(void) {
 	EPSTelematry epsData;
@@ -35,7 +38,6 @@ int main(void) {
 	createDir();
 	initEPS();
 	while (1==1){
-		getTelematry(&epsData);
 		printf ("Bat Temp = %d\n",epsData.temp);
 		sendMessage();
 		usleep(1000000);

@@ -10,6 +10,18 @@
 
 #include <stdint.h>
 
+/**
+ * State of the internal temperature sensor.
+ */
+typedef enum _IsisSolarPanelv2_State_t
+{
+	ISIS_SOLAR_PANEL_STATE_NOINIT,
+	ISIS_SOLAR_PANEL_STATE_SLEEP,
+	ISIS_SOLAR_PANEL_STATE_AWAKE,
+}
+IsisSolarPanelv2_State_t;
+
+
 typedef enum _SPIslave {
 	slave0_spi = 0, //!< slave0_spi In case of bus0, this is the FRAM.
 	slave1_spi = 1, //!< slave1_spi In case of bus0, this is the RTC.
@@ -37,21 +49,6 @@ typedef struct epsTelematry{
 
 }EPSTelematry;
 
-
-/*
- * Desc: intitilize the EPS
- * in:
- * return: error code
- */
-int initEPS();
-
-/*
- * Desc: get EPS telematry
- * in:pointer to EPSTelematry struct
- * return: error code
- */
-int getTelematry(EPSTelematry* data);
-
 /*!
  *	Initialize ISIS_EPS instances
  *	@param[in] Pointer to array of ISIS_EPS instances.
@@ -63,11 +60,19 @@ int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount );
 /*
  * Initializes the internal hardware and software required for measuring the
  * temperatures of the ISIS solar panels.
- * @param[in] slave SPI slave to which LTC ADC driver is connected
+ * @param[in] slave SPI slave to which LTC ADC driver is connected - Note: the sim supports only slave0_spi value
  * @return A value defined by IsisSolarPanelv2_State_t
 
  * - note: need to complete the function.
  */
 int IsisSolarPanelv2_initialize( SPIslave slave );
+
+/**
+ * Returns the current state of the internal temperature sensor.
+ *
+ * @return The state as define by IsisSolarPanelv2_State_t
+ */
+IsisSolarPanelv2_State_t IsisSolarPanelv2_getState( void );
+
 
 #endif /* EPS_H_ */
