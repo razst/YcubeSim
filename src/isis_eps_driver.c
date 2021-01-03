@@ -8,6 +8,4 @@
 
 #include "isis_eps_driver.h"
 
-int test (void){
-	return 0;
-}
+
