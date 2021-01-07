@@ -5,8 +5,12 @@
  *      Author: Alihai
  */
 
+
 #ifndef TELEMETRY_H_
 #define TELEMETRY_H_
+/* Driver definitions */
+typedef struct F_DRIVER  F_DRIVER;
+#define F_FILE
 
 
 
@@ -27,17 +31,17 @@ int fs_init();
  /*
   * Desc: Use this function to create resources for the calling task in the file system and allocate a current working
 	directory for that task.
-  * in:int threadID
+  * in:
   * return: error code
  */
- int f_enterFS(int threadID);
+ int f_enterFS();
 
  /*
   * Desc: Use this function to release the file system from the calling task.
-  * in: int threadID
+  * in:
   * return: None
   */
- void f_releaseFS (int threadID);
+ void f_releaseFS ();
 
  /*
   * Desc: Use this function to initialize a volume. Call it with a pointer to the driver function that must be called to
@@ -46,7 +50,7 @@ int fs_init();
   * return: error code
   */
 
-// int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
+//int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
 
 
  /*
@@ -55,7 +59,7 @@ int fs_init();
   * return: F_FILE * Pointer to the associated opened file handle, or zero if it could not be opened
   */
 
- //F_FILE * f_open (const char * filename,const char * mode );
+ F_FILE * f_open (const char * filename,const char * mode );
 
 
 
