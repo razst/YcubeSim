@@ -9,6 +9,7 @@
 #define TELEMETRY_H_
 
 
+
 /*
  * Desc: Use this function to initialize the file system. Call it once at start-up.
  * in:None
@@ -26,11 +27,17 @@ int fs_init();
  /*
   * Desc: Use this function to create resources for the calling task in the file system and allocate a current working
 	directory for that task.
-  * in:
+  * in:int threadID
   * return: error code
  */
- int f_enterFS();
+ int f_enterFS(int threadID);
 
+ /*
+  * Desc: Use this function to release the file system from the calling task.
+  * in: int threadID
+  * return: None
+  */
+ void f_releaseFS (int threadID);
 
  /*
   * Desc: Use this function to initialize a volume. Call it with a pointer to the driver function that must be called to
@@ -39,7 +46,7 @@ int fs_init();
   * return: error code
   */
 
- int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
+// int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
 
 
  /*
@@ -48,7 +55,7 @@ int fs_init();
   * return: F_FILE * Pointer to the associated opened file handle, or zero if it could not be opened
   */
 
- F_FILE * f_open (const char * filename,const char * mode );
+ //F_FILE * f_open (const char * filename,const char * mode );
 
 
 

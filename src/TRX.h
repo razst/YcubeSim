@@ -72,7 +72,24 @@ typedef struct _ISISantsI2Caddress
  */
 int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
 
+/**
+ *  @brief       send UDP data.
+ *  @param[in]   data Pointer to the array containing the data to put in the AX.25 message.
+ *  @param[in]   length Length of the data to be put in the AX.25 message.
+ *  @return      Error code according to <hal/errors.h>
+ */
 
-int sendMessage();
+int sendUDPMessage(unsigned char *data, unsigned char length);
+
+/**
+ *  @brief       Tell the TRXVU to transmit an AX.25 message with default callsigns and specified content.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address.
+ *  @param[in]   data Pointer to the array containing the data to put in the AX.25 message.
+ *  @param[in]   length Length of the data to be put in the AX.25 message.
+ *  @param[out]  avail Number of the available slots in the transmission buffer of the VU_TC after the frame has been added. Set NULL to skip available slot count read-back.
+ *  @return      Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail);
+
 
 #endif /* TRX_H_ */
