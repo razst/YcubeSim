@@ -49,7 +49,7 @@ int fs_init();
   * Desc: Use this function to initialize a volume. Call it with a pointer to the driver function that must be called to
 	retrieve drive configuration information from the relevant driver.
   * in:  int drvnumber, F_DRIVERINIT driver_init, unsigned long driver_param
-  * return: error code
+  * return: error code, see mkdir, chdir error codes
   */
 
 int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );

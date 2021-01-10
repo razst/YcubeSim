@@ -8,7 +8,7 @@
 #ifndef ERRORS_H_
 #define ERRORS_H_
 
-#define E_NO_SS_ERR              0 ///< No error.
+#define E_NO_SS_ERR   0 ///< No error.
 #define E_NOT_INITIALIZED       -18 ///< Attempt to use something that is not yet initialized.
 #define E_IS_INITIALIZED        -19 ///< Attempt to initialize something that has already been initialized.
 #define E_GET_SEMAPHORE_FAILED  -20 ///< Failed to obtain semaphore for subsystem communication.

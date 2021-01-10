@@ -63,7 +63,9 @@ int sendMessage(){
 int main(void) {
 	EPSTelematry epsData;
 
+
 	printf ("Starting YcubeSim...\n");
+	f_initvolume(0,NULL,0);
 	initTelematrey();
 	initTrx();
 	createDir();
