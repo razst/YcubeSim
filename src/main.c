@@ -13,9 +13,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "EPS.h"
 #include "TRX.h"
 #include "Telemetry.h"
+
 
 
 void createDir(){
@@ -60,8 +62,18 @@ int sendMessage(){
 
 }
 
+int endlessLoop(void *vargp){
+	while( 1==1){
+		printf("1234\n");
+		usleep(100000);
+
+	}
+}
+
 int main(void) {
+	pthread_t thread_id;
 	EPSTelematry epsData;
+//	spthread_create(&thread_id, NULL, endlessLoop, NULL);
 
 
 	printf ("Starting YcubeSim...\n");
