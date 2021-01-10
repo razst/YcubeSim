@@ -11,7 +11,7 @@
 /* Driver definitions */
 #include <stdio.h>
 
-typedef struct F_DRIVER  F_DRIVER;
+typedef int F_DRIVERINIT;
 typedef FILE F_FILE;
 
 
@@ -52,7 +52,7 @@ int fs_init();
   * return: error code
   */
 
-//int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
+int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param );
 
 
  /*
