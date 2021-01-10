@@ -7,8 +7,10 @@
 #include "utils.h"
 #include "errors.h"
 #include <sys/types.h>
-pid_t tid = gettid();
-#define F_FILE
+#include <sys/syscall.h>
+#include "Telemetry.h"
+
+
 
 Boolean _flagTelemetryInit = FALSE;
 Boolean _flaghcc_mem_init = FALSE;
@@ -31,6 +33,8 @@ int hcc_mem_init(){
 
 
 int f_enterFS() {
+	pid_t tid = syscall(SYS_gettid);
+	printf("thread id = %d\n",tid);
 	for (int i=0; i<=100; i++){
 		if(ArraythreadID[i]==0){
 			ArraythreadID[i]=tid;
@@ -41,6 +45,8 @@ int f_enterFS() {
 }
 
 void f_releaseFS ( ){
+	pid_t tid = syscall(SYS_gettid);
+
 	for (int i=0; i<=100; i++){
 		if (ArraythreadID[i]== tid){
 			ArraythreadID[i]=0;

@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include "EPS.h"
 #include "TRX.h"
+#include "Telemetry.h"
 
 
 void createDir(){
@@ -31,7 +32,7 @@ void initEPS(){
 	//ISIS_EPS_Init();
 }
 
-int sendMessage(){
+int initTrx(){
 	ISIStrxvuI2CAddress address;
 	address.addressVu_rc = 0; // TODO not in use
 	address.addressVu_tc = 0; // TODO not in use
@@ -41,7 +42,18 @@ int sendMessage(){
 	 ISIStrxvuBitrate default_bitrates;
 	 default_bitrates = trxvu_bitrate_9600;  // TODO not implemented yet
 
-	IsisTrxvu_initialize(&address, &maxFrameLengths, &default_bitrates, 1);
+	 IsisTrxvu_initialize(&address, &maxFrameLengths, &default_bitrates, 1);
+
+
+}
+
+
+int initTelematrey(){
+	f_enterFS();
+}
+
+int sendMessage(){
+
 	char data[] = "test123";
 	char avail=0;
 	IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
@@ -52,6 +64,8 @@ int main(void) {
 	EPSTelematry epsData;
 
 	printf ("Starting YcubeSim...\n");
+	initTelematrey();
+	initTrx();
 	createDir();
 	initEPS();
 	while (1==1){

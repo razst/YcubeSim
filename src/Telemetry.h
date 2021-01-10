@@ -9,8 +9,10 @@
 #ifndef TELEMETRY_H_
 #define TELEMETRY_H_
 /* Driver definitions */
+#include <stdio.h>
+
 typedef struct F_DRIVER  F_DRIVER;
-#define F_FILE
+typedef FILE F_FILE;
 
 
 
