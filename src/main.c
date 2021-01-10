@@ -76,7 +76,9 @@ int main(void) {
 	EPSTelematry epsData;
 	pthread_create(&thread_id, NULL, endlessLoop, NULL);
 
+
 	printf ("Starting YcubeSim...\n");
+	f_initvolume(0,NULL,0);
 	initTelematrey();
 	initTrx();
 	createDir();

@@ -9,9 +9,10 @@
 #include <sys/types.h>
 #include <sys/syscall.h>
 #include "Telemetry.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
-
-
+Boolean _flagF_enterFS=FALSE;
 Boolean _flagTelemetryInit = FALSE;
 Boolean _flaghcc_mem_init = FALSE;
 static int ArraythreadID [100]={0};
@@ -33,28 +34,57 @@ int hcc_mem_init(){
 
 
 int f_enterFS() {
-	pid_t tid = syscall(SYS_gettid);
-	printf("thread id = %d\n",tid);
-	for (int i=0; i<=100; i++){
-		if(ArraythreadID[i]==0){
-			ArraythreadID[i]=tid;
-			return E_NO_SS_ERR;
-		}//if
-	}//for
-	return E_MEM_ALLOC ;
+	if( _flagTelemetryInit){
+		pid_t tid = syscall(SYS_gettid);
+		printf("thread id = %d\n",tid);
+		for (int i=0; i<=100; i++){
+			if(ArraythreadID[i]==0){
+				ArraythreadID[i]=tid;
+				_flagF_enterFS= TRUE;
+				return E_NO_SS_ERR;
+			}//if
+		}//for
+		return E_MEM_ALLOC ;
+	}
+	return E_NOT_INITIALIZED;
 }
 
 void f_releaseFS ( ){
-	pid_t tid = syscall(SYS_gettid);
-
-	for (int i=0; i<=100; i++){
-		if (ArraythreadID[i]== tid){
-			ArraythreadID[i]=0;
-		}///if
-	}///for
+	if(_flagF_enterFS){
+		pid_t tid = syscall(SYS_gettid);
+		for (int i=0; i<=100; i++){
+			if (ArraythreadID[i]== tid){
+				ArraythreadID[i]=0;
+			}///if
+		}///for
+	}
 }
 
+int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param ){
+	int err= E_NO_SS_ERR;
+	if(_flagF_enterFS){
+		if (drvnumber==0){
+			err = mkdir("SD0",0777);
+			if (err != E_NO_SS_ERR)
+				return err;
+			err = chdir("SD0");
+			if (err != E_NO_SS_ERR)
+				return err;
+		}
+		if (drvnumber==1){
+			err = mkdir("SD1",0777);
+			if (err != E_NO_SS_ERR)
+				return err;
+			err =  chdir("SD1");
+			if (err != E_NO_SS_ERR)
+				return err;
+		}
+	}
+	return err;
+}
 
 F_FILE * f_open (const char * filename,const char * mode ){
-	fopen (filename,mode);
+	if(_flagF_enterFS){
+		fopen (filename,mode);
+	}
 }
