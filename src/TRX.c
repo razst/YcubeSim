@@ -79,7 +79,6 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 
 	if(!_initFlag) return E_NOT_INITIALIZED;
 	if (index!=0) return E_INDEX_ERROR;
-	printf("1.\n");
 
 	sendUDPMessage(data, length);
 	return E_NO_SS_ERR ;
