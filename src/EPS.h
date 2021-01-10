@@ -63,7 +63,6 @@ int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount );
  * @param[in] slave SPI slave to which LTC ADC driver is connected - Note: the sim supports only slave0_spi value
  * @return A value defined by IsisSolarPanelv2_State_t
 
- * - note: need to complete the function.
  */
 int IsisSolarPanelv2_initialize( SPIslave slave );
 

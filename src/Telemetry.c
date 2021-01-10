@@ -6,6 +6,9 @@
  */
 #include "utils.h"
 #include "errors.h"
+#include <sys/types.h>
+pid_t tid = gettid();
+#define F_FILE
 
 Boolean _flagTelemetryInit = FALSE;
 Boolean _flaghcc_mem_init = FALSE;
@@ -27,20 +30,25 @@ int hcc_mem_init(){
 }
 
 
-int f_enterFS(int threadID ){
+int f_enterFS() {
 	for (int i=0; i<=100; i++){
 		if(ArraythreadID[i]==0){
-			ArraythreadID[i]=threadID;
+			ArraythreadID[i]=tid;
 			return E_NO_SS_ERR;
 		}//if
 	}//for
 	return E_MEM_ALLOC ;
 }
 
-void f_releaseFS (int threadID ){
+void f_releaseFS ( ){
 	for (int i=0; i<=100; i++){
-		if (ArraythreadID[i]== threadID){
+		if (ArraythreadID[i]== tid){
 			ArraythreadID[i]=0;
 		}///if
 	}///for
+}
+
+
+F_FILE * f_open (const char * filename,const char * mode ){
+	fopen (filename,mode);
 }
