@@ -20,6 +20,7 @@
 
 
 
+
 void createDir(){
 
 	struct stat st = {0};
@@ -73,7 +74,7 @@ int endlessLoop(void *vargp){
 int main(void) {
 	pthread_t thread_id;
 	EPSTelematry epsData;
-//	spthread_create(&thread_id, NULL, endlessLoop, NULL);
+	pthread_create(&thread_id, NULL, endlessLoop, NULL);
 
 	printf ("Starting YcubeSim...\n");
 	initTelematrey();
