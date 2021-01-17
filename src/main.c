@@ -65,7 +65,7 @@ int sendMessage(){
 
 int endlessLoop(void *vargp){
 	while( 1==1){
-		printf("1234\n");
+		printf("%c\n",&vargp);
 		usleep(100000);
 
 	}
@@ -74,13 +74,20 @@ int endlessLoop(void *vargp){
 int main(void) {
 	pthread_t thread_id;
 	EPSTelematry epsData;
-	pthread_create(&thread_id, NULL, endlessLoop, NULL);
-
+	char s[]="test12";
+	//pthread_create(&thread_id, NULL, endlessLoop, s);
 
 	printf ("Starting YcubeSim...\n");
 	f_initvolume(0,NULL,0);
 	initTelematrey();
 	initTrx();
+	 IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_on);
+	 usleep(10000000);
+	 sendMessage();
+	 IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_off);
+	 usleep(10000000);
+	 sendMessage();
+	 	 IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_on);
 	createDir();
 	initEPS();
 	while (1==1){

@@ -10,7 +10,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-
+#include <pthread.h>
 
 // all local variables
 Boolean _initFlag=FALSE;
@@ -18,6 +18,7 @@ ISIStrxvuFrameLengths _maxFrameLengths;
 Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
 
+pthread_t thread_id;//pthread id for idle//
 int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number){
 	if(_initFlag) return E_IS_INITIALIZED;
 
@@ -35,6 +36,24 @@ int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number){
 	return E_NO_SS_ERR;
 }
 
+int sendIdle(void *vargp){
+	char data[] = "idle";
+	char avail=0;
+	while(1==1){
+
+		IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
+		usleep(100000);
+	}
+}
+int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
+	if(!_initFlag) return E_NOT_INITIALIZED;
+	if (state==trxvu_idle_state_on){
+		pthread_create(&thread_id, NULL, sendIdle, NULL);
+	}else{
+		pthread_cancel(thread_id);
+	}
+	return E_NO_SS_ERR ;
+}
 
 int sendUDPMessage(unsigned char *data, unsigned char length){
     int sockfd;
