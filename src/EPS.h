@@ -71,7 +71,7 @@ typedef union __attribute__ ((__packed__)) _isis_eps__gethousekeepingengincdb__f
 		uint16_t stat_obc_on; /*!< Bitflag field indicating channel-on status for the output bus channels. */
 		uint16_t stat_obc_ocf; /*!< Bitflag field indicating overcurrent latch-off fault status for the output bus channels. */
 		uint16_t bat_stat; /*!< Bitflag field indicating BP board */
-		int16_t temp2; /*!< 2 and 4 cell battery pack: Battery pack temperature in between the center battery cells. *
+		int16_t temp2; /*!< 2 and 4 cell battery pack: Battery pack temperature in between the center battery cells. */
 		int16_t temp3; /*!< 2 cell battery pack: not used 4 cell battery pack: Battery pack temperature on the front of the battery pack. */
 		int16_t volt_vd0; /*!< Voltage of voltage domain 0 */
 		int16_t volt_vd1; /*!< Voltage of voltage domain 0 */
@@ -164,5 +164,13 @@ int IsisSolarPanelv2_initialize( SPIslave slave );
  */
 IsisSolarPanelv2_State_t IsisSolarPanelv2_getState( void );
 
+/*!
+ *	Prepare the response buffer with housekeeping data. The housekeeping data is returned in raw form, as received from the hardware, unaltered by the main controller.
+ *
+ *	@param [out] Response received from subsystem.
+ * 	@return ISIS_EPS_ERR_t
+ */
+int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response );
 
+double get_eps_temp ();
 #endif /* EPS_H_ */
