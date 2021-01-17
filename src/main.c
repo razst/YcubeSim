@@ -72,11 +72,9 @@ int endlessLoop(void *vargp){
 }
 
 int main(void) {
-	isis_eps__gethousekeepingengincdb__from_t t;
-	isis_eps__gethousekeepingengincdb__tm(1,&t);
 	pthread_t thread_id;
 	EPSTelematry epsData;
-//	pthread_create(&thread_id, NULL, endlessLoop, NULL);
+	pthread_create(&thread_id, NULL, endlessLoop, NULL);
 
 
 	printf ("Starting YcubeSim...\n");
@@ -87,7 +85,7 @@ int main(void) {
 	initEPS();
 	while (1==1){
 		printf ("Bat Temp = %d\n",epsData.temp);
-//		sendMessage();
+		sendMessage();
 		usleep(1000000);
 	}
 	return 0;
