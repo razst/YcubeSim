@@ -41,19 +41,17 @@ typedef enum __attribute__ ((__packed__)) _ISIStrxvuBitrate
     trxvu_bitrate_9600 = 0x08 ///< Transmission Bitrate 9600 bps.
 } ISIStrxvuBitrate;
 
+
+
+
 /**
- *  @brief      Initialize the ISIS TRXVU with the corresponding i2cAddress from the array of TRXVU I2C Address structure.
- *  @note       This function can only be called once.
- *  @param[in]  address array of TRXVU I2C Address structure.
- *  @param[in]  maxFrameLengths array of maximum frame length structures for TRXVU.
- *  @param[in]	default_bitrates initial default bitrate.
- *  @param[in]  number number of attached TRXVU in the system to be initialized. - Note: the sim supports only one TRXVU!
- *  @return     Error code according to <hal/errors.h>
+ * Enumeration list of the Idle states of the TRXVU.
  */
-int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number);
-
-
-
+typedef enum __attribute__ ((__packed__)) _ISIStrxvuIdleState
+{
+    trxvu_idle_state_off = 0x00,
+    trxvu_idle_state_on = 0x01
+} ISIStrxvuIdleState;
 
 /**
  *	Struct for defining ISIS Antenna Systems Status I2C Address.
@@ -73,6 +71,17 @@ typedef struct _ISISantsI2Caddress
 int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
 
 /**
+ *  @brief      Initialize the ISIS TRXVU with the corresponding i2cAddress from the array of TRXVU I2C Address structure.
+ *  @note       This function can only be called once.
+ *  @param[in]  address array of TRXVU I2C Address structure.
+ *  @param[in]  maxFrameLengths array of maximum frame length structures for TRXVU.
+ *  @param[in]	default_bitrates initial default bitrate.
+ *  @param[in]  number number of attached TRXVU in the system to be initialized. - Note: the sim supports only one TRXVU!
+ *  @return     Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number);
+
+/**
  *  @brief       send UDP data.
  *  @param[in]   data Pointer to the array containing the data to put in the AX.25 message.
  *  @param[in]   length Length of the data to be put in the AX.25 message.
@@ -83,7 +92,7 @@ int sendUDPMessage(unsigned char *data, unsigned char length);
 
 /**
  *  @brief       Tell the TRXVU to transmit an AX.25 message with default callsigns and specified content.
- *  @param[in]   index index of ISIS TRXVU I2C bus address.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address- Note: the sim supports only one TRXVU!
  *  @param[in]   data Pointer to the array containing the data to put in the AX.25 message.
  *  @param[in]   length Length of the data to be put in the AX.25 message.
  *  @param[out]  avail Number of the available slots in the transmission buffer of the VU_TC after the frame has been added. Set NULL to skip available slot count read-back.
@@ -91,5 +100,13 @@ int sendUDPMessage(unsigned char *data, unsigned char length);
  */
 int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail);
 
+
+/**
+ *  @brief       Set the idle state of the TRXVU transmitter, i.e. the state in between transmission.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address- Note: the sim supports only one TRXVU!
+ *  @param[in]   state The desired idle state of the TRXVU.
+ *  @return      Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
 
 #endif /* TRX_H_ */
