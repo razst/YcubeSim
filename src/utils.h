@@ -13,6 +13,7 @@ typedef int Boolean;
 #define TRUE 0xFFFFFFFF
 #define FALSE 0x0
 
+// custom errors
 #define E_SOCKET -1000
 #define E_SOCKET_OPT -1001
 
