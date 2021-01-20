@@ -11,6 +11,8 @@
 #include "Telemetry.h"
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <stdio.h>
+
 
 Boolean _flagF_enterFS=FALSE;
 Boolean _flagTelemetryInit = FALSE;
@@ -85,6 +87,43 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 
 F_FILE * f_open (const char * filename,const char * mode ){
 	if(_flagF_enterFS){
-		fopen (filename,mode);
+		return fopen (filename,mode);
 	}
 }
+
+long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
+	long items_written=0;
+	if(_flagF_enterFS){
+		items_written=fwrite(buf, size,size_st,filehandle);
+		if (items_written != 0)
+		return items_written;
+	}
+	return items_written;
+}
+
+
+int f_close ( F_FILE * filehandle ){
+	int err= E_NO_SS_ERR;
+	if(_flagF_enterFS){
+		err=fclose(filehandle);
+		if (err != E_NO_SS_ERR)
+			return err;
+	}
+	return err;
+}
+
+int f_flush ( F_FILE * filehandle ){
+	int err= E_NO_SS_ERR;
+		if(_flagF_enterFS){
+			err=fflush(filehandle);
+			if (err != E_NO_SS_ERR)
+				return err;
+	}
+	return err;
+}
+
+
+
+
+
+
