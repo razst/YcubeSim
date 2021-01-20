@@ -1,0 +1,10 @@
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe.config
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.pdb
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csprojAssemblyReference.cache
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Main.resources
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Properties.Resources.resources
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.GenerateResource.cache
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.CoreCompileInputs.cache
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.exe
+C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.pdb

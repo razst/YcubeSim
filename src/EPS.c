@@ -49,3 +49,22 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState(){
 	}
 	return ISIS_SOLAR_PANEL_STATE_SLEEP;
 }
+
+int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
+	response->fields.temp= (short) get_eps_temp();
+	printf ("%d",response->fields.temp);
+}
+
+double get_eps_temp (){
+	FILE *temperatureFile;
+	double T;
+	temperatureFile = fopen ("/sys/class/thermal/thermal_zone0/temp", "r");
+	if (temperatureFile == NULL)
+	  ; //print some message
+	fscanf (temperatureFile, "%lf", &T);
+	T /= 1000;
+	printf ("The temperature is %6.3f C.\n", T);
+	fclose (temperatureFile);
+	return T;
+}
+
