@@ -75,7 +75,7 @@ int endlessLoop(void *vargp){
 int main(void) {
 	printf ("Starting YcubeSim...\n");
 
-	runMainTests();
+	//runMainTests();
 
 	printf ("End YcubeSim...\n");
 //	f_initvolume(0,NULL,0);
