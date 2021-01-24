@@ -72,6 +72,8 @@ int endlessLoop(void *vargp){
 	}
 }
 
+
+//TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
 int main(void) {
 	printf ("Starting YcubeSim...\n");
 
