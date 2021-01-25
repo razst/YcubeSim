@@ -71,14 +71,25 @@ int endlessLoop(void *vargp){
 
 	}
 }
+<<<<<<< Updated upstream
+int FRAM_start();
+int FRAM_write(int sucsses);
+=======
+<<<<<<< HEAD
+int FRAM_start();
+int FRAM_write(int sucsses);
+=======
+>>>>>>> Stashed changes
 
 
 //TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
+>>>>>>> 76379fce171233aea64b7983655c4c8f912f47ca
 int main(void) {
 	printf ("Starting YcubeSim...\n");
-
+	int sucsses = 0;
+	sucsses = FRAM_start();//to chek if it has been don
 	//runMainTests();
-
+	FRAM_write(sucsses);
 	printf ("End YcubeSim...\n");
 //	f_initvolume(0,NULL,0);
 //	initTelematrey();
