@@ -96,10 +96,24 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
  int f_flush ( F_FILE * filehandle );
 
  /*
-     * Desc:
-     * in:
-     * return:
+     * Desc:Use this function to read bytes from the current position in the target file. The file must be opened with “r”, "r+", "w+" or "a+".
+     * in:buf Buffer to store data in.
+		size: Size of items to be read.
+		size_st: Number of items to be read.
+		filehandle: Handle of target file.
+     * return:number Number of items read. Else See Error Codes.
      */
+
+ long f_read ( void * buf, long size, long size_st, F_FILE * filehandle );
+
+
+ /*
+      * Desc:
+      * in:
+      * return:
+      */
+
+
 
  #endif /* TELEMETRY_H_ */
 
