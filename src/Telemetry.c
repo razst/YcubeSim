@@ -12,6 +12,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdio.h>
+#include <string.h>
 
 
 Boolean _flagF_enterFS=FALSE;
@@ -82,6 +83,7 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 				return err;
 		}
 	}
+	int err= E_MEM_ALLOC;
 	return err;
 }
 
@@ -96,7 +98,7 @@ long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
 	if(_flagF_enterFS){
 		items_written=fwrite(buf, size,size_st,filehandle);
 		if (items_written != 0)
-		return items_written;
+			return items_written;
 	}
 	return items_written;
 }
@@ -109,6 +111,7 @@ int f_close ( F_FILE * filehandle ){
 		if (err != E_NO_SS_ERR)
 			return err;
 	}
+	err= E_MEM_ALLOC;
 	return err;
 }
 
@@ -119,8 +122,28 @@ int f_flush ( F_FILE * filehandle ){
 			if (err != E_NO_SS_ERR)
 				return err;
 	}
+	err= E_MEM_ALLOC;
 	return err;
 }
+
+
+
+long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
+	long items_read =0;
+	if(_flagF_enterFS){
+		items_read= fread(buf,  size, size_st, filehandle)
+		if (items_read != 0)
+			return items_read;
+	}
+	return items_read;
+}
+
+
+
+
+
+
+
 
 
 
