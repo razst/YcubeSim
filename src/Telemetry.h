@@ -63,8 +63,43 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 
  F_FILE * f_open (const char * filename,const char * mode );
 
+ /*
+   * Desc: Use this function to write data into a file at the current position
+   * in:buf: Pointer to data to be written.
+		size: Size of items to be written.
+        size_st: Number of items to be written.
+        filehandle: Handle of target file.
+   *
+   * return: number: Number of items written.
+			 Else: See Error Codes.
+   */
+ long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle );
 
 
+ /*
+   * Desc: Use this function to close a previously opened file.
+   * in: filehandle: Handle of target file
+   * return: Error Code.
+   */
+
+
+ int f_close ( F_FILE * filehandle );
+
+
+ /*
+    * Desc: Use this function to flush an opened file to a storage medium.
+    * in: filehandle: Handle of target file.
+    * return: Error Code.
+    *
+    */
+
+ int f_flush ( F_FILE * filehandle );
+
+ /*
+     * Desc:
+     * in:
+     * return:
+     */
 
  #endif /* TELEMETRY_H_ */
 
