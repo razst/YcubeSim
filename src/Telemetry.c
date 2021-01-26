@@ -83,7 +83,7 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 				return err;
 		}
 	}
-	int err= E_MEM_ALLOC;
+//	int err= E_MEM_ALLOC; TODO fix
 	return err;
 }
 
@@ -122,7 +122,7 @@ int f_flush ( F_FILE * filehandle ){
 			if (err != E_NO_SS_ERR)
 				return err;
 	}
-	err= E_MEM_ALLOC;
+//	err= E_MEM_ALLOC; TODO fix
 	return err;
 }
 
@@ -131,9 +131,9 @@ int f_flush ( F_FILE * filehandle ){
 long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
 	long items_read =0;
 	if(_flagF_enterFS){
-		items_read= fread(buf,  size, size_st, filehandle)
-		if (items_read != 0)
-			return items_read;
+		items_read= fread(buf,  size, size_st, filehandle);
+//		if (items_read != 0) TODO fix
+//			return items_read;
 	}
 	return items_read;
 }
