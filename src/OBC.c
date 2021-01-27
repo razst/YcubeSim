@@ -12,17 +12,18 @@ Boolean _flagF_FRAM_start=FALSE;
 
 int FRAM_start(void){
 	printf ("FRAM_start...\n");
-
+	_flagF_FRAM_start = TRUE;
 	return E_NO_SS_ERR;
 }
 
 int FRAM_write(int sucsses, const unsigned char *data, unsigned int address, unsigned int size){
-	if(sucsses == E_NO_SS_ERR){
+	if(_flagF_FRAM_start == TRUE){
 	//FARM_start did work
 	printf("it worked\n");
 	}
 	else{
 	//FRAM_start didnt work
+		printf("error!");
 	}
 	return E_NO_SS_ERR;
 }
