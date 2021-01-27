@@ -16,14 +16,15 @@ int FRAM_start(void){
 	return E_NO_SS_ERR;
 }
 
-int FRAM_write(int sucsses, const unsigned char *data, unsigned int address, unsigned int size){
+int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
 	if(_flagF_FRAM_start == TRUE){
 	//FARM_start did work
-	printf("it worked\n");
+		printf("it worked\n");
 	}
 	else{
 	//FRAM_start didnt work
 		printf("error!");
+		return E_NOT_INITIALIZED;
 	}
 	return E_NO_SS_ERR;
 }
