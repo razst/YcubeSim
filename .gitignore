@@ -57,3 +57,7 @@ dkms.conf
 .settings/org.eclipse.cdt.core.prefs
 .settings/language.settings.xml
 .settings/language.settings.xml
+Release/makefile
+Release/sources.mk
+Release/src/subdir.mk
+Release/src/tests/subdir.mk
