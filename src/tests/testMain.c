@@ -8,6 +8,7 @@
 
 #include "testMain.h"
 #include "testTRX.h"
+#include "testOBC.h"
 #include "Basic.h"
 
 
@@ -20,7 +21,7 @@ int runMainTests(void){
 
     CU_add_test(suite, "send message", testSendMeesage);
     CU_add_test(suite, "trx init", testTrxInit);
-
+    CU_add_test(suite, "test FRAM_START", testFRAMstart);
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();

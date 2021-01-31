@@ -11,11 +11,15 @@
 Boolean _flagF_FRAM_start=FALSE;
 
 int FRAM_start(void){
-	printf ("FRAM_start...\n");
-	_flagF_FRAM_start = TRUE;
-	return E_NO_SS_ERR;
+	if(_flagF_FRAM_start==FALSE)
+	{
+		_flagF_FRAM_start = TRUE;
+		return E_NO_SS_ERR;
+	}
+	return E_IS_INITIALIZED;
 }
 
+//TODO: check if fram_write works.
 int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
 	if(_flagF_FRAM_start == TRUE){
 	//FARM_start did work
@@ -29,9 +33,7 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 	      exit(1);
 		}
 
-		printf("Enter num: ");
-		scanf("%d",&num);
-		fprintf(fptr,"%d",num);
+		fwrite(data , 1 , sizeof(data) , fptr);
 		fclose(fptr);
 		if ((fptr = fopen("C:\\program.txt","r")) == NULL){
 			printf("Error! opening file");
