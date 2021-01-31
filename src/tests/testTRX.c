@@ -26,7 +26,5 @@ void testTrxInit(void){
 
 void testSendMeesage(void)
 {
-	printf("start testSendMeesage\n");
 	CU_ASSERT(1 == 1);
-	printf("end testSendMeesage\n");
 }
