@@ -77,25 +77,9 @@ int endlessLoop(void *vargp){
 //TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
 int main(void) {
 	printf ("Starting YcubeSim...\n");
-	FRAM_start();//to chek if it has been don
-	//runMainTests();
-	FRAM_write(0, 0, 0);
+//	FRAM_start();//to chek if it has been don
+	runMainTests();
+//	FRAM_write(0, 0, 0);
 	printf ("End YcubeSim...\n");
-//	f_initvolume(0,NULL,0);
-//	initTelematrey();
-//	initTrx();
-//	IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_on);
-//	usleep(10000000);
-//	sendMessage();
-//	IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_off);
-//	usleep(10000000);
-//	sendMessage();
-//	IsisTrxvu_tcSetIdlestate(1,trxvu_idle_state_on);
-//	createDir();
-//	initEPS();
-//	while (1==1){
-//		sendMessage();
-//		usleep(1000000);
-//	}
 	return 0;
 }

@@ -9,5 +9,6 @@
 #define TESTS_TESTTRX_H_
 
 void testSendMeesage(void);
+void testTrxInit(void);
 
 #endif /* TESTS_TESTTRX_H_ */
