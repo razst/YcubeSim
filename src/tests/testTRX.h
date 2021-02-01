@@ -8,7 +8,7 @@
 #ifndef TESTS_TESTTRX_H_
 #define TESTS_TESTTRX_H_
 
-void testSendMeesage(void);
-void testTrxInit(void);
+void testTRXSendMeesage(void);
+void testTRXInit(void);
 
 #endif /* TESTS_TESTTRX_H_ */
