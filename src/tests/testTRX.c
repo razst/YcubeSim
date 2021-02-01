@@ -5,26 +5,36 @@
  *      Author: pc
  */
 
-#include "Basic.h"
 #include "..\TRX.h"
 #include "..\errors.h"
+#include "..\utils.h"
+#include "testBasic.h"
 
 
+/*
+ * unit test for sending message
+ */
+void testTRXSendMeesage(void)
+{
+	char data[] = "test123";
+	char avail=0;
 
+	int err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 
-void testTrxInit(void){
+	ASSERT_INT(err,E_NO_SS_ERR);
+}
+
+/*
+ * unit test for TRX init
+ */
+void testTRXInit(void){
 	ISIStrxvuFrameLengths fl;
 	fl.maxAX25frameLengthRX = 200;
 	fl.maxAX25frameLengthTX = 200;
 
 	int err = IsisTrxvu_initialize(NULL,&fl,NULL,0);
-	CU_ASSERT(err==E_NO_SS_ERR);
+	ASSERT_INT(err,E_NO_SS_ERR);
 	err = IsisTrxvu_initialize(NULL,&fl,NULL,0);
-	CU_ASSERT(err==E_IS_INITIALIZED);
+	ASSERT_INT(err,E_IS_INITIALIZED);
 }
 
-
-void testSendMeesage(void)
-{
-	CU_ASSERT(1 == 1);
-}

@@ -12,6 +12,7 @@ typedef int Boolean;
 
 #define TRUE 0xFFFFFFFF
 #define FALSE 0x0
+#define NULL ((void *)0)
 
 // custom errors
 #define E_SOCKET -1000

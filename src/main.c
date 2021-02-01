@@ -57,29 +57,14 @@ int initTelematrey(){
 	f_enterFS();
 }
 
-int sendMessage(){
-
-	char data[] = "test123";
-	char avail=0;
-	IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
-
-}
-
-int endlessLoop(void *vargp){
-	while( 1==1){
-		printf("%c\n",&vargp);
-		usleep(100000);
-
-	}
-}
 
 
 //TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
 int main(void) {
-	printf ("Starting YcubeSim...\n");
+//	printf ("Starting YcubeSim...\n");
 //	FRAM_start();//to chek if it has been don
 	runMainTests();
 //	FRAM_write(0, 0, 0);
-	printf ("End YcubeSim...\n");
+//	printf ("End YcubeSim...\n");
 	return 0;
 }
