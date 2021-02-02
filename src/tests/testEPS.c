@@ -15,6 +15,10 @@ void testISIS_EPS_Init(){
 	 uint8_t isis_epsCount = "t";
 	int err = ISIS_EPS_Init(&i, isis_epsCount);
 	ASSERT_INT(err,E_NO_SS_ERR);
+
+	err = ISIS_EPS_Init(&i, isis_epsCount);
+	ASSERT_INT(err,E_IS_INITIALIZED);
+
 }
 
 
