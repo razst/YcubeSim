@@ -25,6 +25,7 @@ int runMainTests(void){
 
 	/* EPS test Functions */
 	testISIS_EPS_Init();
+	testIsisSolarPanelv2_initialize();
 	/* TLM test Functions */
 
     

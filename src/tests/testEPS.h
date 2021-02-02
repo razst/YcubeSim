@@ -10,4 +10,6 @@
 
 void testISIS_EPS_Init();
 
+void testIsisSolarPanelv2_initialize();
+
 #endif /* TESTS_TESTEPS_H_ */

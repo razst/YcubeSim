@@ -20,5 +20,19 @@ void testISIS_EPS_Init(){
 	ASSERT_INT(err,E_IS_INITIALIZED);
 
 }
+void testIsisSolarPanelv2_initialize(){
+	int err = IsisSolarPanelv2_initialize(8);
+	ASSERT_INT(err,E_INDEX_ERROR);
+
+	err = IsisSolarPanelv2_initialize(0);
+	ASSERT_INT(err,ISIS_SOLAR_PANEL_STATE_SLEEP);
+
+	err = IsisSolarPanelv2_initialize(0);
+	ASSERT_INT(err,E_IS_INITIALIZED);
+
+
+
+}
+
 
 
