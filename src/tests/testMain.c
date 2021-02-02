@@ -24,7 +24,7 @@ int runMainTests(void){
 	testTRXSendMeesage();
 
 	/* EPS test Functions */
-
+	testISIS_EPS_Init();
 	/* TLM test Functions */
 
     
