@@ -24,8 +24,10 @@ int runMainTests(void){
 	testTRXSendMeesage();
 
 	/* EPS test Functions */
+	printf("\n/* EPS test Functions */\n\n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
+	printf("\n/* EPS test Functions */\n\n");
 	/* TLM test Functions */
 
     
