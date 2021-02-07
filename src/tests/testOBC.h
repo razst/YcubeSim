@@ -10,4 +10,5 @@
 
 void testFRAMstart(void);
 
+void testFRAMwrite();
 #endif /* TESTS_TESTOBC_H_ */

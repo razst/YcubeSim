@@ -6,6 +6,8 @@
  */
 #include "utils.h"
 #include "errors.h"
+#include "OBC.h"
+#include "unistd.h"
 #include <stdio.h>
 
 Boolean _flagF_FRAM_start=FALSE;
@@ -14,41 +16,46 @@ int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
 	{
 		_flagF_FRAM_start = TRUE;
+		if(access(FRAM_FILE_NAME, F_OK ) != 0 ) {
+			createFRAMfile();
+		}
 		return E_NO_SS_ERR;
 	}
 	return E_IS_INITIALIZED;
 }
 
-//TODO: check if fram_write works.
+void createFRAMfile()
+{
+	char data[FRAM_SIZE] = {0};
+	FILE *fptr;
+	fptr = fopen(FRAM_FILE_NAME,"a");
+	for(int i = 0; i < 1000; i++)
+	{
+		fwrite(data , 1 , sizeof(data) , fptr);
+	}
+	fclose(fptr);
+}
+
 int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
 	if(_flagF_FRAM_start == TRUE){
-	//FARM_start did work
-		int num;
 		FILE *fptr;
-		fptr = fopen("C:\\program.txt","w");
-
+		fptr = fopen(FRAM_FILE_NAME,"a");
 		if(fptr == NULL)
 		{
-	      printf("Error!");
-	      exit(1);
+	      return E_FILE;
 		}
-
+		fseek(fptr , address, SEEK_SET );
 		fwrite(data , 1 , sizeof(data) , fptr);
-		fclose(fptr);
-		if ((fptr = fopen("C:\\program.txt","r")) == NULL){
-			printf("Error! opening file");
-			exit(1);
-		}
-
-		fscanf(fptr,"%d", &num);
-		printf("Value of num = %d\n", num);
 		fclose(fptr);
 	}
 	else{
-	//FRAM_start didnt work
-		printf("error!");
 		return E_NOT_INITIALIZED;
 	}
+	return E_NO_SS_ERR;
+}
+int FRAM_stop()
+{
+	_flagF_FRAM_start = FALSE;
 	return E_NO_SS_ERR;
 }
 
