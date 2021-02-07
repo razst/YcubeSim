@@ -13,12 +13,15 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 
+extern int errno;
 Boolean _flagF_enterFS=FALSE;
 Boolean _flagTelemetryInit = FALSE;
 Boolean _flaghcc_mem_init = FALSE;
 static int ArraythreadID [100]={0};
+static int errnum;
 
 
 
@@ -70,7 +73,7 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 			err = mkdir("SD0",0777);
 			if (err != E_NO_SS_ERR)
 				return err;
-			err = chdir("SD0");
+			err =  chdir("SD0");
 			if (err != E_NO_SS_ERR)
 				return err;
 		}
@@ -83,13 +86,18 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 				return err;
 		}
 	}
-//	int err= E_MEM_ALLOC; TODO fix
-	return err;
+	return E_NOT_INITIALIZED;
 }
 
 F_FILE * f_open (const char * filename,const char * mode ){
+	FILE * pf;
 	if(_flagF_enterFS){
-		return fopen (filename,mode);
+		pf = fopen (filename,mode);
+		if (pf == NULL) {
+			errnum = errno;
+			return pf;
+		}
+		 return pf;
 	}
 }
 
@@ -97,56 +105,41 @@ long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
 	long items_written=0;
 	if(_flagF_enterFS){
 		items_written=fwrite(buf, size,size_st,filehandle);
-		if (items_written != 0)
-			return items_written;
+		return items_written;
 	}
-	return items_written;
+	return E_NOT_INITIALIZED;
 }
 
 
 int f_close ( F_FILE * filehandle ){
-	int err= E_NO_SS_ERR;
 	if(_flagF_enterFS){
-		err=fclose(filehandle);
-		if (err != E_NO_SS_ERR)
-			return err;
+		return fclose(filehandle);
 	}
-	err= E_MEM_ALLOC;
-	return err;
+	return E_NOT_INITIALIZED;
 }
 
 int f_flush ( F_FILE * filehandle ){
-	int err= E_NO_SS_ERR;
-		if(_flagF_enterFS){
-			err=fflush(filehandle);
-			if (err != E_NO_SS_ERR)
-				return err;
+	if(_flagF_enterFS){
+		return fflush(filehandle);
 	}
-//	err= E_MEM_ALLOC; TODO fix
-	return err;
+	return E_NOT_INITIALIZED;
 }
-
 
 
 long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
-	long items_read =0;
 	if(_flagF_enterFS){
-		items_read= fread(buf,  size, size_st, filehandle);
-//		if (items_read != 0) TODO fix
-//			return items_read;
+		return fread(buf,  size, size_st, filehandle);
 	}
-	return items_read;
+	return E_NOT_INITIALIZED;
 }
 
 
-
-
-
-
-
-
-
-
+int f_getlasterror (){
+	if(_flagF_enterFS){
+		return errnum;
+	}
+	return E_NOT_INITIALIZED;
+}
 
 
 
