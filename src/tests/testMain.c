@@ -27,6 +27,9 @@ int runMainTests(void){
 	printf("\n/* EPS test Functions */\n\n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
+	testIsisSolarPanelv2_getState();
+	testIsisSolarPanelv2_Dinitialize();
+	testGet_eps_temp ();
 	printf("\n/* EPS test Functions */\n\n");
 	/* TLM test Functions */
     

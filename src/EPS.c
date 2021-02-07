@@ -39,6 +39,11 @@ int IsisSolarPanelv2_initialize( SPIslave slave ){
 
 	 return IsisSolarPanelv2_getState();
 }
+int IsisSolarPanelv2_Dinitialize(){
+	 _flagSolarPanelInit = FALSE;
+	 return E_NO_SS_ERR;
+
+}
 
 /* TODO: need to complete the function| AWAKE/SLEEP
  *
@@ -51,19 +56,17 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState(){
 }
 
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
-	response->fields.temp= (short) get_eps_temp();
+	response->fields.temp = get_eps_temp();
 	printf ("%d",response->fields.temp);
 }
 
-double get_eps_temp (){
+int get_eps_temp (){
 	FILE *temperatureFile;
-	double T;
+	int T;
 	temperatureFile = fopen ("/sys/class/thermal/thermal_zone0/temp", "r");
 	if (temperatureFile == NULL)
-	  ; //print some message
-	fscanf (temperatureFile, "%lf", &T);
-	T /= 1000;
-	printf ("The temperature is %6.3f C.\n", T);
+		return E_INPUT_POINTER_NULL;
+	fscanf (temperatureFile, "%d", &T);
 	fclose (temperatureFile);
 	return T;
 }

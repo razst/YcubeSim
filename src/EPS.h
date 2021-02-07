@@ -157,6 +157,9 @@ int ISIS_EPS_Init( ISIS_EPS_t* isis_eps, uint8_t isis_epsCount );
  */
 int IsisSolarPanelv2_initialize( SPIslave slave );
 
+// cancel the init of the isisSolarPanel flag and return no errors
+int IsisSolarPanelv2_Dinitialize();
+
 /**
  * Returns the current state of the internal temperature sensor.
  *
@@ -172,5 +175,6 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState( void );
  */
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response );
 
-double get_eps_temp ();
+int get_eps_temp ();
+
 #endif /* EPS_H_ */
