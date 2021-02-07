@@ -108,12 +108,14 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 
 
  /*
-      * Desc:
-      * in:
-      * return:
+      * Desc: Use this function to return the last error code.
+			 The last error code is cleared/changed when any API function is called.
+      * in: None.
+      * return: Error code
       */
 
 
+ int f_getlasterror ();
 
  #endif /* TELEMETRY_H_ */
 

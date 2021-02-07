@@ -17,6 +17,7 @@ typedef int Boolean;
 // custom errors
 #define E_SOCKET -1000
 #define E_SOCKET_OPT -1001
+#define E_FILE	-1002
 
 #endif /* UTILS_H_ */
 

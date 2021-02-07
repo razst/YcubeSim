@@ -36,6 +36,8 @@ int runMainTests(void){
 	/* OBC test Functions */
 	testFRAMstart();
 
+	testFRAMwrite();
+
 	finishTesting();
 	return 0;
 }
