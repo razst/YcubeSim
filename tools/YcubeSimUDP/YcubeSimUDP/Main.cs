@@ -36,7 +36,7 @@ namespace YcubeSimUDP
 
         private void button2_Click(object sender, EventArgs e)
         {
-            client.Client("127.0.0.1", 27002);
+            client.Client("192.168.137.163", 27002);
         }
 
         private void button3_Click(object sender, EventArgs e)

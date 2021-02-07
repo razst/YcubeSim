@@ -29,8 +29,6 @@ int runMainTests(void){
 	testIsisSolarPanelv2_initialize();
 	printf("\n/* EPS test Functions */\n\n");
 	/* TLM test Functions */
-
-    
     
 	/* OBC test Functions */
 	testFRAMstart();

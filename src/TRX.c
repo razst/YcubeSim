@@ -78,7 +78,7 @@ int sendUDPMessage(unsigned char *data, unsigned char length){
 
     // Filling server information
     servaddr.sin_family = AF_INET;
-    servaddr.sin_port   = htons(UDP_PORT);
+    servaddr.sin_port   = htons(DOWN_PORT);
     servaddr.sin_addr.s_addr  = INADDR_BROADCAST;
     //servaddr.sin_addr.s_addr   = inet_addr("192.168.14.118");
     //servaddr.sin_addr.s_addr = INADDR_ANY;

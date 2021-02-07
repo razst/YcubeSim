@@ -8,3 +8,13 @@ C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.Ge
 C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.CoreCompileInputs.cache
 C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.exe
 C:\Users\pc\source\repos\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.pdb
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe.config
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.pdb
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csprojAssemblyReference.cache
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Main.resources
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Properties.Resources.resources
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.GenerateResource.cache
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.CoreCompileInputs.cache
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.exe
+E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.pdb
