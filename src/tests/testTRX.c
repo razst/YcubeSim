@@ -105,7 +105,7 @@ void testTRXSendMeesage(void)
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-1, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
-	// check what we got in GCS is diffrent than our data
+	// check what we got in GCS is different than our data
 	getUDPMessage(&buffer);
 	ASSERT_NOT_STR(&data,&buffer)
 

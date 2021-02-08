@@ -22,7 +22,7 @@ void startTesting(){
 void finishTesting(){
 	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 
-	printf("Tests Summary:\n");
+	printf("\nTests Summary:\n");
 	printf("\tTook:\t\t%lu seconds\n", (end.tv_sec - start.tv_sec));
 	printf("\tAssert passed:\t%d\n",passed);
 	printf("\tAssert failed:\t%d\n",failed);
