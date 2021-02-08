@@ -8,25 +8,36 @@
 #ifndef TESTS_TESTBASIC_H_
 #define TESTS_TESTBASIC_H_
 
+#include <time.h>
+
 extern int passed;
 extern int failed;
+
+#define ASSERT_TRUE(value)\
+	if (value){\
+		passed++;\
+		printf("\tTime:%lu\tPassed..%s\n", getTimePasst(),__func__);\
+	}else{\
+		failed++;\
+		printf("\tTime:%lu\tFailed..%s, %s, line %d. got:%d\n", getTimePasst(),__func__, __FILE__,__LINE__,value);\
+	}\
 
 #define ASSERT_NOT_INT(value,expected)\
 	if (expected!=value){\
 		passed++;\
-		printf("\tPassed..%s\n",__func__);\
+		printf("\tTime:%lu\tPassed..%s\n", getTimePasst(),__func__);\
 	}else{\
 		failed++;\
-		printf("\tFailed..%s, %s, line %d. got:%d expected:%d\n",__func__, __FILE__,__LINE__,value,expected);\
+		printf("\tTime:%lu\tFailed..%s, %s, line %d. got:%d expected:%d\n", getTimePasst(),__func__, __FILE__,__LINE__,value,expected);\
 	}\
 
 #define ASSERT_INT(value,expected)\
 	if (expected==value){\
 		passed++;\
-		printf("\tPassed..%s\n",__func__);\
+		printf("\tTime:%lu\tPassed..%s\n", getTimePasst(),__func__);\
 	}else{\
 		failed++;\
-		printf("\tFailed..%s, %s, line %d. got:%d expected:%d\n",__func__, __FILE__,__LINE__,value,expected);\
+		printf("\tTime:%lu\tFailed..%s, %s, line %d. got:%d expected:%d\n", getTimePasst(),__func__, __FILE__,__LINE__,value,expected);\
 	}\
 
 /*
@@ -37,10 +48,10 @@ extern int failed;
 #define ASSERT_STR(value,expected)\
 	if (strcmp(expected,value)==0){\
 		passed++;\
-		printf("\tPassed..%s\n",__func__);\
+		printf("\tTime:%lu\tPassed..%s\n", getTimePasst(),__func__);\
 	}else{\
 		failed++;\
-		printf("\tFailed..%s, %s, line %d. got:%s expected:%s\n",__func__, __FILE__,__LINE__,value,expected);\
+		printf("\tTime:%lu\tFailed..%s, %s, line %d. got:%d expected:%d\n", getTimePasst(),__func__, __FILE__,__LINE__,value,expected);\
 	}\
 
 /*
@@ -51,15 +62,16 @@ extern int failed;
 #define ASSERT_NOT_STR(value,expected)\
 	if (strcmp(expected,value)!=0){\
 		passed++;\
-		printf("\tPassed..%s\n",__func__);\
+		printf("\tTime:%lu\tPassed..%s\n", getTimePasst(),__func__);\
 	}else{\
 		failed++;\
-		printf("\tFailed..%s, %s, line %d. got:%s expected:%s\n",__func__, __FILE__,__LINE__,value,expected);\
+		printf("\tTime:%lu\tFailed..%s, %s, line %d. got:%d expected:%d\n", getTimePasst(),__func__, __FILE__,__LINE__,value,expected);\
 	}\
 
 void startTesting();
 
 void finishTesting();
 
+__time_t getTimePasst();
 
 #endif /* TESTS_TESTBASIC_H_ */
