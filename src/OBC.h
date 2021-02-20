@@ -27,6 +27,11 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 /*
  * stops the FRAM system
  */
+int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size);
+
+/*
+ * reads from the FRAM file
+ */
 int FRAM_stop();
 
 #endif /* OBC_H_ */

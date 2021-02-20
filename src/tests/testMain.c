@@ -38,6 +38,8 @@ int runMainTests(void){
 
 	testFRAMwrite();
 
+	testFRAMread();
+
 	finishTesting();
 	return 0;
 }

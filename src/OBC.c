@@ -53,6 +53,23 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 	}
 	return E_NO_SS_ERR;
 }
+
+int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size){
+	FILE *fptr;
+	char buffer[1000000] = {0};
+
+	if(fptr != NULL)
+	{
+		fseek(fptr , address, SEEK_SET );
+		fread(buffer, 1, sizeof(data), fptr);
+		printf("%s", buffer);
+	}
+	else{
+		return E_NOT_INITIALIZED;
+	}
+	return E_NO_SS_ERR;
+}
+
 int FRAM_stop()
 {
 	_flagF_FRAM_start = FALSE;

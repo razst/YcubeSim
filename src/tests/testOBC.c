@@ -30,3 +30,20 @@ void testFRAMwrite(){
 	ASSERT_INT(err,E_NO_SS_ERR);
 
 }
+
+void testFRAMread(){
+	char data[] = "string 1234";
+	int address = 1;
+	int err;
+	err = FRAM_stop();
+	err = FRAM_write(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err = FRAM_read(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err = FRAM_start();
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = FRAM_write(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = FRAM_read(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NO_SS_ERR);
+}
