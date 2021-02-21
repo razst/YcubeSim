@@ -10,7 +10,7 @@
 #include "testTRX.h"
 #include "testOBC.h"
 #include "testBasic.h"
-
+#include "testTelemetry.h"
 
 
 /*
@@ -32,7 +32,14 @@ int runMainTests(void){
 	testGet_eps_temp ();
 	printf("\n/* EPS test Functions */\n\n");
 	/* TLM test Functions */
-    
+	printf("\n/*start TLM test Functions */\n\n");
+
+	 testTLMfs_init();
+     testhcc_mem_init();
+
+	printf("\n/*finish TLM test Functions */\n\n");
+
+
 	/* OBC test Functions */
 	testFRAMstart();
 
