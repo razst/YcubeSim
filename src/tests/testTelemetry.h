@@ -10,5 +10,5 @@
 
 void testTLMfs_init(void);
 void  testhcc_mem_init(void);
-
+void testf_enterFS(void);
 #endif /* TESTS_TESTTELEMETRY_H_ */
