@@ -69,6 +69,8 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
 		fread(data, 1, size, fptr);
 		printf("AAAA%s\n", buffer);
 		printf("****************************\n");
+		fread(buffer, 1, sizeof(data), fptr);
+
 	}
 	else{
 		return E_NOT_INITIALIZED;
