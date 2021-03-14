@@ -45,7 +45,7 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 	      return E_FILE;
 		}
 		fseek(fptr , address, SEEK_SET );
-		fwrite(data , 1 , sizeof(data) , fptr);
+		fwrite(data , 1 , size , fptr);
 		fclose(fptr);
 	}
 	else{
@@ -55,14 +55,20 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 }
 
 int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size){
+	if(_flagF_FRAM_start == FALSE){
+		return E_NOT_INITIALIZED;
+	}
+	printf("****************************\n");
 	FILE *fptr;
-	char buffer[1000000] = {0};
+	fptr = fopen(FRAM_FILE_NAME,"r");
+	char buffer[100] = {0};
 
 	if(fptr != NULL)
 	{
 		fseek(fptr , address, SEEK_SET );
-		fread(buffer, 1, sizeof(data), fptr);
-		printf("%s", buffer);
+		fread(data, 1, size, fptr);
+		printf("AAAA%s\n", buffer);
+		printf("****************************\n");
 	}
 	else{
 		return E_NOT_INITIALIZED;
