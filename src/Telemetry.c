@@ -68,8 +68,10 @@ void f_releaseFS ( ){
 
 int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver_param ){
 	int err= E_NO_SS_ERR;
-	if(_flagF_enterFS){
-		if (drvnumber==0){
+	if(_flagF_enterFS)
+	{
+		if (drvnumber==0)
+		{
 			err = mkdir("SD0",0777);
 			if (err != E_NO_SS_ERR)
 				return err;
@@ -77,7 +79,8 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 			if (err != E_NO_SS_ERR)
 				return err;
 		}
-		if (drvnumber==1){
+		if (drvnumber==1)
+		{
 			err = mkdir("SD1",0777);
 			if (err != E_NO_SS_ERR)
 				return err;
