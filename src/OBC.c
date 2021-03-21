@@ -39,13 +39,13 @@ void createFRAMfile()
 int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
 	if(_flagF_FRAM_start == TRUE){
 		FILE *fptr;
-		fptr = fopen(FRAM_FILE_NAME,"a");
+		fptr = fopen(FRAM_FILE_NAME,"rb+");
 		if(fptr == NULL)
 		{
 	      return E_FILE;
 		}
-		fseek(fptr , address, SEEK_SET );
-		fwrite(data , 1 , size , fptr);
+		fseek(fptr , address, SEEK_SET);
+		fwrite(data , size , 1 , fptr);
 		fclose(fptr);
 	}
 	else{
@@ -58,19 +58,15 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
 	if(_flagF_FRAM_start == FALSE){
 		return E_NOT_INITIALIZED;
 	}
-	printf("****************************\n");
 	FILE *fptr;
-	fptr = fopen(FRAM_FILE_NAME,"r");
-	char buffer[100] = {0};
+	fptr = fopen(FRAM_FILE_NAME,"rb");
 
 	if(fptr != NULL)
 	{
 		fseek(fptr , address, SEEK_SET );
-		fread(data, 1, size, fptr);
-		printf("AAAA%s\n", buffer);
-		printf("****************************\n");
-		fread(buffer, 1, sizeof(data), fptr);
-
+		fread(data, size, 1, fptr);
+		printf("%s", fptr);
+		fclose(fptr);
 	}
 	else{
 		return E_NOT_INITIALIZED;

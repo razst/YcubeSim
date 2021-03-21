@@ -34,31 +34,6 @@ void testFRAMwrite(){
 }
 
 void testFRAMread(){
-
-
-	   FILE *fp;
-	   char c[] = "88";
-	   char buffer[100];
-
-	   /* Open file for both reading and writing */
-	   fp = fopen("file5.txt", "r+");
-
-	   /* Write data to the file */
-	   fwrite(c, strlen(c) + 1, 1, fp);
-
-	   /* Seek to the beginning of the file */
-	   fseek(fp, 0, SEEK_SET);
-
-	   /* Read and display data */
-	   fread(buffer, strlen(c)+1, 1, fp);
-	   printf("str=%s\n", buffer);
-	   fclose(fp);
-
-
-
-
-
-	return;
 	char datain[] = "string 1234";
 	char dataout[20] = {0};
 	int address = 1;
