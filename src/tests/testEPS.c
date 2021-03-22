@@ -4,15 +4,20 @@
  *  Created on: 2 áôáø× 2021
  *      Author: User
  */
-#include "..\EPS.h"
-#include "..\errors.h"
-#include "..\utils.h"
+
+#include <stdint.h>
+#include <stdio.h>
+#include <unistd.h>
+
+#include "../EPS.h"
+#include "../HW/ina219.h"
 #include "testBasic.h"
+#include "../errors.h"
 
 void testISIS_EPS_Init(){
 	ISIS_EPS_t i;
-	 i.i2cAddr = "t";
-	 uint8_t isis_epsCount = "t";
+	i.i2cAddr = "t";
+	uint8_t isis_epsCount = "t";
 	int err = ISIS_EPS_Init(&i, isis_epsCount);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
@@ -56,4 +61,24 @@ void testGet_eps_temp (){
 
 }
 
+// TODO: just a sample code - change to real test !!
+void testINA219(){
+	printf("Start 1\n");
+
+	float SHUNT_OHMS = 0.1;
+	float MAX_EXPECTED_AMPS = 3.2;
+
+	INA219_Init(SHUNT_OHMS, MAX_EXPECTED_AMPS, 0x40); // defualt INA219 I2C address is 0x40
+	configure(RANGE_16V, GAIN_8_320MV, ADC_12BIT, ADC_12BIT);
+
+	printf("time_s,bus_voltage_V,supply_voltage_V,shunt_voltage_mV,current_mA,power_mW\n");
+
+	int c = 0;
+	while(c < 5)
+	{
+		printf( "%d,%f,%f,%f,%f,%f\n", c, voltage(),supply_voltage(),shunt_voltage(),current(),power());
+		c++;
+		usleep(1000000); // 1s
+	}
+}
 

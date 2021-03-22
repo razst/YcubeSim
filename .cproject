@@ -37,7 +37,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.1303557395" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker">
 								<option id="gnu.c.link.option.ldflags.104439728" name="Linker flags" superClass="gnu.c.link.option.ldflags" useByScannerDiscovery="false" value="-pthread" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="gnu.c.link.option.paths.344508984" name="Library search path (-L)" superClass="gnu.c.link.option.paths" useByScannerDiscovery="false" valueType="libPaths"/>
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="gnu.c.link.option.libs.248631448" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.link.option.libs.248631448" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+									<listOptionValue builtIn="false" value="m"/>
+								</option>
 								<option id="gnu.c.link.option.shared.1759440963" name="Shared (-shared)" superClass="gnu.c.link.option.shared" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<option id="gnu.c.link.option.noshared.1676745828" name="No shared libraries (-static)" superClass="gnu.c.link.option.noshared" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1745912373" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
