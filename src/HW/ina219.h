@@ -144,60 +144,60 @@
                             ADC_2SAMP, ADC_4SAMP, ADC_8SAMP, ADC_16SAMP,
                             ADC_32SAMP, ADC_64SAMP, ADC_128SAMP.
         */
-        void configure(int voltage_range, int gain, int bus_adc, int shunt_adc);
+        void INA219_configure(int voltage_range, int gain, int bus_adc, int shunt_adc);
 
         /**
          * @brief Put the INA219 into power down mode.
          * 
          */
-        void powerDown();
+        void INA219_powerDown();
 
         /**
          * @brief Wake the INA219 from power down mode.
          * 
          */
-        void wake();
+        void INA219_wake();
 
         /**
          * @brief Reset the INA219 to its default configuration.
          * 
          */
-        void reset();
+        void INA219_reset();
 
         /**
          * @brief Reads the bus voltage register from the sensor and converts to Volts.
          * 
          * @return float Bus voltage in volts (V).
          */
-        float voltage();
+        float INA219_voltage();
 
         /**
          * @brief Reads the shunt voltage register from the sensor and converts to millivolts.
          * 
          * @return float Shunt voltage in millivolts (mV). "Inf" or "NaN" when overflow is detected.
          */
-        float shunt_voltage();
+        float INA219_shunt_voltage();
 
         /**
          * @brief This is the sum of the bus voltage and shunt voltage. 
          * 
          * @return float Supply voltage in volts (V). "Inf" or "NaN" when overflow is detected.
          */
-        float supply_voltage();
+        float INA219_supply_voltage();
 
         /**
          * @brief Reads the current register from the sensor and converts to milliamps.
          * 
          * @return float Current in milliamps (mA) going through the sensor. "Inf" or "NaN" when overflow is detected.
          */
-        float current();
+        float INA219_current();
 
         /**
          * @brief Reads the bus power register from the sensor and converts to milliwatts.
          * 
          * @return float Bus power consumption in milliwatts (mW).  "Inf" or "NaN" when overflow is detected.
          */
-        float power();
+        float INA219_power();
     
 
 #endif

@@ -37,7 +37,7 @@ void INA219_Close()
 }
 
 
-void init_i2c(uint8_t address)
+void INA219_init_i2c(uint8_t address)
 {
 	char *filename = (char*)"/dev/i2c-1";
 	if ((_file_descriptor = open(filename, O_RDWR)) < 0)
@@ -52,14 +52,14 @@ void init_i2c(uint8_t address)
 
 void INA219_Init(float shunt_resistance, float max_expected_amps, uint8_t address)
 {
-	init_i2c(address);
+	INA219_init_i2c(address);
 
 	_shunt_ohms = shunt_resistance;
 	_max_expected_amps = max_expected_amps;
 	_min_device_current_lsb = __CALIBRATION_FACTOR / (_shunt_ohms * __MAX_CALIBRATION_VALUE);
 }
 
-uint16_t read_register(uint8_t register_address)
+uint16_t INA219_read_register(uint8_t register_address)
 {
 	uint8_t buf[3];
 	buf[0] = register_address;
@@ -73,7 +73,7 @@ uint16_t read_register(uint8_t register_address)
 	return (buf[0] << 8) | buf[1];
 }
 
-void write_register(uint8_t register_address, uint16_t register_value)
+void INA219_write_register(uint8_t register_address, uint16_t register_value)
 {
 	uint8_t buf[3];
 	buf[0] = register_address;
@@ -86,7 +86,7 @@ void write_register(uint8_t register_address, uint16_t register_value)
 	}
 }
 
-float determine_current_lsb(float max_expected_amps, float max_possible_amps)
+float INA219_determine_current_lsb(float max_expected_amps, float max_possible_amps)
 {
 	float current_lsb;
 
@@ -111,18 +111,18 @@ float determine_current_lsb(float max_expected_amps, float max_possible_amps)
 
 
 
-void calibrate(int bus_volts_max, float shunt_volts_max, float max_expected_amps)
+void INA219_calibrate(int bus_volts_max, float shunt_volts_max, float max_expected_amps)
 {
 	float max_possible_amps = shunt_volts_max / _shunt_ohms;
-	_current_lsb = determine_current_lsb(max_expected_amps, max_possible_amps);
+	_current_lsb = INA219_determine_current_lsb(max_expected_amps, max_possible_amps);
 	_power_lsb = _current_lsb * 20.0;
 	uint16_t calibration = (uint16_t) trunc(__CALIBRATION_FACTOR / (_current_lsb * _shunt_ohms));
-	write_register(__REG_CALIBRATION, calibration);
+	INA219_write_register(__REG_CALIBRATION, calibration);
 }
 
-void configure(int voltage_range, int gain, int bus_adc, int shunt_adc)
+void INA219_configure(int voltage_range, int gain, int bus_adc, int shunt_adc)
 {
-	reset();
+	INA219_reset();
 
 	int len = sizeof(__BUS_RANGE) / sizeof(__BUS_RANGE[0]);
 	if (voltage_range > len-1) {
@@ -131,59 +131,59 @@ void configure(int voltage_range, int gain, int bus_adc, int shunt_adc)
 	_voltage_range = voltage_range;
 	_gain = gain;
 
-	calibrate(__BUS_RANGE[voltage_range], __GAIN_VOLTS[gain], _max_expected_amps);
+	INA219_calibrate(__BUS_RANGE[voltage_range], __GAIN_VOLTS[gain], _max_expected_amps);
 	uint16_t calibration = (voltage_range << __BRNG | _gain << __PG0 | bus_adc << __BADC1 | shunt_adc << __SADC1 | __CONT_SH_BUS);
-	write_register(__REG_CONFIG, calibration);
+	INA219_write_register(__REG_CONFIG, calibration);
 }
 
 
-void powerDown()
+void INA219_powerDown()
 {
-	uint16_t config = read_register(__REG_CONFIG);
-	write_register(__REG_CONFIG, config & 0xFFF8);
+	uint16_t config = INA219_read_register(__REG_CONFIG);
+	INA219_write_register(__REG_CONFIG, config & 0xFFF8);
 }
 
-void wake()
+void INA219_wake()
 {
-	uint16_t config = read_register(__REG_CONFIG);
-	write_register(__REG_CONFIG, config | 0x0007);
+	uint16_t config = INA219_read_register(__REG_CONFIG);
+	INA219_write_register(__REG_CONFIG, config | 0x0007);
 	// 40us delay to recover from powerdown (p14 of spec)
 	usleep(40);
 }
 
-void reset()
+void INA219_reset()
 {
-	write_register(__REG_CONFIG, __RST);
+	INA219_write_register(__REG_CONFIG, __RST);
 }
 
-float voltage()
+float INA219_voltage()
 {
-	uint16_t value = read_register(__REG_BUSVOLTAGE) >> 3;
+	uint16_t value = INA219_read_register(__REG_BUSVOLTAGE) >> 3;
 	return (float)value * __BUS_MILLIVOLTS_LSB / 1000.0;
 }
 
-float shunt_voltage()
+float INA219_shunt_voltage()
 {
-	uint16_t shunt_voltage = read_register(__REG_SHUNTVOLTAGE);
+	uint16_t shunt_voltage = INA219_read_register(__REG_SHUNTVOLTAGE);
 	return __SHUNT_MILLIVOLTS_LSB * (int16_t)shunt_voltage;
 }
 
-float supply_voltage()
+float INA219_supply_voltage()
 {
-	return voltage() + (shunt_voltage() / 1000.0);
+	return INA219_voltage() + (INA219_shunt_voltage() / 1000.0);
 }
 
-float current()
+float INA219_current()
 {
-	uint16_t current_raw = read_register(__REG_CURRENT);
+	uint16_t current_raw = INA219_read_register(__REG_CURRENT);
 	int16_t current = (int16_t)current_raw;
 	if (current > 32767) current -= 65536;
 	return  current * _current_lsb * 1000.0;
 }
 
-float power()
+float INA219_power()
 {
-	uint16_t power_raw = read_register(__REG_POWER);
+	uint16_t power_raw = INA219_read_register(__REG_POWER);
 	int16_t power = (int16_t)power_raw;
 	return power * _power_lsb * 1000.0;
 }
