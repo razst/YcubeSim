@@ -11,4 +11,6 @@
 void testTRXSendMeesage(void);
 void testTRXInit(void);
 
+void testIsisAntS_initialize(void);
+void testISIStrxvuIdleState(void);
 #endif /* TESTS_TESTTRX_H_ */

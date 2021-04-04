@@ -124,5 +124,36 @@ void testTRXInit(void){
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = IsisTrxvu_initialize(NULL,&fl,NULL,0);
 	ASSERT_INT(err,E_IS_INITIALIZED);
+
+}
+void testIsisAntS_initialize(void){
+	ISISantsI2Caddress adress;
+	adress.addressSideA=10;
+	adress.addressSideB=11;
+	int error=IsisAntS_initialize( &adress, 0);
+	ASSERT_INT(error,E_NO_SS_ERR);
+    error=IsisAntS_initialize( &adress, 0);
+		ASSERT_INT(error,E_IS_INITIALIZED);
+}
+void testISIStrxvuIdleState(void){
+
+	IsisTrxvu_deinitialize(NULL);
+	// test before trx init - should fail
+	int er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_on);
+	ASSERT_INT(er,E_NOT_INITIALIZED);
+
+	// init trx and test that it now pass
+	ISIStrxvuFrameLengths fl;
+	fl.maxAX25frameLengthRX = 200;
+	fl.maxAX25frameLengthTX = 200;
+	er = IsisTrxvu_initialize(NULL,&fl,NULL,0);
+	ASSERT_INT(er,E_NO_SS_ERR);
+    er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_on);
+	ASSERT_INT(er,E_NO_SS_ERR);
+
+	// TODO test that it sends "idle" messages.. + test turning off idle
+
+
+
 }
 

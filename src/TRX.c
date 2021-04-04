@@ -19,6 +19,12 @@ Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
 
 pthread_t thread_id;//pthread id for idle//
+
+int IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
+	_initFlag = FALSE;
+}
+
+
 int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *maxFrameLengths, ISIStrxvuBitrate* default_bitrates, unsigned char number){
 	if(_initFlag) return E_IS_INITIALIZED;
 

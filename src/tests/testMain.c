@@ -22,7 +22,8 @@ int runMainTests(void){
 	/* TRX test Functions */
 	testTRXInit();
 	testTRXSendMeesage();
-
+	testIsisAntS_initialize();
+	testISIStrxvuIdleState();
 	/* EPS test Functions */
 	printf("\n/* EPS test Functions */\n\n");
 	testISIS_EPS_Init();

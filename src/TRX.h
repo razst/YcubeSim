@@ -73,6 +73,18 @@ typedef struct _ISISantsI2Caddress
 int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
 
 /**
+ *  @brief      De-Initialize the ISIS TRXVU with the corresponding i2cAddress from the array of TRXVU I2C Address structure.
+ *  @note       This function can only be called once.
+ *  @param[in]  address array of TRXVU I2C Address structure.
+ *  @param[in]  maxFrameLengths array of maximum frame length structures for TRXVU.
+ *  @param[in]	default_bitrates initial default bitrate.
+ *  @param[in]  number number of attached TRXVU in the system to be initialized. - Note: the sim supports only one TRXVU!
+ *  @return     Error code according to <hal/errors.h>
+ *  */
+int IsisTrxvu_deinitialize(ISISantsI2Caddress* address);
+
+
+/**
  *  @brief      Initialize the ISIS TRXVU with the corresponding i2cAddress from the array of TRXVU I2C Address structure.
  *  @note       This function can only be called once.
  *  @param[in]  address array of TRXVU I2C Address structure.
@@ -106,7 +118,7 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 /**
  *  @brief       Set the idle state of the TRXVU transmitter, i.e. the state in between transmission.
  *  @param[in]   index index of ISIS TRXVU I2C bus address- Note: the sim supports only one TRXVU!
- *  @param[in]   state The desired idle state of the TRXVU.
+ *  @param[in]   state The desired idle state of the TRXVU. Use: trxvu_idle_state_on / trxvu_idle_state_off
  *  @return      Error code according to <hal/errors.h>
  */
 int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
