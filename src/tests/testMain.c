@@ -41,13 +41,12 @@ int runMainTests(void){
 	printf("\n/*finish TLM test Functions */\n\n");
 
 
-	/* OBC test Functions */
+	printf("\n/*Start OBC test Functions */\n\n");
 	testFRAMstart();
-
 	testFRAMwrite();
-
 	testFRAMread();
-
 	finishTesting();
+	printf("\n/*Finish OBC test Functions */\n\n");
+
 	return 0;
 }
