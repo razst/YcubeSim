@@ -14,3 +14,9 @@ void testFRAMwrite();
 #endif /* TESTS_TESTOBC_H_ */
 
 void testFRAMread();
+
+void testTime_start();\
+
+void testTime_getUnixEpoch();
+
+void testTime_setUnixEpoch();

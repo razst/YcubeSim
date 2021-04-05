@@ -9,8 +9,15 @@
 #include "OBC.h"
 #include "unistd.h"
 #include <stdio.h>
+#include <time.h>
+#include<stdlib.h>
+#include<sys/time.h>
 
 Boolean _flagF_FRAM_start=FALSE;
+Boolean _flag_Time_start=FALSE;
+
+time_t time_delta;
+time_t sysTime;
 
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
@@ -29,10 +36,7 @@ void createFRAMfile()
 	char data[FRAM_SIZE] = {0};
 	FILE *fptr;
 	fptr = fopen(FRAM_FILE_NAME,"a");
-	for(int i = 0; i < 1000; i++)
-	{
-		fwrite(data , 1 , sizeof(data) , fptr);
-	}
+	fwrite(data , 1 , sizeof(data) , fptr);
 	fclose(fptr);
 }
 
@@ -65,7 +69,7 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
 	{
 		fseek(fptr , address, SEEK_SET );
 		fread(data, size, 1, fptr);
-		printf("%s", fptr);
+//		printf("FRAM_read: %s\n", fptr);
 		fclose(fptr);
 	}
 	else{
@@ -80,3 +84,41 @@ int FRAM_stop()
 	return E_NO_SS_ERR;
 }
 
+int Time_start()
+{
+	if(_flag_Time_start==TRUE){
+		return E_IS_INITIALIZED;
+	}
+	else{
+		_flag_Time_start = TRUE;
+		time (&sysTime);
+		return E_NO_SS_ERR;
+	}
+}
+
+int Time_setUnixEpoch(time_t newTime)
+{
+	if(_flag_Time_start==TRUE){
+
+		time_delta = newTime - sysTime;
+		return E_NO_SS_ERR;
+	}
+	else{
+		return E_NOT_INITIALIZED;
+	}
+}
+
+int Time_getUnixEpoch(time_t *theTime){
+	if(_flag_Time_start==TRUE){
+		time_t sysTime;
+		time(&sysTime);
+		theTime = time_delta + sysTime;
+		return E_NO_SS_ERR;
+	}
+	return  E_NOT_INITIALIZED;
+}
+
+int Time_stop(){
+	_flag_Time_start = FALSE;
+	return E_NO_SS_ERR;
+}

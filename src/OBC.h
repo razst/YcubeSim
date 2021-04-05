@@ -11,6 +11,9 @@
 #define FRAM_FILE_NAME "FRAM"
 #define FRAM_SIZE 512
 
+#include <time.h>
+#include<stdlib.h>
+#include<sys/time.h>
 /*
  * starts the FRAM system
  */
@@ -33,5 +36,11 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
  * reads from the FRAM file
  */
 int FRAM_stop();
+
+int Time_start();
+
+int Time_setUnixEpoch(time_t newTime);
+int Time_getUnixEpoch(time_t *theTime);
+
 
 #endif /* OBC_H_ */
