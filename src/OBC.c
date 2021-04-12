@@ -84,19 +84,28 @@ int FRAM_stop()
 	return E_NO_SS_ERR;
 }
 
-int Time_start()
+int Time_start(Time *time, const unsigned int syncInterval)
 {
+
+	struct tm info;
+	info.tm_hour = time->hours;
+	info.tm_min = time->minutes;
+	info.tm_mon = time->month-1;
+	//...
+	//...
+
+	sysTime = mktime(&info);
+
 	if(_flag_Time_start==TRUE){
 		return E_IS_INITIALIZED;
 	}
 	else{
 		_flag_Time_start = TRUE;
-		time (&sysTime);
 		return E_NO_SS_ERR;
 	}
 }
 
-int Time_setUnixEpoch(time_t newTime)
+int Time_setUnixEpoch(const unsigned int newTime)
 {
 	if(_flag_Time_start==TRUE){
 
@@ -108,11 +117,11 @@ int Time_setUnixEpoch(time_t newTime)
 	}
 }
 
-int Time_getUnixEpoch(time_t *theTime){
+int Time_getUnixEpoch(unsigned int *theTime){
 	if(_flag_Time_start==TRUE){
 		time_t sysTime;
 		time(&sysTime);
-		theTime = time_delta + sysTime;
+		*theTime = time_delta + sysTime;
 		return E_NO_SS_ERR;
 	}
 	return  E_NOT_INITIALIZED;

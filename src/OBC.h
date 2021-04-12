@@ -14,6 +14,20 @@
 #include <time.h>
 #include<stdlib.h>
 #include<sys/time.h>
+
+
+typedef struct __attribute__ ((__packed__)) _Time {
+	unsigned char seconds; ///< Seconds of the minute.
+	unsigned char minutes; ///< Minutes in the hour.
+	unsigned char hours; ///< Hour of the day.
+	unsigned char day;  ///< Day of the week (Sunday=1, Monday=2, ..., Saturday=7)
+	unsigned char date; ///< Date of the month.
+	unsigned char month; ///< Month of the year (January = 1).
+	unsigned char year; ///< Year since 2000 (2000 = 0).
+	unsigned int  secondsOfYear; ///< Number of seconds since the start of year.
+} Time;
+
+
 /*
  * starts the FRAM system
  */
@@ -37,10 +51,10 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
  */
 int FRAM_stop();
 
-int Time_start();
+int Time_start(Time *time, const unsigned int syncInterval);
 
-int Time_setUnixEpoch(time_t newTime);
-int Time_getUnixEpoch(time_t *theTime);
+int Time_setUnixEpoch(const unsigned int epochTime);
+int Time_getUnixEpoch(unsigned int *theTime);
 
 
 #endif /* OBC_H_ */
