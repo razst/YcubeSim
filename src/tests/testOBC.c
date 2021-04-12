@@ -82,12 +82,15 @@ void testTime_getUnixEpoch(){
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = Time_getUnixEpoch(1617637560);
+	int t;
+	err = Time_getUnixEpoch(&t);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
 	err = Time_start();
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_getUnixEpoch(1617637560);
+	err = Time_getUnixEpoch(&t);
 	ASSERT_INT(err,E_NO_SS_ERR);
+	ASSERT_TRUE(t>=1617638400);// TODO check the return time in t
+
 }

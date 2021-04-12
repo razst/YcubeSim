@@ -109,6 +109,7 @@ int Time_setUnixEpoch(const unsigned int newTime)
 {
 	if(_flag_Time_start==TRUE){
 
+		time(&sysTime);
 		time_delta = newTime - sysTime;
 		return E_NO_SS_ERR;
 	}
