@@ -19,12 +19,13 @@
 int runMainTests(void){
 	startTesting();
 
-	/* TRX test Functions */
+	printf("\n/*start TRX test Functions */\n\n");
 	testTRXInit();
 	testTRXSendMeesage();
 	testIsisAntS_initialize();
 	testISIStrxvuIdleState();
-	/* EPS test Functions */
+	printf("\n/*start TRX test Functions */\n\n");
+
 	printf("\n/* EPS test Functions */\n\n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
@@ -32,9 +33,8 @@ int runMainTests(void){
 	testIsisSolarPanelv2_Dinitialize();
 	testGet_eps_temp ();
 	printf("\n/* EPS test Functions */\n\n");
-	/* TLM test Functions */
-	printf("\n/*start TLM test Functions */\n\n");
 
+	printf("\n/*start TLM test Functions */\n\n");
 	 testTLMfs_init();
      testhcc_mem_init();
      testf_enterFS();
