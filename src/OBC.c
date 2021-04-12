@@ -86,17 +86,17 @@ int FRAM_stop()
 
 int Time_start(Time *time, const unsigned int syncInterval)
 {
-
-	struct tm info;
-	info.tm_hour = time->hours;
-	info.tm_min = time->minutes;
-	info.tm_mon = time->month-1;
-	//...
-	//...
-
-	sysTime = mktime(&info);
-
 	if(_flag_Time_start==TRUE){
+		struct tm info;
+			info.tm_sec = time->seconds;        /* seconds,  range 0 to 59          */
+			info.tm_min = time->minutes;        /* minutes, range 0 to 59           */
+			info.tm_hour = time->hours;        /* hours, range 0 to 23             */
+			info.tm_mday = time->day;        /* day of the month, range 1 to 31  */
+			info.tm_mon = time->month-1;       /* month, range 0 to 11             */
+			info.tm_year = time->year;       /* The number of years since 1900   */
+			info.tm_wday = time->day;/*todo fixxxx*/        /* day of the week, range 0 to 6    */
+			info.tm_yday = time->date;/* day in the year, range 0 to 365  */
+		sysTime = mktime(&info);
 		return E_IS_INITIALIZED;
 	}
 	else{

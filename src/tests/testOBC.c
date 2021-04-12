@@ -12,6 +12,16 @@
 
 #include <stdio.h>
 
+#define UNIX_DATE_JAN_D1_Y2000{\
+	.seconds = 0,\
+	.minutes = 0,\
+	.hours = 0,\
+	.day = 1,\
+	.date = 1,\
+	.month = 1,\
+	.year = 0,\
+	.secondsOfYear = 0};
+
 void testFRAMstart(void){
 	int err;
 	err = FRAM_start();
@@ -56,21 +66,23 @@ void testFRAMread(){
 
 void testTime_start(){
 	int err;
+	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
 	err = Time_stop();
 	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_start();
+	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_start();
+	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_IS_INITIALIZED);
 }
 
 void testTime_setUnixEpoch(){
 	int err;
+	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
 	err = Time_stop();
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = Time_start();
+	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NO_SS_ERR);
@@ -78,6 +90,7 @@ void testTime_setUnixEpoch(){
 
 void testTime_getUnixEpoch(){
 	int err;
+	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
 	err = Time_stop();
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
@@ -85,7 +98,7 @@ void testTime_getUnixEpoch(){
 	int t;
 	err = Time_getUnixEpoch(&t);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = Time_start();
+	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NO_SS_ERR);
