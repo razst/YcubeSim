@@ -15,6 +15,9 @@
 void testTLMfs_init(void){
 	int err=fs_init();
 	ASSERT_INT(err,E_NO_SS_ERR);
+	err=fs_init();
+	ASSERT_INT(err,E_IS_INITIALIZED);
+
 }
 
 void  testhcc_mem_init(void){
