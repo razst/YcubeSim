@@ -84,19 +84,30 @@ void getUDPMessage(char *buffer){
  */
 void testTRXSendMeesage(void)
 {
-	// TODO check init first
 	// TODO check & implement avail
 
 	// start GCS UDP server
 	startUDPServer();
 
+
+
 	// send msg from sat
 	char data[] = "test123";
 	char avail=0;
-	int err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
+
+	IsisTrxvu_deinitialize(NULL);
+	int	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	ISIStrxvuFrameLengths Fl;
+		Fl.maxAX25frameLengthRX = 200;
+		Fl.maxAX25frameLengthTX = 200;
+	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
+
+	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
-	// check thta what we got in GCS is the same as the data we sent
+
+	// check that what we got in GCS is the same as the data we sent
     char buffer[MAX_FRAME_LENGTH];
 	getUDPMessage(&buffer);
 	ASSERT_STR(&data,&buffer)
@@ -137,6 +148,10 @@ void testIsisAntS_initialize(void){
 }
 void testISIStrxvuIdleState(void){
 
+	startUDPServer();
+	char data[]="idle";
+	char buffer[MAX_FRAME_LENGTH];
+
 	IsisTrxvu_deinitialize(NULL);
 	// test before trx init - should fail
 	int er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_on);
@@ -152,8 +167,12 @@ void testISIStrxvuIdleState(void){
 	ASSERT_INT(er,E_NO_SS_ERR);
 
 	// TODO test that it sends "idle" messages.. + test turning off idle
+	getUDPMessage(&buffer);
+	ASSERT_STR(&data,&buffer)
+    er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_off);
+	ASSERT_INT(er,E_NO_SS_ERR);
 
 
-
+	stopUDPServer();
 }
 
