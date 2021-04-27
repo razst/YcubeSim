@@ -18,6 +18,7 @@ typedef int Boolean;
 #define E_SOCKET -1000
 #define E_SOCKET_OPT -1001
 #define E_FILE	-1002
+#define E_TIME -1003
 
 #endif /* UTILS_H_ */
 

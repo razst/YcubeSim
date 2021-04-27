@@ -84,19 +84,26 @@ int FRAM_stop()
 	return E_NO_SS_ERR;
 }
 
-int Time_start(Time *time, const unsigned int syncInterval)
+int Time_start(Time *theTime, const unsigned int syncInterval)
 {
 	if(_flag_Time_start==TRUE){
 		struct tm info;
-			info.tm_sec = time->seconds;        /* seconds,  range 0 to 59          */
-			info.tm_min = time->minutes;        /* minutes, range 0 to 59           */
-			info.tm_hour = time->hours;        /* hours, range 0 to 23             */
-			info.tm_mday = time->day;        /* day of the month, range 1 to 31  */
-			info.tm_mon = time->month-1;       /* month, range 0 to 11             */
-			info.tm_year = time->year;       /* The number of years since 1900   */
-			info.tm_wday = time->day;/*todo fixxxx*/        /* day of the week, range 0 to 6    */
-			info.tm_yday = time->date;/* day in the year, range 0 to 365  */
-		sysTime = mktime(&info);
+			info.tm_sec = theTime->seconds;        /* seconds,  range 0 to 59          */
+			info.tm_min = theTime->minutes;        /* minutes, range 0 to 59           */
+			info.tm_hour = theTime->hours;        /* hours, range 0 to 23             */
+			info.tm_mday = theTime->date;        /* day of the month, range 1 to 31  */
+			info.tm_mon = theTime->month-1;       /* month, range 0 to 11             */
+			info.tm_year = theTime->year+100;       /* The number of years since 1900   */
+//			info.tm_wday = theTime->day;        /* day of the week, range 0 to 6    */
+
+		int newTime = mktime(&info);
+		if(newTime == -1){
+			return E_TIME;
+		}
+		printf("new time %d\n", newTime);
+		time(&sysTime);
+
+		time_delta = newTime - sysTime;//TODO fix time zone
 		return E_IS_INITIALIZED;
 	}
 	else{

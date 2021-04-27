@@ -51,7 +51,7 @@ int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size
  */
 int FRAM_stop();
 
-int Time_start(Time *time, const unsigned int syncInterval);
+int Time_start(Time *theTime, const unsigned int syncInterval);
 
 int Time_setUnixEpoch(const unsigned int epochTime);
 int Time_getUnixEpoch(unsigned int *theTime);

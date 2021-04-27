@@ -73,6 +73,12 @@ void testTime_start(){
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_IS_INITIALIZED);
+	int t;
+	err = Time_getUnixEpoch(&t);
+	ASSERT_TRUE(t >= 946677600);
+	printf("%d", t);
+	ASSERT_TRUE(t <= 946677602);
+
 }
 
 void testTime_setUnixEpoch(){
