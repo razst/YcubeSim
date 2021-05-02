@@ -38,7 +38,7 @@ int runMainTests(void){
 	 testTLMfs_init();
      testhcc_mem_init();
      testf_enterFS();
-     testf_initvolume();
+     //testf_initvolume();
 	printf("\n/*finish TLM test Functions */\n\n");
 
 
