@@ -19,6 +19,9 @@ Boolean _flag_Time_start=FALSE;
 time_t time_delta;
 time_t sysTime;
 
+xSemaphoreHandle _handle = 0;
+char semaphoreArray[100] = {0};
+
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
 	{
@@ -100,7 +103,7 @@ int Time_start(Time *theTime, const unsigned int syncInterval)
 		if(newTime == -1){
 			return E_TIME;
 		}
-		printf("new time %d\n", newTime);
+//		printf("new time %d\n", newTime);
 		time(&sysTime);
 
 		time_delta = newTime - sysTime;//TODO fix time zone
@@ -138,4 +141,27 @@ int Time_getUnixEpoch(unsigned int *theTime){
 int Time_stop(){
 	_flag_Time_start = FALSE;
 	return E_NO_SS_ERR;
+}
+
+void vTaskDelay(long t){
+	sleep(t/1000);
+}
+
+void vSemaphoreCreateBinary(xSemaphoreHandle * handle){
+	*handle = _handle;
+	semaphoreArray[_handle] = 0;
+	_handle++;
+}
+
+Boolean vSemaphoreTake(xSemaphoreHandle handle, TickType_t xTicksToWait){
+
+	while(semaphoreArray[handle] == 1){
+		sleep(0.001);
+	}
+	semaphoreArray[handle] = 1;
+}
+
+void vSemaphoreGive(xSemaphoreHandle handle){
+	semaphoreArray[handle] = 0;
+}
 }

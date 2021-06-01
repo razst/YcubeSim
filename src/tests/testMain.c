@@ -47,8 +47,8 @@ int runMainTests(void){
 	testFRAMwrite();
 	testFRAMread();
 	testTime_start();
-	testTime_setUnixEpoch();
-	testTime_getUnixEpoch();
+	testTime_setGetUnixEpoch();
+	testvTaskDelay();
 	finishTesting();
 	printf("\n/*Finish OBC test Functions */\n\n");
 

@@ -15,6 +15,8 @@
 #include<stdlib.h>
 #include<sys/time.h>
 
+typedef int xSemaphoreHandle;
+typedef long TickType_t;
 
 typedef struct __attribute__ ((__packed__)) _Time {
 	unsigned char seconds; ///< Seconds of the minute.
@@ -55,6 +57,8 @@ int Time_start(Time *theTime, const unsigned int syncInterval);
 
 int Time_setUnixEpoch(const unsigned int epochTime);
 int Time_getUnixEpoch(unsigned int *theTime);
+void vSemaphoreCreateBinary(xSemaphoreHandle * handle);
 
+void vTaskDelay(long t);
 
 #endif /* OBC_H_ */

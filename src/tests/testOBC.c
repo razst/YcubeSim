@@ -75,34 +75,19 @@ void testTime_start(){
 	ASSERT_INT(err,E_IS_INITIALIZED);
 	int t;
 	err = Time_getUnixEpoch(&t);
-	ASSERT_TRUE(t >= 946677600);
-	printf("%d", t);
-	ASSERT_TRUE(t <= 946677602);
+	ASSERT_TRUE(t >= 946684800);
+
+	ASSERT_TRUE(t <= 946684802);
 
 }
 
-void testTime_setUnixEpoch(){
+void testTime_setGetUnixEpoch(){
 	int err;
-	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
-	err = Time_stop();
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_setUnixEpoch(1617638400);
-	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = Time_start(&expected_deploy_time,0);
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_setUnixEpoch(1617638400);
-	ASSERT_INT(err,E_NO_SS_ERR);
-}
-
-void testTime_getUnixEpoch(){
-	int err;
-	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
-	err = Time_stop();
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = Time_setUnixEpoch(1617638400);
-	ASSERT_INT(err,E_NOT_INITIALIZED);
 	int t;
-	err = Time_getUnixEpoch(&t);
+	Time expected_deploy_time = UNIX_DATE_JAN_D1_Y2000;
+	err = Time_stop();
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = Time_setUnixEpoch(1617638400);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
 	err = Time_start(&expected_deploy_time,0);
 	ASSERT_INT(err,E_NO_SS_ERR);
@@ -110,6 +95,23 @@ void testTime_getUnixEpoch(){
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err = Time_getUnixEpoch(&t);
 	ASSERT_INT(err,E_NO_SS_ERR);
-	ASSERT_TRUE(t>=1617638400);// TODO check the return time in t
-
+	ASSERT_TRUE(t>=1617638400);
+	err = Time_setUnixEpoch(1617638500);
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = Time_getUnixEpoch(&t);
+	ASSERT_INT(err,E_NO_SS_ERR);
+	ASSERT_TRUE(t >= 1617638500);
 }
+
+void testvTaskDelay(){
+	int err;
+	int t;
+	err = Time_setUnixEpoch(1617638400);
+	ASSERT_INT(err,E_NO_SS_ERR);
+	vTaskDelay(2000);
+	err = Time_getUnixEpoch(&t);
+	ASSERT_INT(err,E_NO_SS_ERR);
+	ASSERT_TRUE(t == 1617638400 + 2);
+	printf("t: %d", t);
+}
+
