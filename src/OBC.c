@@ -164,4 +164,4 @@ Boolean vSemaphoreTake(xSemaphoreHandle handle, TickType_t xTicksToWait){
 void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
-}
+
