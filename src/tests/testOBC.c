@@ -31,6 +31,8 @@ void testFRAMstart(void){
 }
 void testFRAMwrite(){
 	char data[] = "string 123";
+	char data2[888] = {0};
+	memset(data2, "a", 888);
 	int address = 10;
 	int err;
 	err = FRAM_stop();
@@ -38,14 +40,18 @@ void testFRAMwrite(){
 	ASSERT_INT(err,E_NOT_INITIALIZED);
 	err = FRAM_start();
 	ASSERT_INT(err,E_NO_SS_ERR);
+	err = FRAM_write(&data2,  address,  sizeof(data2));
+	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
 	err = FRAM_write(&data,  address,  sizeof(data));
-	ASSERT_INT(err,E_NO_SS_ERR);
-
+	ASSERT_INT(err,E_NO_SS_ERR)
 }
 
 void testFRAMread(){
-	char datain[] = "string 1234";
+	char datain[] = "string 123";
+	char datain2[888] = {0};
+	memset(datain2, "a", 888);
 	char dataout[20] = {0};
+	char dataout2[700] = {0};
 	int address = 1;
 	int err;
 	err = FRAM_stop();
@@ -55,8 +61,12 @@ void testFRAMread(){
 	ASSERT_INT(err,E_NOT_INITIALIZED);
 	err = FRAM_start();
 	ASSERT_INT(err,E_NO_SS_ERR);
+	err = FRAM_write(&datain2,  address,  sizeof(datain2));
+	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
 	err = FRAM_write(&datain,  address,  sizeof(datain));
-	ASSERT_INT(err,E_NO_SS_ERR);
+	ASSERT_INT(err,E_NO_SS_ERR)
+	err = FRAM_read(&dataout2,  address,  sizeof(datain2));
+	ASSERT_INT(err,E_REQUEST_LENGTH_LONG);
 	err = FRAM_read(&dataout,  address,  sizeof(datain));
 	ASSERT_INT(err,E_NO_SS_ERR);
 	int ret = strcmp(dataout, datain);

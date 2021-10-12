@@ -44,41 +44,50 @@ void createFRAMfile()
 }
 
 int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
-	if(_flagF_FRAM_start == TRUE){
-		FILE *fptr;
-		fptr = fopen(FRAM_FILE_NAME,"rb+");
-		if(fptr == NULL)
-		{
-	      return E_FILE;
+	if(size <= 512){
+		if(_flagF_FRAM_start == TRUE){
+			FILE *fptr;
+			fptr = fopen(FRAM_FILE_NAME,"rb+");
+			if(fptr == NULL)
+			{
+				return E_FILE;
+			}
+			fseek(fptr , address, SEEK_SET);
+			fwrite(data , size , 1 , fptr);
+			fclose(fptr);
 		}
-		fseek(fptr , address, SEEK_SET);
-		fwrite(data , size , 1 , fptr);
-		fclose(fptr);
+		else{
+			return E_NOT_INITIALIZED;
+		}
+		return E_NO_SS_ERR;
+	}else{
+		return E_TRXUV_FRAME_LENGTH;
+
 	}
-	else{
-		return E_NOT_INITIALIZED;
-	}
-	return E_NO_SS_ERR;
 }
 
 int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size){
-	if(_flagF_FRAM_start == FALSE){
-		return E_NOT_INITIALIZED;
-	}
-	FILE *fptr;
-	fptr = fopen(FRAM_FILE_NAME,"rb");
+	if(size <= 512){
+		if(_flagF_FRAM_start == FALSE){
+			return E_NOT_INITIALIZED;
+		}
+		FILE *fptr;
+		fptr = fopen(FRAM_FILE_NAME,"rb");
 
-	if(fptr != NULL)
-	{
-		fseek(fptr , address, SEEK_SET );
-		fread(data, size, 1, fptr);
-//		printf("FRAM_read: %s\n", fptr);
-		fclose(fptr);
+		if(fptr != NULL)
+		{
+			fseek(fptr , address, SEEK_SET );
+			fread(data, size, 1, fptr);
+//			printf("FRAM_read: %s\n", fptr);
+			fclose(fptr);
+		}
+		else{
+			return E_NOT_INITIALIZED;
+		}
+		return E_NO_SS_ERR;
+	}else{
+		return E_REQUEST_LENGTH_LONG;
 	}
-	else{
-		return E_NOT_INITIALIZED;
-	}
-	return E_NO_SS_ERR;
 }
 
 int FRAM_stop()
@@ -164,4 +173,4 @@ Boolean vSemaphoreTake(xSemaphoreHandle handle, TickType_t xTicksToWait){
 void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
-}
+
