@@ -109,5 +109,13 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	return E_NO_SS_ERR ;
 }
 
+int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
+
+	if(!_initFlag) return E_NOT_INITIALIZED;
+		if (index!=0) return E_INDEX_ERROR;
+	int temp=*frameCount;
+		return temp;
+
+}
 
 

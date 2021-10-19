@@ -123,4 +123,7 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
  */
 int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
 
+
+int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
+
 #endif /* TRX_H_ */
