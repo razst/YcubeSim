@@ -125,3 +125,55 @@ void testvTaskDelay(){
 	printf("t: %d", t);
 }
 
+void testxQueueCreate(){
+	int err;
+	err = xQueueCreate();
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = xQueueCreate();
+	ASSERT_INT(err,E_IS_INITIALIZED);
+}
+
+void testxQueueSend(){
+	char data[] = "string 123";
+	char data2[888] = {0};
+	memset(data2, "a", 888);
+	int address = 10;
+	int err;
+	err = queue_stop();
+	err = xQueueSend(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err = xQueueCreate();
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = xQueueSend(&data2,  address,  sizeof(data2));
+	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
+	err = xQueueSend(&data,  address,  sizeof(data));
+	ASSERT_INT(err,E_NO_SS_ERR)
+}
+
+void testxQueueReceive(){
+	char datain[] = "string 123";
+	char datain2[888] = {0};
+	memset(datain2, "a", 888);
+	char dataout[20] = {0};
+	char dataout2[700] = {0};
+	int address = 1;
+	int err;
+	err = xQueueCreate();
+	err = xQueueSend(&datain,  address,  sizeof(datain));
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err = xQueueReceive(&dataout,  address,  sizeof(datain));
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err = xQueueCreate();
+	ASSERT_INT(err,E_NO_SS_ERR);
+	err = xQueueSend(&datain2,  address,  sizeof(datain2));
+	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
+	err = xQueueSend(&datain,  address,  sizeof(datain));
+	ASSERT_INT(err,E_NO_SS_ERR)
+	err = xQueueReceive(&dataout2,  address,  sizeof(datain2));
+	ASSERT_INT(err,E_REQUEST_LENGTH_LONG);
+	err = xQueueReceive(&dataout,  address,  sizeof(datain));
+	ASSERT_INT(err,E_NO_SS_ERR);
+	int ret = strcmp(dataout, datain);
+//	printf("rest=%d\n",ret);
+	ASSERT_TRUE(ret==0);
+}

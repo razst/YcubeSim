@@ -15,6 +15,7 @@
 
 Boolean _flagF_FRAM_start=FALSE;
 Boolean _flag_Time_start=FALSE;
+Boolean _flagF_xQueue_create=FALSE;
 
 time_t time_delta;
 time_t sysTime;
@@ -44,7 +45,7 @@ void createFRAMfile()
 }
 
 int FRAM_write(const unsigned char *data, unsigned int address, unsigned int size){
-	if(size <= 512){
+	if(size <= FRAM_SIZE){
 		if(_flagF_FRAM_start == TRUE){
 			FILE *fptr;
 			fptr = fopen(FRAM_FILE_NAME,"rb+");
@@ -67,7 +68,7 @@ int FRAM_write(const unsigned char *data, unsigned int address, unsigned int siz
 }
 
 int FRAM_read(const unsigned char *data, unsigned int address, unsigned int size){
-	if(size <= 512){
+	if(size <= FRAM_SIZE){
 		if(_flagF_FRAM_start == FALSE){
 			return E_NOT_INITIALIZED;
 		}
@@ -174,3 +175,72 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
+int xQueueCreate(){
+	if(_flagF_xQueue_create == FALSE)
+	{
+		_flagF_xQueue_create = TRUE;
+		if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
+			//createFRAMfile();
+			char data[QUEUE_SIZE] = {0};
+			FILE *fptr;
+			fptr = fopen(QUEUE_FILE_NAME,"a");
+			fwrite(data , 1 , sizeof(data) , fptr);
+			fclose(fptr);
+		}
+		return E_NO_SS_ERR;
+	}
+	return E_IS_INITIALIZED;
+}
+
+int xQueueSend(const unsigned char *data, unsigned int address, unsigned int size)
+{
+
+	if(size <= QUEUE_SIZE){
+			if(_flagF_xQueue_create == TRUE){
+				FILE *fptr;
+				fptr = fopen(QUEUE_FILE_NAME,"rb+");
+				if(fptr == NULL)
+				{
+					return E_FILE;
+				}
+				fseek(fptr , address, SEEK_SET);
+				fwrite(data , size , 1 , fptr);
+				fclose(fptr);
+			}
+			else{
+				return E_NOT_INITIALIZED;
+			}
+			return E_NO_SS_ERR;
+		}else{
+			return E_TRXUV_FRAME_LENGTH;
+		}
+}
+
+int xQueueReceive(const unsigned char *data, unsigned int address, unsigned int size){
+	if(size <= QUEUE_SIZE){
+		if(_flagF_xQueue_create == FALSE){
+			return E_NOT_INITIALIZED;
+		}
+		FILE *fptr;
+		fptr = fopen(QUEUE_FILE_NAME,"rb");
+		if(fptr != NULL)
+		{
+			fseek(fptr , address, SEEK_SET );
+			fread(data, size, 1, fptr);
+//			printf("FRAM_read: %s\n", fptr);
+			fclose(fptr);
+		}
+		else{
+			return E_NOT_INITIALIZED;
+		}
+		return E_NO_SS_ERR;
+	}else{
+		return E_REQUEST_LENGTH_LONG;
+	}
+}
+
+int queue_stop()
+{
+	_flagF_xQueue_create = FALSE;
+	return E_NO_SS_ERR;
+}
