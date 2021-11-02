@@ -17,6 +17,7 @@ Boolean _initFlag=FALSE;
 ISIStrxvuFrameLengths _maxFrameLengths;
 Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
+ISIStrxvuRxFrame _rxframe;
 
 pthread_t thread_id;//pthread id for idle//
 
@@ -113,8 +114,8 @@ int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 
 	if(!_initFlag) return E_NOT_INITIALIZED;
 		if (index!=0) return E_INDEX_ERROR;
-	int temp=*frameCount;
-		return temp;
+
+		*frameCount= _rxframe.rx_length;
 
 	if (index!=0) return E_INDEX_ERROR;
 
