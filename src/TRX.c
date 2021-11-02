@@ -116,6 +116,10 @@ int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 	int temp=*frameCount;
 		return temp;
 
+	if (index!=0) return E_INDEX_ERROR;
+
+
+	return E_NO_SS_ERR ;
 }
 
 

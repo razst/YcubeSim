@@ -74,4 +74,10 @@ void finishTesting();
 
 __time_t getTimePasst();
 
+void testxQueueCreate();
+
+void testxQueueSend();
+
+void testxQueueReceive();
+
 #endif /* TESTS_TESTBASIC_H_ */
