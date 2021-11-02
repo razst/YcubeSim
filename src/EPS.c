@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include "EPS.h"
 #include "errors.h"
-//#include "../HW/ina219.h"
 
 
 ISIS_EPS_t _isis_eps;
@@ -57,32 +56,18 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState(){
 }
 
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
-//	response->fields.temp = get_eps_temp();
-//	printf ("%d",response->fields.temp);
-//	get_VIP(response->fields.)
+	response->fields.temp = get_eps_temp();
+	printf ("%d",response->fields.temp);
 }
 
 int get_eps_temp (){
-//	FILE *temperatureFile;
-//	int T;
-//	temperatureFile = fopen ("/sys/class/thermal/thermal_zone0/temp", "r");
-//	if (temperatureFile == NULL)
-//		return E_INPUT_POINTER_NULL;
-//	fscanf (temperatureFile, "%d", &T);
-//	fclose (temperatureFile);
-//	return T;
+	FILE *temperatureFile;
+	int T;
+	temperatureFile = fopen ("/sys/class/thermal/thermal_zone0/temp", "r");
+	if (temperatureFile == NULL)
+		return E_INPUT_POINTER_NULL;
+	fscanf (temperatureFile, "%d", &T);
+	fclose (temperatureFile);
+	return T;
 }
 
-void get_VIP(isis_eps__vipdeng_t temp,int address){
-
-//	float SHUNT_OHMS = 0.1;
-//	float MAX_EXPECTED_AMPS = 3.2;
-//
-//	INA219_Init(SHUNT_OHMS, MAX_EXPECTED_AMPS, address); // defualt INA219 I2C address is 0x40
-//	INA219_configure(RANGE_16V, GAIN_8_320MV, ADC_12BIT, ADC_12BIT);
-//	temp->fields.current=INA219_current();
-//	temp->fields.power=INA219_power();
-//	temp->fields.volt=INA219_voltage();
-
-
-}
