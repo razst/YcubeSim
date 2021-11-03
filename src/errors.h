@@ -26,7 +26,8 @@
 #define E_TRXUV_FRAME_LENGTH    -33 ///< Input frame lenght was greater than the maximum frame length of TRXUV.
 #define E_INPUT_POINTER_NULL    -34 ///< A pointer input to the function is NULL.
 #define E_COMMAND_NACKED    	-35 ///< A pointer input to the function is NULL.
-#define E_REQUEST_LENGTH_LONG    -36 ///< Attempt to get a bigger amount then needed.
+#define E_REQUEST_LENGTH_LONG   -36 ///< Attempt to get a bigger amount then needed.
+#define QUEUE_FULL              -37 ///< Queue memory full can't assign any more data.
 
 
 
