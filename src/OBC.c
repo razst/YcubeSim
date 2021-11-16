@@ -178,7 +178,7 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
-int xQueueCreate(){
+int xQueueCreate(uxQueueLength, uxItemSize){
 	if(_flagF_xQueue_create == FALSE)
 	{
 		_flagF_xQueue_create = TRUE;
