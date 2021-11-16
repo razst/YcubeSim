@@ -63,6 +63,17 @@ typedef enum __attribute__ ((__packed__)) _ISIStrxvuIdleState
 } ISIStrxvuIdleState;
 
 /**
+ *  Struct for the TRXVU reception frame.
+ */
+typedef struct __attribute__ ((__packed__)) _ISIStrxvuRxFrame
+{
+    unsigned short rx_length; ///< Reception frame length.
+    unsigned short rx_doppler; ///< Reception frame doppler measurement.
+    unsigned short rx_rssi; ///< Reception frame rssi measurement.
+    unsigned char* rx_framedata; ///< Pointer to an array receiving reception frame data.
+} ISIStrxvuRxFrame;
+
+/**
  *	Struct for defining ISIS Antenna Systems Status I2C Address.
  */
 typedef struct _ISISantsI2Caddress
@@ -138,5 +149,6 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
  *  @return      Error code according to <hal/errors.h>
  */
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
+
 
 #endif /* TRX_H_ */

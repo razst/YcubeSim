@@ -17,10 +17,11 @@ Boolean _initFlag=FALSE;
 ISIStrxvuFrameLengths _maxFrameLengths;
 Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
+ISIStrxvuRxFrame _rxframe;
 
 pthread_t thread_id;//pthread id for idle//
 
-int IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
+void IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
 	_initFlag = FALSE;
 }
 
@@ -112,6 +113,10 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 
 	if(!_initFlag) return E_NOT_INITIALIZED;
+		if (index!=0) return E_INDEX_ERROR;
+
+		*frameCount= _rxframe.rx_length;
+
 	if (index!=0) return E_INDEX_ERROR;
 
 

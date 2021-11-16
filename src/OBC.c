@@ -23,6 +23,9 @@ time_t sysTime;
 xSemaphoreHandle _handle = 0;
 char semaphoreArray[100] = {0};
 
+FILE *fptr;
+char *endPO;
+
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
 	{
@@ -175,16 +178,16 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
-int xQueueCreate(){
+int xQueueCreate(uxQueueLength, uxItemSize){
 	if(_flagF_xQueue_create == FALSE)
 	{
 		_flagF_xQueue_create = TRUE;
 		if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
 			//createFRAMfile();
 			char data[QUEUE_SIZE] = {0};
-			FILE *fptr;
-			fptr = fopen(QUEUE_FILE_NAME,"a");
-			fwrite(data , 1 , sizeof(data) , fptr);
+			fptr = fopen(QUEUE_FILE_NAME,"ab+");
+			endPO = fseek(fptr , 0, SEEK_END);
+			fwrite(data , sizeof(data), 1, fptr);
 			fclose(fptr);
 		}
 		return E_NO_SS_ERR;
@@ -192,20 +195,21 @@ int xQueueCreate(){
 	return E_IS_INITIALIZED;
 }
 
-int xQueueSend(const unsigned char *data, unsigned int address, unsigned int size)
+int xQueueSend(const unsigned char *data, unsigned int size)
 {
-
 	if(size <= QUEUE_SIZE){
 			if(_flagF_xQueue_create == TRUE){
-				FILE *fptr;
-				fptr = fopen(QUEUE_FILE_NAME,"rb+");
 				if(fptr == NULL)
 				{
 					return E_FILE;
 				}
-				fseek(fptr , address, SEEK_SET);
-				fwrite(data , size , 1 , fptr);
-				fclose(fptr);
+				fseek(fptr , 0, SEEK_CUR);
+				if(fptr + size >= endPO){
+					return QUEUE_FULL;
+				}else{
+					fwrite(data , size , 1 , fptr);
+					fclose(fptr);
+				}
 			}
 			else{
 				return E_NOT_INITIALIZED;
@@ -216,22 +220,25 @@ int xQueueSend(const unsigned char *data, unsigned int address, unsigned int siz
 		}
 }
 
-int xQueueReceive(const unsigned char *data, unsigned int address, unsigned int size){
+int xQueueReceive(const unsigned char *data, unsigned int size){
 	if(size <= QUEUE_SIZE){
 		if(_flagF_xQueue_create == FALSE){
 			return E_NOT_INITIALIZED;
 		}
-		FILE *fptr;
-		fptr = fopen(QUEUE_FILE_NAME,"rb");
-		if(fptr != NULL)
+		if(fptr == NULL)
 		{
-			fseek(fptr , address, SEEK_SET );
-			fread(data, size, 1, fptr);
-//			printf("FRAM_read: %s\n", fptr);
-			fclose(fptr);
-		}
-		else{
-			return E_NOT_INITIALIZED;
+			return E_FILE;
+		}else{
+			if(fptr != NULL)
+			{
+				fseek(fptr , 0, SEEK_CUR );
+				fread(data, size, 1, fptr);
+	//			printf("FRAM_read: %s\n", fptr);
+				fclose(fptr);
+			}
+			else{
+				return E_NOT_INITIALIZED;
+			}
 		}
 		return E_NO_SS_ERR;
 	}else{
