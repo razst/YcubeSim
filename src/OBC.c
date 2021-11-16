@@ -178,7 +178,7 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
-int xQueueCreate(uxQueueLength, uxItemSize){
+int* xQueueCreate(char uxQueueLength, char uxItemSize){
 	if(_flagF_xQueue_create == FALSE)
 	{
 		_flagF_xQueue_create = TRUE;
@@ -189,13 +189,14 @@ int xQueueCreate(uxQueueLength, uxItemSize){
 			endPO = fseek(fptr , 0, SEEK_END);
 			fwrite(data , sizeof(data), 1, fptr);
 			fclose(fptr);
+
 		}
 		return E_NO_SS_ERR;
 	}
 	return E_IS_INITIALIZED;
 }
 
-int xQueueSend(const unsigned char *data, unsigned int size)
+int* xQueueSend(char xQueue, char pvItemToQueue, char xTicksToWait)
 {
 	if(size <= QUEUE_SIZE){
 			if(_flagF_xQueue_create == TRUE){
@@ -220,7 +221,7 @@ int xQueueSend(const unsigned char *data, unsigned int size)
 		}
 }
 
-int xQueueReceive(const unsigned char *data, unsigned int size){
+int* xQueueReceive(char xQueue, char pvBuffer, char xTicksToWait){
 	if(size <= QUEUE_SIZE){
 		if(_flagF_xQueue_create == FALSE){
 			return E_NOT_INITIALIZED;
