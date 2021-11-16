@@ -31,6 +31,13 @@ typedef struct _ISIStrxvuFrameLengths
     unsigned int maxAX25frameLengthTX; ///< AX25 maximum frame size for transmission.
     unsigned int maxAX25frameLengthRX; ///< AX25 maximum frame size for reception.
 } ISIStrxvuFrameLengths;
+typedef struct __attribute__ ((__packed__)) _ISIStrxvuRxFrame
+{
+    unsigned short rx_length; ///< Reception frame length.
+    unsigned short rx_doppler; ///< Reception frame doppler measurement.
+    unsigned short rx_rssi; ///< Reception frame rssi measurement.
+    unsigned char* rx_framedata; ///< Pointer to an array receiving reception frame data.
+} ISIStrxvuRxFrame;
 
 /**
  * Enumeration list of bitrate options for setting the bitrate in the TRXVU.
@@ -122,5 +129,14 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
  *  @return      Error code according to <hal/errors.h>
  */
 int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
+
+
+/**
+ *  @brief       Retrieve the number of telecommand frames present in the receive buffer of the TRXVU.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address.
+ *  @param[out]  frameCount The number of telecommand frames in the buffer.
+ *  @return      Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
 
 #endif /* TRX_H_ */

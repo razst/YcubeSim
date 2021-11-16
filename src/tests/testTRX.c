@@ -175,4 +175,6 @@ void testISIStrxvuIdleState(void){
 
 	stopUDPServer();
 }
+void testGetframeCount(void){
 
+}
