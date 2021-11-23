@@ -177,8 +177,8 @@ Boolean vSemaphoreTake(xSemaphoreHandle handle, TickType_t xTicksToWait){
 void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
-
-int* xQueueCreate(char uxQueueLength, char uxItemSize){
+/*
+int xQueueCreate(char uxQueueLength, char uxItemSize){
 	if(_flagF_xQueue_create == FALSE)
 	{
 		_flagF_xQueue_create = TRUE;
@@ -246,7 +246,7 @@ int* xQueueReceive(char xQueue, char pvBuffer, char xTicksToWait){
 		return E_REQUEST_LENGTH_LONG;
 	}
 }
-
+*/
 int queue_stop()
 {
 	_flagF_xQueue_create = FALSE;

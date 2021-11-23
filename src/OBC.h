@@ -63,8 +63,8 @@ void vSemaphoreCreateBinary(xSemaphoreHandle * handle);
 
 void vTaskDelay(long t);
 
-int xQueueCreate(uxQueueLength, uxItemSize);
-int xQueueSend(const unsigned char *data, unsigned int size);
-int xQueueReceive(const unsigned char *data, unsigned int size);
+//int xQueueCreate(uxQueueLength, uxItemSize);
+//int xQueueSend(const unsigned char *data, unsigned int size);
+//int xQueueReceive(const unsigned char *data, unsigned int size);
 
 #endif /* OBC_H_ */

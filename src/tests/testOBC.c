@@ -124,7 +124,7 @@ void testvTaskDelay(){
 	ASSERT_TRUE(t == 1617638400 + 2);
 	printf("t: %d", t);
 }
-
+/*
 void testxQueueCreate(){
 	int err;
 	err = xQueueCreate();
@@ -182,3 +182,4 @@ void testxQueueReceive(){
 //	printf("rest=%d\n",ret);
 	ASSERT_TRUE(ret==0);
 }
+*/
