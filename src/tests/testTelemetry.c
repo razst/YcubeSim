@@ -13,7 +13,9 @@
 
 
 void testTLMfs_init(void){
-	int err=fs_init();
+	int err= f_enterFS();
+	ASSERT_INT(err,E_NOT_INITIALIZED);
+	err=fs_init();
 	ASSERT_INT(err,E_NO_SS_ERR);
 	err=fs_init();
 	ASSERT_INT(err,E_IS_INITIALIZED);
