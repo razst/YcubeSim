@@ -178,49 +178,47 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
-int xQueueCreate(){
-	if(_flagF_xQueue_create == FALSE)
-	{
-		_flagF_xQueue_create = TRUE;
+int* xQueueCreate(int uxQueueLength, int uxItemSize){
 		if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
 			//createFRAMfile();
-			char data[QUEUE_SIZE] = {0};
+			XQueue *queue;
+			queue->uxQueueLength = uxQueueLength;
+			queue->uxItemSize = uxItemSize;
+
+			char data[uxItemSize * uxQueueLength] = {0};
 			fptr = fopen(QUEUE_FILE_NAME,"ab+");
 			endPO = fseek(fptr , 0, SEEK_END);
+			//data = uxQueueLength;
 			fwrite(data , sizeof(data), 1, fptr);
 			fclose(fptr);
+
 		}
-		return E_NO_SS_ERR;
-	}
-	return E_IS_INITIALIZED;
+		return fptr;
 }
 
-int xQueueSend(const unsigned char *data, unsigned int size)
+void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 {
-	if(size <= QUEUE_SIZE){
-			if(_flagF_xQueue_create == TRUE){
-				if(fptr == NULL)
-				{
-					return E_FILE;
-				}
-				fseek(fptr , 0, SEEK_CUR);
-				if(fptr + size >= endPO){
-					return QUEUE_FULL;
-				}else{
-					fwrite(data , size , 1 , fptr);
-					fclose(fptr);
-				}
-			}
-			else{
-				return E_NOT_INITIALIZED;
-			}
-			return E_NO_SS_ERR;
-		}else{
-			return E_TRXUV_FRAME_LENGTH;
-		}
+	if(xQueue == NULL)
+	{
+		return E_FILE;
+	}
+	//XQueue *queue;
+	int size = xQueue->uxItemSize * xQueue->uxQueueLength;
+	//xQueue->uxQueueLength;
+
+	//int size = uxItemSize * uxQueueLength;
+	fseek(xQueue , 0, SEEK_CUR);
+	if(xQueue + size >= endPO){
+		return QUEUE_FULL;
+	}else{
+
+		fwrite(*pvItemToQueue, xQueue->uxItemSize , 1 , xQueue);
+		//fclose(fptr);
+	}
+		return E_NO_SS_ERR;
 }
 
-int xQueueReceive(const unsigned char *data, unsigned int size){
+/*int* xQueueReceive(char xQueue, char pvBuffer, char xTicksToWait){
 	if(size <= QUEUE_SIZE){
 		if(_flagF_xQueue_create == FALSE){
 			return E_NOT_INITIALIZED;
@@ -245,7 +243,7 @@ int xQueueReceive(const unsigned char *data, unsigned int size){
 		return E_REQUEST_LENGTH_LONG;
 	}
 }
-
+*/
 int queue_stop()
 {
 	_flagF_xQueue_create = FALSE;

@@ -11,6 +11,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include "OBC.h"
 
 // all local variables
 Boolean _initFlag=FALSE;
@@ -18,6 +19,7 @@ ISIStrxvuFrameLengths _maxFrameLengths;
 Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
 ISIStrxvuRxFrame _rxframe;
+Boolean _flagF_xQueueS_create = FALSE;
 
 pthread_t thread_id;//pthread id for idle//
 
@@ -106,9 +108,53 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	if(!_initFlag) return E_NOT_INITIALIZED;
 	if (index!=0) return E_INDEX_ERROR;
 
-	sendUDPMessage(data, length);
+	/*sendUDPMessage(data, length);
+	 */
+	xQueueS_Send( data,length);
 	return E_NO_SS_ERR ;
 }
+/*
+int QueueS_Create(char uxQueueLength, char uxItemSize){
+	if(_flagF_xQueueS_create == FALSE)
+	{
+		_flagF_xQueueS_create = TRUE;
+		if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
+			//createFRAMfile();
+			char data[QUEUE_SIZE] = {0};
+			fptr = fopen(QUEUE_FILE_NAME,"ab+");
+			endPO = fseek(fptr , 0, SEEK_END);
+			fwrite(data , sizeof(data), 1, fptr);
+			fclose(fptr);
+
+		}
+		return E_NO_SS_ERR;
+	}
+	return E_IS_INITIALIZED;
+}
+
+int* xQueueS_Send(char data, char size)
+{
+	if(size <= QUEUE_SIZE){
+			if(_flagF_xQueue_create == TRUE){
+				if(fptr == NULL)
+				{
+					return E_FILE;
+				}
+				fseek(fptr , 0, SEEK_CUR);
+				if(fptr + size >= endPO){
+					return QUEUE_FULL;
+				}else{
+					fwrite(data , size , 1 , fptr);
+					fclose(fptr);
+				}
+			}
+			else{
+				return E_NOT_INITIALIZED;
+			}
+			return E_NO_SS_ERR;
+		}else{
+			return E_TRXUV_FRAME_LENGTH;
+		}
 
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 
