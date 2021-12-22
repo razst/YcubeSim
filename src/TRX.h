@@ -13,6 +13,10 @@
 #define UP_PORT       		28002 // to send all messages from UDP server to sat
 #define MAX_FRAME_LENGTH 	300 // max bytes in each frame (UDP packet)
 
+#define FRAM_FILE_NAME "FRAM"
+#define QUEUE_FILE_NAME "QUEUE"
+#define FRAM_SIZE 512
+#define QUEUE_SIZE 512
 
 /**
  *  Struct for defining ISIS TRXVU I2C Address.
@@ -149,6 +153,7 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
  *  @return      Error code according to <hal/errors.h>
  */
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
+
 
 
 #endif /* TRX_H_ */

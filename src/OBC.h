@@ -31,6 +31,11 @@ typedef struct __attribute__ ((__packed__)) _Time {
 	unsigned int  secondsOfYear; ///< Number of seconds since the start of year.
 } Time;
 
+typedef struct __attribute__ ((__packed__)) _xQueueHandle {
+	unsigned int uxItemSize;
+	unsigned int uxQueueLength;
+	unsigned int* pointer;
+} XQueue;
 
 /*
  * starts the FRAM system
@@ -63,8 +68,8 @@ void vSemaphoreCreateBinary(xSemaphoreHandle * handle);
 
 void vTaskDelay(long t);
 
-int xQueueCreate(uxQueueLength, uxItemSize);
-int xQueueSend(const unsigned char *data, unsigned int size);
-int xQueueReceive(const unsigned char *data, unsigned int size);
+int* xQueueCreate(uxQueueLength, uxItemSize);
+int* xQueueSend(const unsigned char *data, unsigned int size);
+*int xQueueReceive(const unsigned char *data, unsigned int size);
 
 #endif /* OBC_H_ */
