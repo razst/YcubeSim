@@ -175,6 +175,30 @@ void testISIStrxvuIdleState(void){
 
 	stopUDPServer();
 }
+
+void testIsisTrxvu_tcStartReadingQ(void){
+	startUDPServer();
+	char data[]="flag";
+		char buffer[MAX_FRAME_LENGTH];
+
+	IsisTrxvu_deinitialize(NULL);
+		// test before trx init - should fail
+		int er=IsisTrxvu_tcStartReasingQ(0);
+		ASSERT_INT(er,E_NOT_INITIALIZED);
+
+		ISIStrxvuFrameLengths fl;
+			fl.maxAX25frameLengthRX = 200;
+			fl.maxAX25frameLengthTX = 200;
+			er = IsisTrxvu_initialize(NULL,&fl,NULL,0);
+			ASSERT_INT(er,E_NO_SS_ERR);
+		    er=IsisTrxvu_tcStartReadingQ();
+			ASSERT_INT(er,E_NO_SS_ERR);
+
+			xQueueSend(psend,data,100);
+			getUDPMessage(&buffer);
+				ASSERT_STR(&data,&buffer)
+}
+
 void testGetframeCount(void){
 
 }

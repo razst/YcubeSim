@@ -71,9 +71,7 @@ int sendfromQ(){
 	void* res;
 	while(1==1){
 
-		xQueueReceive(psend, res, 100);
-
-		if(res!=NULL){
+	if(xQueueReceive(psend, res, 100)==0){
 			sendUDPMessage(res,sizeof(res));
 		}
 	}
