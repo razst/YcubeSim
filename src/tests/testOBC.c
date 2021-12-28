@@ -129,7 +129,7 @@ void testxQueueCreate(){
 	int* err;
 	err = xQueueCreate(3,4);
 	ASSERT_INT(err, err != 0);
-	err = xQueueCreate();
+	err = xQueueCreate(4,5);
 	ASSERT_INT(err,E_IS_INITIALIZED);
 }
 
