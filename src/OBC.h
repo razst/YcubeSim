@@ -37,6 +37,12 @@ typedef struct __attribute__ ((__packed__)) _xQueueHandle {
 	int* pointer;
 } XQueue;
 
+typedef struct __attribute__ ((__packed__)) _xQueueReceive{
+	XQueue xQueue;
+	void *pvBuffer;
+	int xTicksToWait;
+ } XQReceive;
+
 /*
  * starts the FRAM system
  */

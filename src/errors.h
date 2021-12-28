@@ -28,7 +28,7 @@
 #define E_COMMAND_NACKED    	-35 ///< A pointer input to the function is NULL.
 #define E_REQUEST_LENGTH_LONG   -36 ///< Attempt to get a bigger amount then needed.
 #define QUEUE_FULL              -37 ///< Queue memory full can't assign any more data.
-
+#define QUEUE_EMPTY             -37 ///< Queue memory is empty.
 
 
 #endif /* ERRORS_H_ */
