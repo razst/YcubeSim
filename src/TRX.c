@@ -69,12 +69,13 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 
 int sendfromQ(){
 	char* res;
-while(1==1){
+	while(1==1){
 
-	xQueueReceive(psend, res, 100);
-	if(res!=NULL){
-	 sendUDPMessage(res,sizeof(res))};
-}
+		xQueueReceive(psend, res, 100);
+		if(res!=NULL){
+			sendUDPMessage(res,sizeof(res));
+		}
+	}
 }
 
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
@@ -82,7 +83,7 @@ int IsisTrxvu_tcStartReadingQ(unsigned char index){
 
 		pthread_create(&thread_id, NULL, sendfromQ, NULL);
 
-	}
+
 	return E_NO_SS_ERR ;
 }
 

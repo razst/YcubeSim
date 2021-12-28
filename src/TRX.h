@@ -97,6 +97,7 @@ int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
  *  @return     Error code according to <hal/errors.h>
  *  */
 int IsisTrxvu_deinitialize(ISISantsI2Caddress* address);
+int IsisTrxvu_tcStartReadingQ(unsigned char index);
 
 
 /**
