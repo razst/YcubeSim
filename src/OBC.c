@@ -220,6 +220,11 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 		return E_NO_SS_ERR;
 }
 
+int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
+	return 0;
+}
+
+
 /*int* xQueueReceive(char xQueue, char pvBuffer, char xTicksToWait){
 	if(size <= QUEUE_SIZE){
 		if(_flagF_xQueue_create == FALSE){

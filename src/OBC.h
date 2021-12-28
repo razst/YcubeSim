@@ -70,7 +70,6 @@ void vTaskDelay(long t);
 
 XQueue* xQueueCreate(int , int );
 void* xQueueSend(XQueue *, void* , int );
-//int* xQueueReceive(const unsigned char *, unsigned int );
-int xQueueReceive(XQueue , void *, TickType_t );
+int xQueueReceive(XQueue* , void *, TickType_t );
 
 #endif /* OBC_H_ */

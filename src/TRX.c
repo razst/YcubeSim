@@ -68,10 +68,11 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 }
 
 int sendfromQ(){
-	char* res;
+	void* res;
 	while(1==1){
 
 		xQueueReceive(psend, res, 100);
+
 		if(res!=NULL){
 			sendUDPMessage(res,sizeof(res));
 		}
