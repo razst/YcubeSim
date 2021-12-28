@@ -34,7 +34,7 @@ typedef struct __attribute__ ((__packed__)) _Time {
 typedef struct __attribute__ ((__packed__)) _xQueueHandle {
 	unsigned int uxItemSize;
 	unsigned int uxQueueLength;
-	unsigned int* pointer;
+	int* pointer;
 } XQueue;
 
 /*
@@ -68,7 +68,7 @@ void vSemaphoreCreateBinary(xSemaphoreHandle * handle);
 
 void vTaskDelay(long t);
 
-int* xQueueCreate(uxQueueLength, uxItemSize);
+XQueue* xQueueCreate(uxQueueLength, uxItemSize);
 int* xQueueSend(const unsigned char *data, unsigned int size);
 *int xQueueReceive(const unsigned char *data, unsigned int size);
 

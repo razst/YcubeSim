@@ -178,22 +178,24 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 	semaphoreArray[handle] = 0;
 }
 
-int* xQueueCreate(int uxQueueLength, int uxItemSize){
-		if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
+XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
+	XQueue *queue;
+	if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
 			//createFRAMfile();
-			XQueue *queue;
+
 			queue->uxQueueLength = uxQueueLength;
 			queue->uxItemSize = uxItemSize;
 
-			char data[uxItemSize * uxQueueLength] = {0};
+			char data[QUEUE_SIZE] = {0};
 			fptr = fopen(QUEUE_FILE_NAME,"ab+");
 			endPO = fseek(fptr , 0, SEEK_END);
 			//data = uxQueueLength;
 			fwrite(data , sizeof(data), 1, fptr);
-			fclose(fptr);
+			queue->pointer = fptr;
+			//fclose(fptr);
 
 		}
-		return fptr;
+		return queue;
 }
 
 void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
@@ -207,12 +209,12 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	//xQueue->uxQueueLength;
 
 	//int size = uxItemSize * uxQueueLength;
-	fseek(xQueue , 0, SEEK_CUR);
-	if(xQueue + size >= endPO){
+	fseek(xQueue->pointer , 0, SEEK_CUR);
+	if(xQueue->pointer + size >= QUEUE_SIZE){
 		return QUEUE_FULL;
 	}else{
 
-		fwrite(*pvItemToQueue, xQueue->uxItemSize , 1 , xQueue);
+		fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
 		//fclose(fptr);
 	}
 		return E_NO_SS_ERR;
