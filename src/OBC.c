@@ -222,7 +222,7 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 	char * i = fseek(fptr, 0, SEEK_SET);
-	if(i =! fptr){
+	if(fptr != i){
 
 	}
 	return QUEUE_EMPTY;
