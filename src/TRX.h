@@ -18,6 +18,8 @@
 #define FRAM_SIZE 512
 #define QUEUE_SIZE 512
 
+XQueue* psend;
+
 /**
  *  Struct for defining ISIS TRXVU I2C Address.
  */

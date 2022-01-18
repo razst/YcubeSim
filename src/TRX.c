@@ -20,7 +20,7 @@ Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
 ISIStrxvuRxFrame _rxframe;
 Boolean _flagF_xQueueS_create = FALSE;
-XQueue* psend;
+XQueue* psend=NULL;
 pthread_t thread_id;//pthread id for idle//
 
 void IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
