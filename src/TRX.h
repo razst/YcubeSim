@@ -4,10 +4,17 @@
  Created on: 6/12/20
  *      Author: Emmanuel Gelkop
  */
-
 #ifndef TRX_H_
 #define TRX_H_
 
+#include "TRX.h"
+#include "utils.h"
+#include "errors.h"
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <pthread.h>
+#include "OBC.h"
 
 #define DOWN_PORT     		27002 // to send all messages from sat to UDP server
 #define UP_PORT       		28002 // to send all messages from UDP server to sat
