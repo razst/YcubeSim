@@ -154,32 +154,12 @@ void testxQueueCreate(){
 	err = xQueueSend(&data, sizeof(data));
 	ASSERT_INT(err,E_NO_SS_ERR)
 }
-
-void testxQueueReceive(){
-	char datain[] = "string 123";
-	char datain2[888] = {0};
-	memset(datain2, "a", 888);
-	char dataout[20] = {0};
-	char dataout2[700] = {0};
-	//int address = 1;
-	int err;
-	err = xQueueCreate();
-	err = xQueueSend(&datain,  sizeof(datain));
-	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = xQueueReceive(&dataout,  sizeof(datain));
-	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = xQueueCreate();
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = xQueueSend(&datain2,  sizeof(datain2));
-	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
-	err = xQueueSend(&datain, sizeof(datain));
-	ASSERT_INT(err,E_NO_SS_ERR)
-	err = xQueueReceive(&dataout2, sizeof(datain2));
-	ASSERT_INT(err,E_REQUEST_LENGTH_LONG);
-	err = xQueueReceive(&dataout,  sizeof(datain));
-	ASSERT_INT(err,E_NO_SS_ERR);
-	int ret = strcmp(dataout, datain);
-//	printf("rest=%d\n",ret);
-	ASSERT_TRUE(ret==0);
-}
 */
+void testxQueueReceive(){
+	int* err;
+	char data[] = "atring 123";
+	char copy[200] = {0};
+	err = xQueueReceive(data, copy, 10);
+	ASSERT_INT(err, E_NO_SS_ERR);
+}
+
