@@ -203,3 +203,6 @@ void testIsisTrxvu_tcStartReadingQ(void){
 void testGetframeCount(void){
 
 }
+void testIsisTrxvu_rcGetCommandFrame(void){
+}
+

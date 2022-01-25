@@ -5,13 +5,7 @@
  *      Author: Emmanuel Gelkop
  */
 #include "TRX.h"
-#include "utils.h"
-#include "errors.h"
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <pthread.h>
-#include "OBC.h"
+
 
 // all local variables
 Boolean _initFlag=FALSE;
@@ -20,7 +14,6 @@ Boolean _initAnts=FALSE;
 ISISantsI2Caddress _address;
 ISIStrxvuRxFrame _rxframe;
 Boolean _flagF_xQueueS_create = FALSE;
-XQueue* psend=NULL;
 pthread_t thread_id;//pthread id for idle//
 
 void IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
@@ -34,7 +27,8 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 	_maxFrameLengths.maxAX25frameLengthRX = maxFrameLengths->maxAX25frameLengthRX;
 	_maxFrameLengths.maxAX25frameLengthTX = maxFrameLengths->maxAX25frameLengthTX;
 	psend=xQueueCreate(10,sizeof(int));
-	IsisTrxvu_tcStartReadingQ(50);
+	pget=xQueueCreate(10,sizeof(int));
+//	IsisTrxvu_tcStartReadingQ(50);
 	_initFlag=TRUE;
 	return E_NO_SS_ERR;
 }
@@ -83,8 +77,9 @@ int IsisTrxvu_tcStartReadingQ(unsigned char index){
 		pthread_create(&thread_id, NULL, sendfromQ, NULL);
 
 
-	return E_NO_SS_ERR ;
+	return E_NO_SS_ERR;
 }
+
 
 int sendUDPMessage(unsigned char *data, unsigned char length){
     int sockfd;
@@ -141,12 +136,14 @@ int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 	if(!_initFlag) return E_NOT_INITIALIZED;
 		if (index!=0) return E_INDEX_ERROR;
 
-		*frameCount= _rxframe.rx_length;
-
-	if (index!=0) return E_INDEX_ERROR;
 
 
 	return E_NO_SS_ERR ;
 }
+
+/*int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame){
+	if(!_initFlag) return E_NOT_INITIALIZED;
+	xQueueReceive(pget,_rx_frame,100);
+}*/
 
 

@@ -7,7 +7,6 @@
 #ifndef TRX_H_
 #define TRX_H_
 
-#include "TRX.h"
 #include "utils.h"
 #include "errors.h"
 #include <sys/socket.h>
@@ -26,6 +25,7 @@
 #define QUEUE_SIZE 512
 
 XQueue* psend;
+XQueue* pget;
 
 /**
  *  Struct for defining ISIS TRXVU I2C Address.
@@ -106,7 +106,7 @@ int IsisAntS_initialize(ISISantsI2Caddress* address, unsigned char number);
  *  @return     Error code according to <hal/errors.h>
  *  */
 void IsisTrxvu_deinitialize(ISISantsI2Caddress* address);
-int IsisTrxvu_tcStartReadingQ(unsigned char index);
+
 
 
 /**
@@ -156,6 +156,16 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state);
  *  @return      Error code according to <hal/errors.h>
  */
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
+
+/**
+ *  @brief       Retrieve and delete a telecommand frame from the TRXVU.
+ *  @note		 The rx_frame->rx_framedata pointer needs to point to a valid array where the reception frame data will be stored.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address.
+ *  @param[in][out] rx_frame Pointer to the struct where the telecommand frame should be stored, that already has a valid rx_framedata pointer set.
+ *  @return      Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame);
+
 
 
 
