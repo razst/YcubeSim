@@ -141,9 +141,10 @@ int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 	return E_NO_SS_ERR ;
 }
 
-/*int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame){
+int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame){
 	if(!_initFlag) return E_NOT_INITIALIZED;
-	xQueueReceive(pget,_rx_frame,100);
-}*/
+	xQueueReceive(pget,rx_frame->rx_framedata,100);
+	return E_NO_SS_ERR ;
+}
 
 

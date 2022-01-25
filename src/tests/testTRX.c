@@ -203,6 +203,20 @@ void testIsisTrxvu_tcStartReadingQ(void){
 void testGetframeCount(void){
 
 }
-void testIsisTrxvu_rcGetCommandFrame(void){
-}
+/*void testIsisTrxvu_rcGetCommandFrame(void){
+
+	IsisTrxvu_deinitialize(NULL);
+	ISIStrxvuRxFrame f;
+	          f.rx_length; ///< Reception frame length.
+	          f.rx_doppler; ///< Reception frame doppler measurement.
+	          f.rx_rssi; ///< Reception frame rssi measurement.
+	          f.rx_framedata; ///< Pointer to an array receiving reception frame data.
+	ISIStrxvuRxFrame* pointer;
+
+
+
+	int er=IsisTrxvu_rcGetCommandFrame(0,pointer);
+	ASSERT_INT(er,E_NOT_INITIALIZED);
+
+}*/
 
