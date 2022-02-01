@@ -207,13 +207,15 @@ void testIsisTrxvu_rcGetCommandFrame(void){
 
 	IsisTrxvu_deinitialize(NULL);
 	ISIStrxvuRxFrame* pointer;
-	          pointer->rx_doppler; ///< Reception frame length.
-	          pointer->rx_length; ///< Reception frame doppler measurement.
-	          pointer->rx_rssi; ///< Reception frame rssi measurement.
-	          pointer->rx_framedata; ///< Pointer to an array receiving reception frame data.
+
+	          pointer->rx_framedata=100; ///< Pointer to an array receiving reception frame data.
     int er=IsisTrxvu_rcGetCommandFrame(0,pointer);
 	ASSERT_INT(er,E_NOT_INITIALIZED);
 
+	   ISIStrxvuFrameLengths fl;
+	     	fl.maxAX25frameLengthRX = 200;
+			fl.maxAX25frameLengthTX = 200;
+			IsisTrxvu_initialize(NULL,&fl,NULL,0);
 
 	     char flag1=122333;
 	     xQueueSend(pget,flag1,100);
@@ -221,10 +223,6 @@ void testIsisTrxvu_rcGetCommandFrame(void){
 	     char flag2=333221;
 	   	     xQueueSend(pget,flag2,100);
 
-	     ISIStrxvuFrameLengths fl;
-     	fl.maxAX25frameLengthRX = 200;
-		fl.maxAX25frameLengthTX = 200;
-		IsisTrxvu_initialize(NULL,&fl,NULL,0);
 		er=IsisTrxvu_rcGetCommandFrame(0,pointer);
 		ASSERT_INT(er,E_NO_SS_ERR);
                                                         //checking if data got to place
