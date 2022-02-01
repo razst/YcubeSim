@@ -266,3 +266,14 @@ int queue_stop()
 	_flagF_xQueue_create = FALSE;
 	return E_NO_SS_ERR;
 }
+
+
+
+//noam, I write for myself a new command here(that return how much plase left there is in the Queue)
+int framesLeft(XQueue* xQueue,unsigned short *frameCount){
+short count=0;
+
+
+return frameCount-count;
+}
+

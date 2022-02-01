@@ -209,7 +209,8 @@ void testIsisTrxvu_rcGetCommandFrame(void){
 	ISIStrxvuRxFrame* pointer;
 
 	          pointer->rx_framedata=100; ///< Pointer to an array receiving reception frame data.
-    int er=IsisTrxvu_rcGetCommandFrame(0,pointer);
+
+	          int er=IsisTrxvu_rcGetCommandFrame(0,pointer);
 	ASSERT_INT(er,E_NOT_INITIALIZED);
 
 	   ISIStrxvuFrameLengths fl;
