@@ -57,9 +57,16 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState(){
 }
 
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
+<<<<<<< Updated upstream
 //	response->fields.temp = get_eps_temp();
 //	printf ("%d",response->fields.temp);
 //	get_VIP(response->fields.)
+=======
+	response->fields.temp = get_eps_temp();
+	printf ("%d",response->fields.temp);
+	get_VIP(response->fields.dist_input,0x40);
+	get_VIP(response->fields.batt_input, 0x40);
+>>>>>>> Stashed changes
 }
 
 int get_eps_temp (){
