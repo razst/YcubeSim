@@ -13,6 +13,7 @@
 #define DEVICE_ID 0x40
 #define SIGNATURE 8242
 #define REG_RESET  0x00
+//function that exsits in the ina call reg
 #define REG_DATA_ch1  0x01 //ch 1 shunt
 #define REG_DATA_ch2  0x03 //ch 2 shunt
 #define REG_DATA_ch3  0x05 //ch 3 shunt
@@ -50,6 +51,7 @@ int main (int argc, char **argv)
         printf ("Failed to init I2C communication.\n");
         return -1;
     }
+    	//reading spesific reg that make sure that we use 3221
         int check_vendor_id = wiringPiI2CReadReg16(fd,0xFF);
         if (check_vendor_id == SIGNATURE ){
          printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
