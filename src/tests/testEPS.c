@@ -69,7 +69,7 @@ void testINA219(){
 	float SHUNT_OHMS = 0.1;
 	float MAX_EXPECTED_AMPS = 3.2;
 
-	INA219_Init(SHUNT_OHMS, MAX_EXPECTED_AMPS, 0x40); // defualt INA219 I2C address is 0x40
+	INA219_Init(SHUNT_OHMS, MAX_EXPECTED_AMPS, 0x41); // defualt INA219 I2C address is 0x40
 	INA219_configure(RANGE_16V, GAIN_8_320MV, ADC_12BIT, ADC_12BIT);
 
 	printf("time_s,bus_voltage_V,supply_voltage_V,shunt_voltage_mV,current_mA,power_mW\n");
