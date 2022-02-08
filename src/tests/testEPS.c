@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 #include "../EPS.h"
+#include "../EPS.c"
 #include "../HW/ina219.h"
 #include "testBasic.h"
 #include "../errors.h"
@@ -81,4 +82,5 @@ void testINA219(){
 		usleep(1000000); // 1s
 	}
 }
+get_amp (DEVICE_ID);
 

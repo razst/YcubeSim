@@ -177,4 +177,5 @@ int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeep
 
 int get_eps_temp ();
 
+
 #endif /* EPS_H_ */
