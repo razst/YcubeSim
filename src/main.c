@@ -49,6 +49,7 @@ int initTrx(){
 
 	IsisTrxvu_initialize(&address, &maxFrameLengths, &default_bitrates, 1);
 
+	return 0;
 
 }
 

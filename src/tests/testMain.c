@@ -11,6 +11,7 @@
 #include "testOBC.h"
 #include "testBasic.h"
 #include "testTelemetry.h"
+#include "testEPS.h"
 
 
 /*
@@ -20,19 +21,19 @@ int runMainTests(void){
 	startTesting();
 
 	printf("\n/*start TRX test Functions */\n\n");
-	//testTRXInit();
-	//testTRXSendMeesage();
-	//testIsisAntS_initialize();
-	//testISIStrxvuIdleState();
+	testTRXInit();
+	testTRXSendMeesage();
+	testIsisAntS_initialize();
+	testISIStrxvuIdleState();
 	printf("\n/*start TRX test Functions */\n\n");
 
 	printf("\n/* EPS test Functions */\n\n");
-	testISIS_EPS_Init();
-	testIsisSolarPanelv2_initialize();
-	testIsisSolarPanelv2_getState();
-	testIsisSolarPanelv2_Dinitialize();
-	testGet_eps_temp ();
-	testINA219();
+	//testISIS_EPS_Init();
+	//testIsisSolarPanelv2_initialize();
+	//testIsisSolarPanelv2_getState();
+	//testIsisSolarPanelv2_Dinitialize();
+	//testGet_eps_temp ();
+	//testINA219();
 	printf("\n/* EPS test Functions */\n\n");
 
 	printf("\n/*start TLM test Functions */\n\n");
