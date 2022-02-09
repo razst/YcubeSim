@@ -175,7 +175,7 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState( void );
  */
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response );
 
-int get_eps_temp ();
+double get_eps_temp ();
 
 
 #endif /* EPS_H_ */
