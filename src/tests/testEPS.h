@@ -17,4 +17,7 @@ void testIsisSolarPanelv2_getState();
 void testIsisSolarPanelv2_Dinitialize();
 
 void testGet_eps_temp ();
+
+void testINA219();
+//adding function
 #endif /* TESTS_TESTEPS_H_ */

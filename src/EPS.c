@@ -57,6 +57,7 @@ int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeep
 	response->fields.temp= (short) get_eps_temp();
 	response->fields.temp = get_eps_temp();
 	printf ("%d",response->fields.temp);
+	//need to return something
 	return 0;
 }
 
@@ -73,6 +74,47 @@ double get_eps_temp (){
 	fclose (temperatureFile);
 	return T;
 }
+int communication (int argc, char **argv)
+{
+    // Setup I2C communication
+    int fd = wiringPiI2CSetup(DEVICE_ID);
+    if (fd == -1) {
+        printf ("Failed to init I2C communication.\n");
+        return -1;
+    }
+        int check_vendor_id = wiringPiI2CReadReg16(fd,0xFF);
+        if (check_vendor_id == SIGNATURE ){
+         printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
+        } else {
+         printf ("Device at address 0x%x is not an INA3221 device; exiting\n",DEVICE_ID);
+        return -1;
+        }
+        return 0;
+        //to change
+}
+
+float shunt_to_Amp(int amp)
+{
+        if (amp > 4096){
+        amp=-(8192-amp);
+        }
+        return 0;
+        // to change, lines in function less
+}
+
+int getamp(){
+	float shunt_to_Amp(int amp);
+	int amp1 = 0;
+return amp1;
+}
+
+
+
+
+
+
+
+
 
 
 
