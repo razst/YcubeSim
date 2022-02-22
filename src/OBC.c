@@ -12,6 +12,7 @@
 #include <time.h>
 #include<stdlib.h>
 #include<sys/time.h>
+#include "string.h"
 
 Boolean _flagF_FRAM_start=FALSE;
 Boolean _flag_Time_start=FALSE;
@@ -24,7 +25,10 @@ xSemaphoreHandle _handle = 0;
 char semaphoreArray[100] = {0};
 
 FILE *fptr;
-char *endPO;
+int n_queues = 0;
+char data1[QUEUE_SIZE] = {'\0'};
+char data2[QUEUE_SIZE] = {'\0'};
+char data3[QUEUE_SIZE] = {'\0'};
 
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
@@ -186,12 +190,27 @@ XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 			queue->uxQueueLength = uxQueueLength;
 			queue->uxItemSize = uxItemSize;
 
-			char data[QUEUE_SIZE] = {0};
-			fptr = fopen(QUEUE_FILE_NAME,"ab+");
-			endPO = fseek(fptr , 0, SEEK_END);
+			//char data[QUEUE_SIZE] = {0};
+			//fptr = fopen(QUEUE_FILE_NAME,"ab+");
+
+			//endPO = fseek(fptr , 0, SEEK_END);
 			//data = uxQueueLength;
-			fwrite(data , sizeof(data), 1, fptr);
-			queue->pointer = fptr;
+			//fwrite(data , sizeof(data), 1, fptr);
+			switch (n_queues) {
+				case 0:
+					queue->pointer = &data1[0];
+					n_queues++;
+					break;
+				case 1:
+					queue->pointer = &data2[0];
+					n_queues++;
+					break;
+				case 2:
+					queue->pointer = &data3[0];
+					n_queues++;
+					break;
+			}
+
 			//fclose(fptr);
 
 		}
@@ -209,7 +228,8 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	//xQueue->uxQueueLength;
 
 	//int size = uxItemSize * uxQueueLength;
-	fseek(xQueue->pointer , 0, SEEK_CUR);
+	//fseek(xQueue->pointer , 0, SEEK_CUR);
+
 	if(xQueue->pointer + size >= QUEUE_SIZE){
 		return QUEUE_FULL;
 	}else{
