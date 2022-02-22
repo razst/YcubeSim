@@ -223,20 +223,23 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	{
 		return E_FILE;
 	}
+char* endpo=strchrnul((char*)xQueue->pointer,'/0');
+
+
 	//XQueue *queue;
-	int size = xQueue->uxItemSize * xQueue->uxQueueLength;
+
 	//xQueue->uxQueueLength;
 
 	//int size = uxItemSize * uxQueueLength;
 	//fseek(xQueue->pointer , 0, SEEK_CUR);
 
-	if(xQueue->pointer + size >= QUEUE_SIZE){
+	if(endpo + xQueue->uxQueueLength >= QUEUE_SIZE){
 		return QUEUE_FULL;
-	}else{
-
-		fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
-		//fclose(fptr);
 	}
+
+		//fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
+		//fclose(fptr);
+	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
 		return E_NO_SS_ERR;
 }
 
@@ -291,9 +294,6 @@ int queue_stop()
 
 //noam, I write for myself a new command here(that return how much plase left there is in the Queue)
 int framesLeft(XQueue* xQueue,unsigned short *frameCount){
-short count=0;
 
-
-return frameCount-count;
 }
 
