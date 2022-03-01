@@ -301,7 +301,14 @@ int queue_stop()
 
 
 //noam, I write for myself a new command here(that return how much plase left there is in the Queue)
-int framesLeft(XQueue* xQueue,unsigned short *frameCount){
+int xQplaceLeft(XQueue* xQueue){
 
+	char* p=xQueue->pointer;
+	int count=0;
+	while(*p){
+		count++;
+		p++;
+	}
+return xQueue->uxQueueLength-(count/xQueue->uxItemSize);
 }
 
