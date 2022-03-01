@@ -26,9 +26,9 @@ char semaphoreArray[100] = {0};
 
 FILE *fptr;
 int n_queues = 0;
-char data1[QUEUE_SIZE] = {'\0'};
-char data2[QUEUE_SIZE] = {'\0'};
-char data3[QUEUE_SIZE] = {'\0'};
+char data1[QUEUE_SIZE+0] = {'\0'};
+char data2[QUEUE_SIZE+1] = {'\0'};
+char data3[QUEUE_SIZE+2] = {'\0'};
 
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
@@ -223,7 +223,7 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	{
 		return E_FILE;
 	}
-char* endpo=strchrnul((char*)xQueue->pointer,'/0');
+	char* endpo=strchrnul((char*)xQueue->pointer,'/0');
 
 
 	//XQueue *queue;
@@ -244,9 +244,17 @@ char* endpo=strchrnul((char*)xQueue->pointer,'/0');
 }
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
-	char * i = fseek(fptr, 0, SEEK_SET);
-	if(fptr != i){
-		 memcpy(pvBuffer, xQueue->pointer, fseek(xQueue->pointer , 0, SEEK_SET));
+	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
+
+	char * startPO = (char*)xQueue->pointer; //fseek(fptr, 0, SEEK_SET);
+	if(endPO != startPO){
+		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
+		while (*startPO) /* Check against NULL char*/
+		{
+			memcpy(startPO, sizeof(char)+startPO, sizeof(char));
+			startPO++;
+		}
+		*startPO = '\0';
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;
 		 }
