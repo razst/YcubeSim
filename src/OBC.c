@@ -183,7 +183,7 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 }
 
 XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
-	XQueue *queue;
+	XQueue *queue = malloc(sizeof(XQueue));
 	if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
 			//createFRAMfile();
 
