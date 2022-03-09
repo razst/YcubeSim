@@ -166,7 +166,13 @@ int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount);
  */
 int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame);
 
-
+/**
+ *  @brief       Set the AX.25 bitrate of the TRXVU transmitter.
+ *  @param[in]   index index of ISIS TRXVU I2C bus address.
+ *  @param[in]   bitrate The desired AX.25 bitrate of the TRXVU.
+ *  @return      Error code according to <hal/errors.h>
+ */
+int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate);
 
 
 #endif /* TRX_H_ */
