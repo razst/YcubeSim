@@ -14,6 +14,7 @@
 ISIS_EPS_t _isis_eps;
 Boolean _flagEpsInit = FALSE;
 Boolean _flagSolarPanelInit = FALSE;
+int fd;
 
 
 
@@ -74,23 +75,30 @@ double get_eps_temp (){
 	fclose (temperatureFile);
 	return T;
 }
+
 int communication (int argc, char **argv)
 {
     // Setup I2C communication
-    int fd = wiringPiI2CSetup(DEVICE_ID);
+    fd = wiringPiI2CSetup(DEVICE_ID);
     if (fd == -1) {
-        printf ("Failed to init I2C communication.\n");
-        return -1;
+	printf ("Failed to init I2C communication.\n");
+	return -1;
     }
-        int check_vendor_id = wiringPiI2CReadReg16(fd,0xFF);
-        if (check_vendor_id == SIGNATURE ){
-         printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
-        } else {
-         printf ("Device at address 0x%x is not an INA3221 device; exiting\n",DEVICE_ID);
-        return -1;
-        }
-        return 0;
-        //to change
+
+    //read spesific reg who recognize the device
+	int check_vendor_id = wiringPiI2CReadReg16(fd,0xFF);
+	if (check_vendor_id == SIGNATURE ){
+		//device recognize
+	 printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
+	}
+
+	else {
+		//device not recognize
+	 printf ("Device at address 0x%x is not an INA3221 device; exiting\n",DEVICE_ID);
+	return -1;
+	}
+	return 0;
+	//to change
 }
 
 float shunt_to_Amp(int amp)
@@ -101,11 +109,21 @@ float shunt_to_Amp(int amp)
         return 0;
         // to change, lines in function less
 }
+unsigned int change_endian(unsigned int x)
+{
+    unsigned char *ptr = (unsigned char *)&x;
+    return ( (ptr[0] << 8) | ptr[1]);
+}
 
-int getamp(){
-	float shunt_to_Amp(int amp);
-	int amp1 = 0;
-return amp1;
+
+int getamp(fd){
+    int shunt1 = wiringPiI2CReadReg16(fd, REG_DATA_ch1);
+    //change endian, strip last 3 bits provide raw value
+    shunt1 = change_endian(shunt1)/8;
+    float shunt1Amp=shunt_to_Amp(shunt1);
+    printf ( "ch1 raw:%d ,ch1 A:%f \n", shunt1 , shunt1Amp);
+
+return 0;
 }
 
 
