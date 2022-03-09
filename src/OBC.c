@@ -300,8 +300,8 @@ int queue_stop()
 
 
 
-//noam, I write for myself a new command here(that return how much plase left there is in the Queue)
-int xQplaceLeft(XQueue* xQueue){
+//noam, I write for myself a new command here(that return how much used plase there is in the Queue)
+int xQUsedCount(XQueue* xQueue){
 
 	char* p=xQueue->pointer;
 	int count=0;
@@ -309,6 +309,6 @@ int xQplaceLeft(XQueue* xQueue){
 		count++;
 		p++;
 	}
-return xQueue->uxQueueLength-(count/xQueue->uxItemSize);
+return (count/xQueue->uxItemSize);
 }
 
