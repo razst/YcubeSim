@@ -5,6 +5,7 @@
 #include <wiringPiI2C.h>
 #include "HW/ina219.h"
 
+//ina3221
 #define DEVICE_ID 0x40
 #define SIGNATURE 8242
 #define REG_RESET  0x00
@@ -14,6 +15,7 @@
 ISIS_EPS_t _isis_eps;
 Boolean _flagEpsInit = FALSE;
 Boolean _flagSolarPanelInit = FALSE;
+//to ina3221
 int fd;
 
 
@@ -76,54 +78,62 @@ double get_eps_temp (){
 	return T;
 }
 
-int communication (int argc, char **argv)
+//functions to 3221
+//the function are checking if the ina3221 is in position 0x40
+int communication ()
 {
     // Setup I2C communication
     fd = wiringPiI2CSetup(DEVICE_ID);
     if (fd == -1) {
-	printf ("Failed to init I2C communication.\n");
-	return -1;
+    	printf ("Failed to init I2C communication.\n");
+    	return -1;
     }
 
     //read spesific reg who recognize the device
 	int check_vendor_id = wiringPiI2CReadReg16(fd,0xFF);
 	if (check_vendor_id == SIGNATURE ){
 		//device recognize
-	 printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
+		printf ("I2C communication successfully setup with INA3221 device at addess 0x%x.\n",DEVICE_ID);
 	}
-
 	else {
 		//device not recognize
-	 printf ("Device at address 0x%x is not an INA3221 device; exiting\n",DEVICE_ID);
-	return -1;
+		printf ("Device at address 0x%x is not an INA3221 device; exiting\n",DEVICE_ID);
+		return -1;
 	}
-	return 0;
-	//to change
+	return 0; //to change
 }
 
 float shunt_to_Amp(int amp)
 {
-        if (amp > 4096){
-        amp=-(8192-amp);
-        }
-        return 0;
-        // to change, lines in function less
+	if (amp > 4096){
+	amp=-(8192-amp);
+	}
+	float amp1mv=(163.8/4096)*amp;
+	float Amp = amp1mv*50/75;
+
+	return Amp;
+
+
+	// to change, lines in function less
 }
+
 unsigned int change_endian(unsigned int x)
 {
     unsigned char *ptr = (unsigned char *)&x;
     return ( (ptr[0] << 8) | ptr[1]);
 }
 
-
+//the function is getting the amp and present it
 int getamp(fd){
+	//read the shunt from file
     int shunt1 = wiringPiI2CReadReg16(fd, REG_DATA_ch1);
     //change endian, strip last 3 bits provide raw value
     shunt1 = change_endian(shunt1)/8;
     float shunt1Amp=shunt_to_Amp(shunt1);
     printf ( "ch1 raw:%d ,ch1 A:%f \n", shunt1 , shunt1Amp);
 
-return 0;
+	//return the amp
+	return shunt1Amp;
 }
 
 
