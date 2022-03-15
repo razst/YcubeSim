@@ -59,8 +59,10 @@ int IsisSolarPanelv2_Dinitialize(){
 //what return get in to the variable
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
 	response->fields.temp= (short) get_eps_temp();
+	response->fields.volt_vd0= (int) getamp();
 	//response->fields.temp = get_eps_temp();
 	printf ("%d",response->fields.temp);
+	printf ("%d",response->fields.volt_vd0);
 	//need to return something
 	return 0;
 }
