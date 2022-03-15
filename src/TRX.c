@@ -63,19 +63,21 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 
 int sendfromQ(){
 	void* res;
+	printf('101');
 	while(1==1){
-
+      sleep(1000);
 	if(IsisTrxvu_rcGetFrameCount(0,0)!=0){
 			sendUDPMessage(res,sizeof(res));
+			  printf('0');
 		}
 	}
 }
 
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
 	if(!_initFlag) return E_NOT_INITIALIZED;
-
+    printf('111');
 		pthread_create(&thread_id, NULL, sendfromQ, NULL);
-
+    printf('222');
 
 	return E_NO_SS_ERR;
 }

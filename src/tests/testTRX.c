@@ -89,7 +89,7 @@ void testTRXSendMeesage(void)
 	// start GCS UDP server
 	startUDPServer();
 
-
+	printf("\n print 1 \n\n");
 
 	// send msg from sat
 	char data[] = "test123";
@@ -103,15 +103,20 @@ void testTRXSendMeesage(void)
 		Fl.maxAX25frameLengthTX = 200;
 	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
 
+	printf("\n print 2 \n\n");
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
+	IsisTrxvu_tcStartReadingQ(0);
+
+	printf("\n print 2.1 \n\n");
 
 	// check that what we got in GCS is the same as the data we sent
     char buffer[MAX_FRAME_LENGTH];
 	getUDPMessage(&buffer);
+	printf("\n print 2.2 \n\n");
 	ASSERT_STR(&data,&buffer)
-
+	printf("\n print 3 \n\n");
 	// send one byte less in the length
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-1, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);

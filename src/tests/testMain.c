@@ -23,6 +23,7 @@ int runMainTests(void){
 	printf("\n/*start TRX test Functions */\n\n");
 	testTRXInit();
 	testTRXSendMeesage();
+	printf("\n/*end testTRXSendMeesage */\n\n");
 	testIsisAntS_initialize();
 	testISIStrxvuIdleState();
 	printf("\n/*start TRX test Functions */\n\n");
