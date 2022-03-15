@@ -12,6 +12,7 @@
 #include <time.h>
 #include<stdlib.h>
 #include<sys/time.h>
+#include "string.h"
 
 Boolean _flagF_FRAM_start=FALSE;
 Boolean _flag_Time_start=FALSE;
@@ -24,7 +25,10 @@ xSemaphoreHandle _handle = 0;
 char semaphoreArray[100] = {0};
 
 FILE *fptr;
-char *endPO;
+int n_queues = 0;
+char data1[QUEUE_SIZE+0] = {'\0'};
+char data2[QUEUE_SIZE+1] = {'\0'};
+char data3[QUEUE_SIZE+2] = {'\0'};
 
 int FRAM_start(void){
 	if(_flagF_FRAM_start==FALSE)
@@ -179,19 +183,34 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 }
 
 XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
-	XQueue *queue;
+	XQueue *queue = malloc(sizeof(XQueue));
 	if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
 			//createFRAMfile();
 
 			queue->uxQueueLength = uxQueueLength;
 			queue->uxItemSize = uxItemSize;
 
-			char data[QUEUE_SIZE] = {0};
-			fptr = fopen(QUEUE_FILE_NAME,"ab+");
-			endPO = fseek(fptr , 0, SEEK_END);
+			//char data[QUEUE_SIZE] = {0};
+			//fptr = fopen(QUEUE_FILE_NAME,"ab+");
+
+			//endPO = fseek(fptr , 0, SEEK_END);
 			//data = uxQueueLength;
-			fwrite(data , sizeof(data), 1, fptr);
-			queue->pointer = fptr;
+			//fwrite(data , sizeof(data), 1, fptr);
+			switch (n_queues) {
+				case 0:
+					queue->pointer = &data1[0];
+					n_queues++;
+					break;
+				case 1:
+					queue->pointer = &data2[0];
+					n_queues++;
+					break;
+				case 2:
+					queue->pointer = &data3[0];
+					n_queues++;
+					break;
+			}
+
 			//fclose(fptr);
 
 		}
@@ -204,26 +223,38 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	{
 		return E_FILE;
 	}
+	char* endpo=strchrnul((char*)xQueue->pointer,'/0');
+
+
 	//XQueue *queue;
-	int size = xQueue->uxItemSize * xQueue->uxQueueLength;
+
 	//xQueue->uxQueueLength;
 
 	//int size = uxItemSize * uxQueueLength;
-	fseek(xQueue->pointer , 0, SEEK_CUR);
-	if(xQueue->pointer + size >= QUEUE_SIZE){
-		return QUEUE_FULL;
-	}else{
+	//fseek(xQueue->pointer , 0, SEEK_CUR);
 
-		fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
-		//fclose(fptr);
+	if(endpo + xQueue->uxQueueLength >= QUEUE_SIZE){
+		return QUEUE_FULL;
 	}
+
+		//fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
+		//fclose(fptr);
+	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
 		return E_NO_SS_ERR;
 }
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
-	char * i = fseek(fptr, 0, SEEK_SET);
-	if(fptr != i){
-		 memcpy(pvBuffer, xQueue->pointer, fseek(xQueue->pointer , 0, SEEK_SET));
+	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
+
+	char * startPO = (char*)xQueue->pointer; //fseek(fptr, 0, SEEK_SET);
+	if(endPO != startPO){
+		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
+		while (*startPO) /* Check against NULL char*/
+		{
+			memcpy(startPO, sizeof(char)+startPO, sizeof(char));
+			startPO++;
+		}
+		*startPO = '\0';
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;
 		 }
@@ -266,3 +297,18 @@ int queue_stop()
 	_flagF_xQueue_create = FALSE;
 	return E_NO_SS_ERR;
 }
+
+
+
+//noam, I write for myself a new command here(that return how much used plase there is in the Queue)
+int xQUsedCount(XQueue* xQueue){
+
+	char* p=xQueue->pointer;
+	int count=0;
+	while(*p){
+		count++;
+		p++;
+	}
+return (count/xQueue->uxItemSize);
+}
+

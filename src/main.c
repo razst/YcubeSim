@@ -49,6 +49,7 @@ int initTrx(){
 
 	IsisTrxvu_initialize(&address, &maxFrameLengths, &default_bitrates, 1);
 
+	return 0;
 
 }
 
@@ -61,7 +62,7 @@ int initTelematrey(){
 
 //TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
 int main(void) {
-//	printf ("Starting YcubeSim...\n");
+	printf ("Starting YcubeSim...\n");
 //	FRAM_start();//to chek if it has been don
 	runMainTests();
 //	FRAM_write(0, 0, 0);

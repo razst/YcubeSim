@@ -65,7 +65,7 @@ int sendfromQ(){
 	void* res;
 	while(1==1){
 
-	if(xQueueReceive(psend, res, 100)==0){
+	if(IsisTrxvu_rcGetFrameCount(0,0)!=0){
 			sendUDPMessage(res,sizeof(res));
 		}
 	}
@@ -128,23 +128,26 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	/*sendUDPMessage(data, length);
 	 */
 	xQueueSend(psend,data,100);
+
+	*avail=xQUsedCount(psend);
 	return E_NO_SS_ERR ;
 }
 
 int IsisTrxvu_rcGetFrameCount(unsigned char index, unsigned short *frameCount){
 
 	if(!_initFlag) return E_NOT_INITIALIZED;
-		if (index!=0) return E_INDEX_ERROR;
 
 
-
-	return E_NO_SS_ERR ;
+	*frameCount=xQUsedCount(pget);
+	return E_NO_SS_ERR;
 }
 
 int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame){
 	if(!_initFlag) return E_NOT_INITIALIZED;
-	xQueueReceive(pget,rx_frame->rx_framedata,100);
-	return E_NO_SS_ERR ;
+	int check=xQueueReceive(pget,rx_frame->rx_framedata,100);
+	return check||E_NO_SS_ERR ;
 }
 
-
+int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate){
+	return E_NO_SS_ERR;
+}

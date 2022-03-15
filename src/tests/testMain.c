@@ -11,6 +11,7 @@
 #include "testOBC.h"
 #include "testBasic.h"
 #include "testTelemetry.h"
+#include "testEPS.h"
 
 
 /*
@@ -31,7 +32,8 @@ int runMainTests(void){
 	testIsisSolarPanelv2_initialize();
 	testIsisSolarPanelv2_getState();
 	testIsisSolarPanelv2_Dinitialize();
-	testGet_eps_temp ();
+	//testGet_eps_temp ();
+	//testINA219();
 	printf("\n/* EPS test Functions */\n\n");
 
 	printf("\n/*start TLM test Functions */\n\n");
