@@ -126,35 +126,23 @@ void testvTaskDelay(){
 }
 
 void testxQueueCreate(){
-	int* err;
+	XQueue* err;
 	err = xQueueCreate(3,4);
-	ASSERT_INT(err, err != 0);
-	err = xQueueCreate(4,5);
-	ASSERT_INT(err,E_IS_INITIALIZED);
+	ASSERT_INT(err, err != NULL);
+	err = xQueueCreate(3,4);
+	ASSERT_INT(err, err != NULL);
+	err = xQueueCreate(3,4);
+	ASSERT_INT(err, err != NULL);
+	err = xQueueCreate(3,4);
+	ASSERT_INT(err, err->pointer == NULL);
+	//err = xQueueCreate(4,5);
+	//ASSERT_INT(err,E_IS_INITIALIZED);
 }
 
-/*void testxQueueSend(){
-	char data[] = "string 123";
-	char data2[888] = {0};
-	char data3[500] = {0};
-	memset(data2, "a", 888);
-	//int address = 10;
-	int err;
-	err = queue_stop();
-	err = xQueueSend(&data, sizeof(data));
-	ASSERT_INT(err,E_NOT_INITIALIZED);
-	err = xQueueCreate();
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = xQueueSend(&data2,  sizeof(data2));
-	ASSERT_INT(err,E_TRXUV_FRAME_LENGTH);
-	err = xQueueSend(&data, sizeof(data3));
-	ASSERT_INT(err,E_NO_SS_ERR);
-	err = xQueueSend(&data, sizeof(data3));
-	ASSERT_INT(err,QUEUE_FULL);
-	err = xQueueSend(&data, sizeof(data));
-	ASSERT_INT(err,E_NO_SS_ERR)
+void testxQueueSend(){
+
 }
-*/
+
 void testxQueueReceive(){
 	int* err;
 	char data[] = "atring 123";

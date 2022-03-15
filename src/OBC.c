@@ -184,8 +184,9 @@ void vSemaphoreGive(xSemaphoreHandle handle){
 
 XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 	XQueue *queue = malloc(sizeof(XQueue));
-	if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
-			//createFRAMfile();
+	//if(access(QUEUE_FILE_NAME, F_OK ) != 0 ) {
+	if(queue){
+	//createFRAMfile();
 
 			queue->uxQueueLength = uxQueueLength;
 			queue->uxItemSize = uxItemSize;
@@ -212,9 +213,9 @@ XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 			}
 
 			//fclose(fptr);
-
+			return queue;
 		}
-		return queue;
+		//return queue;
 }
 
 void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
@@ -240,7 +241,8 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 		//fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
 		//fclose(fptr);
 	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
-		return E_NO_SS_ERR;
+
+	return E_NO_SS_ERR;
 }
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
