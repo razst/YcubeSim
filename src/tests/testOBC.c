@@ -9,6 +9,7 @@
 #include "..\OBC.h"
 #include "..\errors.h"
 #include "testBasic.h"
+#include "..\utils.h"
 
 #include <stdio.h>
 
@@ -140,6 +141,18 @@ void testxQueueCreate(){
 }
 
 void testxQueueSend(){
+	int err;
+	XQueue* irr;
+	err = xQueueSend(NULL, 'flag', 3);
+	ASSERT_INT(err, E_FILE);
+	irr = xQueueCreate(3,4);
+	ASSERT_INT(irr, irr != NULL);
+	irr->uxQueueLength = 700;
+	err = xQueueSend(irr, 'flag', 3);
+	ASSERT_INT(err, QUEUE_FULL);
+	irr->uxQueueLength = 0;
+	err = xQueueSend(irr, 'flag', 3);
+	ASSERT_INT(err, E_NO_SS_ERR);
 
 }
 
