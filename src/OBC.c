@@ -193,7 +193,6 @@ XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 
 			//char data[QUEUE_SIZE] = {0};
 			//fptr = fopen(QUEUE_FILE_NAME,"ab+");
-
 			//endPO = fseek(fptr , 0, SEEK_END);
 			//data = uxQueueLength;
 			//fwrite(data , sizeof(data), 1, fptr);
