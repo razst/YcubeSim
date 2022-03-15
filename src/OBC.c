@@ -238,7 +238,7 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	}
 
 		//fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
-		//fclose(fptr);
+		//fclose(fptr)
 	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
 
 	return E_NO_SS_ERR;
