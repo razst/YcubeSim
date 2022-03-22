@@ -26,8 +26,9 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 
 	_maxFrameLengths.maxAX25frameLengthRX = maxFrameLengths->maxAX25frameLengthRX;
 	_maxFrameLengths.maxAX25frameLengthTX = maxFrameLengths->maxAX25frameLengthTX;
-	psend=xQueueCreate(10,sizeof(int));
-	pget=xQueueCreate(10,sizeof(int));
+
+	psend=xQueueCreate(10,10);
+	pget=xQueueCreate(10,10);
 //	IsisTrxvu_tcStartReadingQ(50);
 	_initFlag=TRUE;
 	return E_NO_SS_ERR;
@@ -63,21 +64,26 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 
 int sendfromQ(){
 	void* res;
-	printf('101');
-	while(1==1){
-      sleep(1000);
-	if(IsisTrxvu_rcGetFrameCount(0,0)!=0){
+	printf("\n thred1 \n");
+	while(2>0){
+     sleep(3);
+
+		printf("\n thred2 \n");
+
+	if(xQUsedCount(psend)!=0){
 			sendUDPMessage(res,sizeof(res));
-			  printf('0');
+			  printf("\n thred3 \n");
 		}
 	}
 }
 
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
+    printf("\n 000 \n");
+    //printf("\n %d \n", _initFlag);
 	if(!_initFlag) return E_NOT_INITIALIZED;
-    printf('111');
-		pthread_create(&thread_id, NULL, sendfromQ, NULL);
-    printf('222');
+    //printf('\n 111 \n');
+	pthread_create(&thread_id, NULL, sendfromQ, NULL);
+    printf("\n 222 \n");
 
 	return E_NO_SS_ERR;
 }
@@ -129,9 +135,18 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 
 	/*sendUDPMessage(data, length);
 	 */
+	printf("\n beforeqsend \n");
 	xQueueSend(psend,data,100);
 
-	*avail=xQUsedCount(psend);
+	char  ch[10];
+	xQueueReceive(psend,ch,10);
+	printf("\n %s \n",&ch[0]);
+	printf("\n %d \n",xQUsedCount(psend));
+	printf("\n afterqsend \n");
+
+	printf("\n beforeqcount \n");
+	*avail=(unsigned char) xQUsedCount(psend);
+	printf("\n afterQcount \n");
 	return E_NO_SS_ERR ;
 }
 

@@ -65,10 +65,12 @@ void getUDPMessage(char *buffer){
     int len, n;
 
 	len = sizeof(cliaddr);  //len is value/resuslt
-
+printf("\n beforeRec \n");
+printf("\n %d \n",sockfd);
 	n = recvfrom(sockfd, (char *)buffer, MAX_FRAME_LENGTH,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
 				&len);
+	printf("\n afterRec \n");
 	buffer[n] = '\0';
 	printf("Client sent: %s\n", buffer);
     memset(&cliaddr, 0, sizeof(cliaddr));
@@ -92,7 +94,7 @@ void testTRXSendMeesage(void)
 	printf("\n print 1 \n\n");
 
 	// send msg from sat
-	char data[] = "test123";
+	char data[] = "test1234";
 	char avail=0;
 
 	IsisTrxvu_deinitialize(NULL);
@@ -102,11 +104,12 @@ void testTRXSendMeesage(void)
 		Fl.maxAX25frameLengthRX = 200;
 		Fl.maxAX25frameLengthTX = 200;
 	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
-
 	printf("\n print 2 \n\n");
+	printf("\n  %s  \n",&data[0]);
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
+	printf("\n 2.0 \n");
 	IsisTrxvu_tcStartReadingQ(0);
 
 	printf("\n print 2.1 \n\n");
