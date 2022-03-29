@@ -223,7 +223,7 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	{
 		return E_FILE;
 	}
-	char* endpo=strchrnul((char*)xQueue->pointer,'/0');
+	char* endpo=strchrnul((char*)xQueue->pointer,'\0');
 
 
 	//XQueue *queue;
