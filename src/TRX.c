@@ -141,6 +141,7 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	char  ch[10];
 	xQueueReceive(psend,ch,10);
 	printf("\n %s \n",&ch[0]);
+	xQueueSend(psend,data,100);
 	printf("\n %d \n",xQUsedCount(psend));
 	printf("\n afterqsend \n");
 

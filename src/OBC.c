@@ -223,22 +223,18 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 	{
 		return E_FILE;
 	}
+
 	char* endpo=strchrnul((char*)xQueue->pointer,'\0');
+    printf("\n %d \n" ,endpo);
+    printf("\n %d \n" ,xQueue->pointer);
 
-
-	//XQueue *queue;
-
-	//xQueue->uxQueueLength;
-
-	//int size = uxItemSize * uxQueueLength;
-	//fseek(xQueue->pointer , 0, SEEK_CUR);
-
-	if(endpo + xQueue->uxQueueLength >= QUEUE_SIZE){
+    int size_tmp = (int)endpo - (int)xQueue->pointer;
+    printf("\n %d \n" ,size_tmp);
+    if(size_tmp + xQueue->uxQueueLength >= QUEUE_SIZE){
+		printf("\n full \n");
 		return QUEUE_FULL;
 	}
-
-		//fwrite(pvItemToQueue, xQueue->uxItemSize , 1 , xQueue->pointer);
-		//fclose(fptr)
+	printf("\n unfull \n");
 	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
 
 	return E_NO_SS_ERR;
