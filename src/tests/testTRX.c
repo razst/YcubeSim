@@ -94,7 +94,7 @@ void testTRXSendMeesage(void)
 	printf("\n print 1 \n\n");
 
 	// send msg from sat
-	char data[] = "test1234";
+	char data[] = "test1234\0";
 	char avail=0;
 
 	IsisTrxvu_deinitialize(NULL);
