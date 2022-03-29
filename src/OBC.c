@@ -242,24 +242,30 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
-
+	    printf("\n endpo %d \n" ,endPO);
+	    printf("\n pointer %d \n" ,xQueue->pointer);
 	char * startPO = (char*)xQueue->pointer; //fseek(fptr, 0, SEEK_SET);
 	if(endPO != startPO){
+		printf("\n Q isn't empty \n" );
+
 		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
+		printf("\n pvBuffer %s \n" ,pvBuffer );
+		printf("\n startpo %d \n" ,startPO );
 		while (*startPO) /* Check against NULL char*/
 		{
 			memcpy(startPO, sizeof(char)+startPO, sizeof(char));
 			startPO++;
 		}
+		printf("\n startpo %d \n" ,startPO);
 		*startPO = '\0';
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;
 		 }
 		 else{
+			 printf("\n Q is empty \n" );
 			 return QUEUE_EMPTY;
 		 }
 	}
-	return QUEUE_EMPTY;
 }
 
 

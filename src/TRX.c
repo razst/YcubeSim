@@ -63,7 +63,7 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 }
 
 int sendfromQ(){
-	void* res;
+	void* buffer;
 	printf("\n thred1 \n");
 	while(2>0){
      sleep(3);
@@ -71,6 +71,8 @@ int sendfromQ(){
 		printf("\n thred2 \n");
 
 	if(xQUsedCount(psend)!=0){
+		void* res=xQueueReceive(psend,buffer,10);
+		printf("\n resiving from Q \n");
 			sendUDPMessage(res,sizeof(res));
 			  printf("\n thred3 \n");
 		}
