@@ -65,10 +65,9 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 int sendfromQ(){
 	void* buffer;
 	printf("sendfromQ:start \n");
+	printf("sendfromQ:starting infinite while loop \n");
 	while(2>0){
 		sleep(3);
-
-		printf("sendfromQ:starting while loop \n");
 
 		if(xQUsedCount(psend)!=0){
 			void* res=xQueueReceive(psend,buffer,10);
