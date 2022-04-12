@@ -64,28 +64,28 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 
 int sendfromQ(){
 	void* buffer;
-	printf("\n thred1 \n");
+	printf("sendfromQ:start \n");
 	while(2>0){
-     sleep(3);
+		sleep(3);
 
-		printf("\n thred2 \n");
+		printf("sendfromQ:starting while loop \n");
 
-	if(xQUsedCount(psend)!=0){
-		void* res=xQueueReceive(psend,buffer,10);
-		printf("\n resiving from Q \n");
+		if(xQUsedCount(psend)!=0){
+			void* res=xQueueReceive(psend,buffer,10);
+			printf("sendfromQ:receiving from Q \n");
 			sendUDPMessage(res,sizeof(res));
-			  printf("\n thred3 \n");
+			printf("sendfromQ:after sendUDPMessage \n");
 		}
 	}
 }
 
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
-    printf("\n 000 \n");
+    printf("IsisTrxvu_tcStartReadingQ:start \n");
     //printf("\n %d \n", _initFlag);
 	if(!_initFlag) return E_NOT_INITIALIZED;
     //printf('\n 111 \n');
 	pthread_create(&thread_id, NULL, sendfromQ, NULL);
-    printf("\n 222 \n");
+    printf("IsisTrxvu_tcStartReadingQ:end \n");
 
 	return E_NO_SS_ERR;
 }
@@ -137,19 +137,18 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 
 	/*sendUDPMessage(data, length);
 	 */
-	printf("\n beforeqsend \n");
+	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
 	xQueueSend(psend,data,100);
 
 	char  ch[10];
 	xQueueReceive(psend,ch,10);
-	printf("\n %s \n",&ch[0]);
+	printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
 	xQueueSend(psend,data,100);
-	printf("\n %d \n",xQUsedCount(psend));
-	printf("\n afterqsend \n");
+	printf("IsisTrxvu_tcSendAX25DefClSign:Queue Count after QueueSend: %d \n",xQUsedCount(psend));
 
-	printf("\n beforeqcount \n");
-	*avail=(unsigned char) xQUsedCount(psend);
-	printf("\n afterQcount \n");
+	//printf("\n beforeqcount \n");
+	//*avail=(unsigned char) xQUsedCount(psend);
+	//printf("\n afterQcount \n");
 	return E_NO_SS_ERR ;
 }
 
