@@ -129,6 +129,7 @@ int sendUDPMessage(unsigned char *data, unsigned char length){
     close(sockfd);
     return E_NO_SS_ERR ;
 }
+
 int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail){
 
 
@@ -145,7 +146,8 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
 	xQueueSend(psend,data,100);
 	printf("IsisTrxvu_tcSendAX25DefClSign:Queue Count after QueueSend: %d \n",xQUsedCount(psend));
-
+	xQueueReceive(psend,ch,10);
+	printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
 	//printf("\n beforeqcount \n");
 	//*avail=(unsigned char) xQUsedCount(psend);
 	//printf("\n afterQcount \n");

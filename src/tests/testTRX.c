@@ -91,10 +91,10 @@ void testTRXSendMeesage(void)
 	// start GCS UDP server
 	startUDPServer();
 
-	printf("\n print 1 \n\n");
+	printf("testTRXSendMeesage: start \n");
 
 	// send msg from sat
-	char data[] = "test1234\0";
+	char data[] = "test123456\0";
 	char avail=0;
 
 	IsisTrxvu_deinitialize(NULL);
@@ -103,23 +103,22 @@ void testTRXSendMeesage(void)
 	ISIStrxvuFrameLengths Fl;
 		Fl.maxAX25frameLengthRX = 200;
 		Fl.maxAX25frameLengthTX = 200;
+	printf("testTRXSendMeesage: initialize \n");
 	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
-	printf("\n print 2 \n\n");
-	printf("\n  %s  \n",&data[0]);
+	printf("testTRXSendMeesage: data:  %s  \n",&data[0]);
+	printf("testTRXSendMeesage: IsisTrxvu_tcSendAX25DefClSign \n");
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
-
-	printf("\n 2.0 \n");
+	printf("testTRXSendMeesage: IsisTrxvu_tcStartReadingQ \n");
 	IsisTrxvu_tcStartReadingQ(0);
-
-	printf("\n print 2.1 \n\n");
+	printf("IsisTrxvu_tcSendAX25DefClSign: after IsisTrxvu_tcStartReadingQ \n");
 
 	// check that what we got in GCS is the same as the data we sent
     char buffer[MAX_FRAME_LENGTH];
+    printf("IsisTrxvu_tcStartReadingQ: getUDPMessage\n");
 	getUDPMessage(&buffer);
-	printf("\n print 2.2 \n\n");
+	printf("IsisTrxvu_tcStartReadingQ: after getUDPMessage\n");
 	ASSERT_STR(&data,&buffer)
-	printf("\n print 3 \n\n");
 	// send one byte less in the length
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-1, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
