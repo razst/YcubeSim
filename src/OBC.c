@@ -251,14 +251,18 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
 		printf("xQueueReceive: copied from Queue: pvBuffer: %s \n" ,pvBuffer );
 		printf("xQueueReceive: startpo: %d \n" ,startPO );
-		while (*(sizeof(char)+startPO)) /* Check against NULL char*/
+		//while (*(sizeof(char)+startPO)) /* Check against NULL char*/
+		while (*startPO) /* Check against NULL char*/
 		{
-			memcpy(startPO, sizeof(char)+startPO, sizeof(char));
+			memcpy(startPO, xQueue->uxItemSize+startPO, sizeof(char));
 			startPO++;
 		}
-		startPO++;
+		//startPO++;
 		printf("xQueueReceive: startpo after moving it to the end: %d \n" ,startPO);
-		*startPO = '\0';
+		printf("xQueueReceive: startPO values: %s \n" ,*startPO );
+		printf("xQueueReceive: pointer %d \n" ,xQueue->pointer);
+		printf("xQueueReceive: queue pointer values: %s \n" ,*(xQueue->pointer) );
+		//*startPO = '\0';
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;
 		 }
