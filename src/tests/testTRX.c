@@ -184,8 +184,9 @@ void testISIStrxvuIdleState(void){
 }
 
 void testIsisTrxvu_tcStartReadingQ(void){
+	printf("testIsisTrxvu_tcStartReadingQ:start \n");
 	startUDPServer();
-	char data[]="flag";
+	char data[]="test123456";
 		char buffer[MAX_FRAME_LENGTH];
 
 	IsisTrxvu_deinitialize(NULL);

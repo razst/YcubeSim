@@ -80,11 +80,9 @@ int sendfromQ(){
 
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
     printf("IsisTrxvu_tcStartReadingQ:start \n");
-    //printf("\n %d \n", _initFlag);
 	if(!_initFlag) return E_NOT_INITIALIZED;
-    //printf('\n 111 \n');
 	pthread_create(&thread_id, NULL, sendfromQ, NULL);
-    printf("IsisTrxvu_tcStartReadingQ:end \n");
+    printf("IsisTrxvu_tcStartReadingQ:thread created. end. \n");
 
 	return E_NO_SS_ERR;
 }
@@ -140,13 +138,17 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
 	xQueueSend(psend,data,100);
 
-	char  ch[10];
-	xQueueReceive(psend,ch,10);
-	printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
-	xQueueSend(psend,data,100);
-	printf("IsisTrxvu_tcSendAX25DefClSign:Queue Count after QueueSend: %d \n",xQUsedCount(psend));
-	xQueueReceive(psend,ch,10);
-	printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
+	/*
+
+		char  ch[10];
+		xQueueReceive(psend,ch,10);
+		printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
+		xQueueSend(psend,data,100);
+		printf("IsisTrxvu_tcSendAX25DefClSign:Queue Count after QueueSend: %d \n",xQUsedCount(psend));
+		xQueueReceive(psend,ch,10);
+		printf("IsisTrxvu_tcSendAX25DefClSign:received from Queue: %s \n",&ch[0]);
+
+	 */
 	//printf("\n beforeqcount \n");
 	//*avail=(unsigned char) xQUsedCount(psend);
 	//printf("\n afterQcount \n");
