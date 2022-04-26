@@ -29,7 +29,7 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 
 	psend=xQueueCreate(10,10);
 	pget=xQueueCreate(10,10);
-//	IsisTrxvu_tcStartReadingQ(50);
+	//IsisTrxvu_tcStartReadingQ(50);
 	_initFlag=TRUE;
 	return E_NO_SS_ERR;
 }
@@ -63,15 +63,17 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 }
 
 int sendfromQ(){
-	void* buffer;
+
 	printf("sendfromQ:start \n");
+	 char*buffer=malloc(psend->uxItemSize);
 	printf("sendfromQ:starting infinite while loop \n");
 	while(2>0){
 		sleep(3);
-
+		printf("sendfromQ:in loop \n");
 		if(xQUsedCount(psend)!=0){
-			void* res=xQueueReceive(psend,buffer,10);
 			printf("sendfromQ:receiving from Q \n");
+			void* res=xQueueReceive(psend,buffer,10);
+
 			sendUDPMessage(res,sizeof(res));
 			printf("sendfromQ:after sendUDPMessage \n");
 		}

@@ -242,6 +242,7 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 }
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
+	printf("xQueueReceive: start \n" );
 	printQ(xQueue);
 
 	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
@@ -252,6 +253,8 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 		printf("xQueueReceive: Queue isn't empty \n" );
 
 		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
+		printQ(xQueue);
+
 		printf("xQueueReceive: copied from Queue: pvBuffer: %s \n" ,pvBuffer );
 		printf("xQueueReceive: startpo: %d \n" ,startPO );
 		//while (*(sizeof(char)+startPO)) /* Check against NULL char*/

@@ -174,5 +174,8 @@ int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame)
  */
 int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate);
 
+/** this start a string
+
+**/ int IsisTrxvu_tcStartReadingQ(unsigned char index);
 
 #endif /* TRX_H_ */

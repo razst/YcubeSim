@@ -65,12 +65,12 @@ void getUDPMessage(char *buffer){
     int len, n;
 
 	len = sizeof(cliaddr);  //len is value/resuslt
-printf("\n beforeRec \n");
-printf("\n %d \n",sockfd);
+	printf("getUDPMessage: before recvfrom func \n");
+	printf("getUDPMessage:sockfd- %d \n",sockfd);
 	n = recvfrom(sockfd, (char *)buffer, MAX_FRAME_LENGTH,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
 				&len);
-	printf("\n afterRec \n");
+	printf("getUDPMessage:after recvfrom func \n");
 	buffer[n] = '\0';
 	printf("Client sent: %s\n", buffer);
     memset(&cliaddr, 0, sizeof(cliaddr));
@@ -100,6 +100,8 @@ void testTRXSendMeesage(void)
 	IsisTrxvu_deinitialize(NULL);
 	int	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
+	printf("testTRXSendMeesage: finish testing if not initialized \n");
+
 	ISIStrxvuFrameLengths Fl;
 		Fl.maxAX25frameLengthRX = 200;
 		Fl.maxAX25frameLengthTX = 200;
@@ -109,19 +111,24 @@ void testTRXSendMeesage(void)
 	printf("testTRXSendMeesage: IsisTrxvu_tcSendAX25DefClSign \n");
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
+	printf("testTRXSendMeesage: finish testing if initialized \n");
+
 	printf("testTRXSendMeesage: IsisTrxvu_tcStartReadingQ \n");
 	IsisTrxvu_tcStartReadingQ(0);
-	printf("IsisTrxvu_tcSendAX25DefClSign: after IsisTrxvu_tcStartReadingQ \n");
+	printf("testTRXSendMeesage: after IsisTrxvu_tcStartReadingQ \n");
 
 	// check that what we got in GCS is the same as the data we sent
     char buffer[MAX_FRAME_LENGTH];
-    printf("IsisTrxvu_tcStartReadingQ: getUDPMessage\n");
+    printf("testTRXSendMeesage: getUDPMessage\n");
+    printf("testTRXSendMeesage: **************************\n");
 	getUDPMessage(&buffer);
-	printf("IsisTrxvu_tcStartReadingQ: after getUDPMessage\n");
+
+	printf("testTRXSendMeesage: after getUDPMessage\n");
 	ASSERT_STR(&data,&buffer)
 	// send one byte less in the length
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-1, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
+	printf("testTRXSendMeesage: finish testing if sending is the same as receiving \n");
 
 	// check what we got in GCS is different than our data
 	getUDPMessage(&buffer);
