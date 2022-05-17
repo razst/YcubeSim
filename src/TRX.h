@@ -178,4 +178,5 @@ int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate);
 
 **/ int IsisTrxvu_tcStartReadingQ(unsigned char index);
 
+int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index);
 #endif /* TRX_H_ */
