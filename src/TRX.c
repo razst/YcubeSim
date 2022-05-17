@@ -15,6 +15,7 @@ ISISantsI2Caddress _address;
 ISIStrxvuRxFrame _rxframe;
 Boolean _flagF_xQueueS_create = FALSE;
 pthread_t thread_id;//pthread id for idle//
+pthread_t thread_id2;//pthread id for idle//
 
 void IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
 	_initFlag = FALSE;
@@ -74,8 +75,9 @@ int sendfromQ(){
 			printf("sendfromQ:receiving from Q \n");
 			void* res=xQueueReceive(psend,buffer,10);
 
-			sendUDPMessage(res,sizeof(res));
-			printf("sendfromQ:after sendUDPMessage \n");
+			int	err=sendUDPMessage(res,sizeof(res));
+			printf("sendfromQ:after sendUDPMessage %d \n", err);
+
 		}
 	}
 }
@@ -83,8 +85,16 @@ int sendfromQ(){
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
     printf("IsisTrxvu_tcStartReadingQ:start \n");
 	if(!_initFlag) return E_NOT_INITIALIZED;
-	pthread_create(&thread_id, NULL, sendfromQ, NULL);
+	pthread_create(&thread_id2, NULL, sendfromQ, NULL);
     printf("IsisTrxvu_tcStartReadingQ:thread created. end. \n");
+
+	return E_NO_SS_ERR;
+}
+
+int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index){
+    printf("IsisTrxvu_tcStartReadingQ_killThread:start \n");
+
+	pthread_cancel(thread_id2);
 
 	return E_NO_SS_ERR;
 }
