@@ -269,7 +269,7 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 		printQ(xQueue);
 		printf("xQueueReceive: startPO values: %s \n" ,*startPO );
 		printf("xQueueReceive: pointer %d \n" ,xQueue->pointer);
-		printf("xQueueReceive: queue pointer values: %s \n" ,*(xQueue->pointer) );
+		//printf("xQueueReceive: queue pointer values: %s \n" ,*(xQueue->pointer) );
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;
 		 }

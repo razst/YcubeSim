@@ -180,4 +180,5 @@ int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate);
 
 int sendUDPMessage_old(unsigned char *data, unsigned char length);
 
+int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index);
 #endif /* TRX_H_ */
