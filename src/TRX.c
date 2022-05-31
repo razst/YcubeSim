@@ -15,6 +15,7 @@ ISISantsI2Caddress _address;
 ISIStrxvuRxFrame _rxframe;
 Boolean _flagF_xQueueS_create = FALSE;
 pthread_t thread_id;//pthread id for idle//
+pthread_t thread_id2;//pthread id for Q sending//
 
 void IsisTrxvu_deinitialize(ISISantsI2Caddress* address){
 	_initFlag = FALSE;
@@ -83,14 +84,14 @@ int sendfromQ(){
 int IsisTrxvu_tcStartReadingQ(unsigned char index){
     printf("IsisTrxvu_tcStartReadingQ:start \n");
 	if(!_initFlag) return E_NOT_INITIALIZED;
-	pthread_create(&thread_id, NULL, sendfromQ, NULL);
+	pthread_create(&thread_id2, NULL, sendfromQ, NULL);
     printf("IsisTrxvu_tcStartReadingQ:thread created. end. \n");
 
 	return E_NO_SS_ERR;
 }
 
 
-int sendUDPMessage(unsigned char *data, unsigned char length){
+int sendUDPMessage_old(unsigned char *data, unsigned char length){
     int sockfd;
     struct sockaddr_in     servaddr;
     // Creating socket file descriptor
@@ -127,6 +128,33 @@ int sendUDPMessage(unsigned char *data, unsigned char length){
 
     close(sockfd);
     return E_NO_SS_ERR ;
+}
+int sendUDPMessage(unsigned char *data, unsigned char length){
+	int s;
+		   unsigned short port;
+		   struct sockaddr_in server;
+		   char buf[32];
+
+		   port = htons(20001);
+
+		   if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+		     {
+		        printf("sdnbhjx");
+		        return 111;
+		     }
+		   server.sin_family      = AF_INET;            /* Internet Domain    */
+		     server.sin_port        = port;               /* Server Port        */
+		     server.sin_addr.s_addr = inet_addr("192.168.137.69"); /* Server's Address   */
+
+		     strcpy(buf, data);
+
+		     if (sendto(s, buf, (strlen(buf)+1), 0,
+		                     (struct sockaddr *)&server, sizeof(server)) < 0)
+		       {
+		           printf("12321");
+		           return 111;
+		       }
+		     close(s);
 }
 
 int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail){
