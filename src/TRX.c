@@ -100,7 +100,7 @@ int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index){
 }
 
 
-int sendUDPMessage_old(unsigned char *data, unsigned char length){
+int sendUDPMessage(unsigned char *data, unsigned char length){
     int sockfd;
     struct sockaddr_in     servaddr;
     // Creating socket file descriptor
@@ -138,7 +138,7 @@ int sendUDPMessage_old(unsigned char *data, unsigned char length){
     close(sockfd);
     return E_NO_SS_ERR ;
 }
-int sendUDPMessage(unsigned char *data, unsigned char length){
+int sendUDPMessage_old(unsigned char *data, unsigned char length){
 	int s;
 		   unsigned short port;
 		   struct sockaddr_in server;
