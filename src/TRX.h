@@ -15,6 +15,7 @@
 #include <pthread.h>
 #include "OBC.h"
 
+
 #define DOWN_PORT     		27002 // to send all messages from sat to UDP server
 #define UP_PORT       		28002 // to send all messages from UDP server to sat
 #define MAX_FRAME_LENGTH 	300 // max bytes in each frame (UDP packet)

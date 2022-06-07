@@ -138,34 +138,102 @@ int sendUDPMessage(unsigned char *data, unsigned char length){
     close(sockfd);
     return E_NO_SS_ERR ;
 }
-int sendUDPMessage_old(unsigned char *data, unsigned char length){
+
+
+int sendUDPMessage_old(unsigned char *data, unsigned char length) {
+//	int s;
+//	unsigned short port;
+//	struct sockaddr_in server;
+//	char buf[32];
+//
+//	port = htons(20001);
+//
+//	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+//		printf("sdnbhjx");
+//		return 111;
+//	}
+//	server.sin_family = AF_INET; /* Internet Domain    */
+//	/*    server.sin_port        = port;               /* Server Port        */
+//	/*    server.sin_addr.s_addr = inet_addr("192.168.137.69"); /* Server's Address   */
+//
+//	data = "12345";
+//	strcpy(buf, data);
+//
+//	if (sendto(s, buf, (strlen(buf) + 1), 0, (struct sockaddr*) &server,
+//			sizeof(server)) < 0) {
+//		printf("12321");
+//		return 111;
+//	}
+//	printf("after sending");
+//	close(s);
+
+//	int sockfd;
+//	struct sockaddr_in servaddr;
+//	// Creating socket file descriptor
+//	sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+//	if (sockfd < 0) {
+//		perror("socket creation failed");
+//		printf("Unable to open socket\n");
+//		return 111;
+//	}
+//
+//	// set socket options enable broadcast
+//	int broadcastEnable = 1;
+//	int ret = setsockopt(sockfd, SOL_SOCKET, SO_BROADCAST, &broadcastEnable,
+//			sizeof(broadcastEnable));
+//	if (ret) {
+//		printf("Unable to set broadcast option\n");
+//		close(sockfd);
+//		return 111;
+//	}
+//
+//	memset(&servaddr, 0, sizeof(servaddr));
+//
+//	// Filling server information
+//	servaddr.sin_family = AF_INET;
+//	servaddr.sin_port = htons(1234);
+//	//servaddr.sin_addr.s_addr  = INADDR_BROADCAST;
+//	servaddr.sin_addr.s_addr = inet_addr("1");
+//	//servaddr.sin_addr.s_addr = INADDR_ANY;
+//	//////////////////////////////////////////////////////////  char data="hello";
+//	//////////////////////////////////////////////////////////  char length=sizeof(data);
+//
+//	sendto(sockfd, (const char*) data, length,
+//	//sendto(sockfd, &messageX, sizeof(messageX),
+//			MSG_CONFIRM, (const struct sockaddr*) &servaddr, sizeof(servaddr));
+//	printf("Message sent.\n");
+//
+//	close(sockfd);
+//
 	int s;
-		   unsigned short port;
-		   struct sockaddr_in server;
-		   char buf[32];
+	unsigned short port;
+	struct sockaddr_in server;
+	char buf[32];
 
-		   port = htons(20001);
+	port = htons(20001);
 
-		   if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-		     {
-		        printf("sdnbhjx");
-		        return 111;
-		     }
-		   server.sin_family      = AF_INET;            /* Internet Domain    */
-		     server.sin_port        = port;               /* Server Port        */
-		     server.sin_addr.s_addr = inet_addr("192.168.137.69"); /* Server's Address   */
+	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+		printf("sdnbhjx");
+		return 111;
+	}
+	server.sin_family = AF_INET; /* Internet Domain    */
+	server.sin_port = port; /* Server Port        */
+	server.sin_addr.s_addr = inet_addr("192.168.137.185"); /* Server's Address   */
+	printf("sendUDPMessage:  \n");
+	printf("sendUDPMessage:data = %s", *data );
+	strcpy(buf, data);
 
-		     strcpy(buf, data);
+	if (sendto(s, buf, (strlen(buf) + 1), 0, (struct sockaddr*) &server,
+			sizeof(server)) < 0) {
+		printf("12321");
+		return 111;
+	}
+	close(s);
+	//LZ - end
+	printf("Starting 123 ...\n");
 
-		     if (sendto(s, buf, (strlen(buf)+1), 0,
-		                     (struct sockaddr *)&server, sizeof(server)) < 0)
-		       {
-		           printf("12321");
-		           return 111;
-		       }
-		     close(s);
+	return 0;
 }
-
 int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsigned char length, unsigned char *avail){
 
 
