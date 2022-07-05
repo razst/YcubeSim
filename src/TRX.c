@@ -205,12 +205,13 @@ int sendUDPMessage(unsigned char *data, unsigned char length) {
 //
 //	close(sockfd);
 //
+	printf(" sendUDPMessage:the data is %s \n",data);
+
 	int s;
 	unsigned short port;
 	struct sockaddr_in server;
-	char buf[32];
 
-	port = htons(20001);
+	port = htons(DOWN_PORT);
 
 	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 		printf("sdnbhjxn");
@@ -218,12 +219,10 @@ int sendUDPMessage(unsigned char *data, unsigned char length) {
 	}
 	server.sin_family = AF_INET; /* Internet Domain    */
 	server.sin_port = port; /* Server Port        */
-	server.sin_addr.s_addr = inet_addr("192.168.137.185"); /* Server's Address   */
+	server.sin_addr.s_addr = inet_addr("192.168.137.186"); /* Server's Address   */
 
-	printf("sendUDPMessage:data = %s\n", data );
-	strcpy(buf, data);
-	printf("sendUDPMessage:buf = %n", buf );
-	if (sendto(s, buf, (strlen(buf) + 1), 0, (struct sockaddr*) &server,
+
+	if (sendto(s, data, (strlen(data) + 1), 0, (struct sockaddr*) &server,
 			sizeof(server)) < 0) {
 		printf("1232\n");
 		return 111;

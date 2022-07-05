@@ -126,7 +126,7 @@ void testTRXSendMeesage(void)
 	printf("testTRXSendMeesage: after getUDPMessage\n");
 	ASSERT_STR(&data,&buffer)
 	// send one byte less in the length
-	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-1, &avail);
+	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-2, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 	printf("testTRXSendMeesage: finish testing if sending is the same as receiving \n");
 
