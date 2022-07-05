@@ -66,16 +66,16 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 int sendfromQ(){
 
 	printf("sendfromQ:start \n");
-	 char*buffer=malloc(psend->uxItemSize);
+	unsigned char*buffer=malloc(psend->uxItemSize);
 	printf("sendfromQ:starting infinite while loop \n");
 	while(2>0){
 		sleep(3);
 		printf("sendfromQ:in loop \n");
 		if(xQUsedCount(psend)!=0){
 			printf("sendfromQ:receiving from Q \n");
-			void* res=xQueueReceive(psend,buffer,10);
-
-			int	err=sendUDPMessage(res,sizeof(res));
+			int res=xQueueReceive(psend,buffer,10);
+			printf("sendfromQ:pvBuffer %s\n", buffer);
+			int	err=sendUDPMessage(buffer,sizeof(buffer));
 			printf("sendfromQ:after sendUDPMessage %d \n", err);
 
 		}
@@ -100,7 +100,7 @@ int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index){
 }
 
 
-int sendUDPMessage(unsigned char *data, unsigned char length){
+int sendUDPMessage_old(unsigned char *data, unsigned char length){
     int sockfd;
     struct sockaddr_in     servaddr;
     // Creating socket file descriptor
@@ -140,7 +140,7 @@ int sendUDPMessage(unsigned char *data, unsigned char length){
 }
 
 
-int sendUDPMessage_old(unsigned char *data, unsigned char length) {
+int sendUDPMessage(unsigned char *data, unsigned char length) {
 //	int s;
 //	unsigned short port;
 //	struct sockaddr_in server;
@@ -213,19 +213,19 @@ int sendUDPMessage_old(unsigned char *data, unsigned char length) {
 	port = htons(20001);
 
 	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-		printf("sdnbhjx");
+		printf("sdnbhjxn");
 		return 111;
 	}
 	server.sin_family = AF_INET; /* Internet Domain    */
 	server.sin_port = port; /* Server Port        */
 	server.sin_addr.s_addr = inet_addr("192.168.137.185"); /* Server's Address   */
-	printf("sendUDPMessage:  \n");
-	printf("sendUDPMessage:data = %s", *data );
-	strcpy(buf, data);
 
+	printf("sendUDPMessage:data = %s\n", data );
+	strcpy(buf, data);
+	printf("sendUDPMessage:buf = %n", buf );
 	if (sendto(s, buf, (strlen(buf) + 1), 0, (struct sockaddr*) &server,
 			sizeof(server)) < 0) {
-		printf("12321");
+		printf("1232\n");
 		return 111;
 	}
 	close(s);
