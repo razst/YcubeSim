@@ -132,6 +132,8 @@ void testTRXSendMeesage(void)
 
 	// check what we got in GCS is different than our data
 	getUDPMessage(&buffer);
+	printf(" ______________------------------------------------------------------_the data is %s \n" ,data);
+	printf(" ---------------------------------------------------------------------the buffer is %s \n", buffer );
 	ASSERT_NOT_STR(&data,&buffer)
 
 	stopUDPServer();

@@ -219,17 +219,17 @@ XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 
 void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 {
+	printf("xQueueSend: start");
 	if(xQueue == NULL)
 	{
 		return E_FILE;
 	}
 	printQ(xQueue);
 	char* endpo=strchrnul((char*)xQueue->pointer,'\0');
-    printf("xQueueSend: endpo: %d \n" ,endpo);
-    printf("xQueueSend: pointer: %d \n" ,xQueue->pointer);
+
 
     int size_tmp = (int)endpo - (int)xQueue->pointer;
-    printf("xQueueSend:size used in Queue: %d \n" ,size_tmp);
+
     if(size_tmp + xQueue->uxQueueLength >= QUEUE_SIZE){
 		printf("xQueueSend: Queue is full \n");
 		return QUEUE_FULL;
@@ -246,8 +246,7 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 	printQ(xQueue);
 
 	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
-	    printf("xQueueReceive: endpo: %d \n" ,endPO);
-	    printf("xQueueReceive: pointer %d \n" ,xQueue->pointer);
+
 	char * startPO = (char*)xQueue->pointer; //fseek(fptr, 0, SEEK_SET);
 	if(endPO != startPO){
 		printf("xQueueReceive: Queue isn't empty \n" );
@@ -255,8 +254,7 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
 		printQ(xQueue);
 
-		printf("xQueueReceive: copied from Queue: pvBuffer: %s \n" ,pvBuffer );
-		printf("xQueueReceive: startpo: %d \n" ,startPO );
+
 		//while (*(sizeof(char)+startPO)) /* Check against NULL char*/
 		while (*startPO) /* Check against NULL char*/
 		{
@@ -264,11 +262,10 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 			startPO++;
 		}
 		//startPO++;
-		printf("xQueueReceive: startpo after moving it to the end: %d \n" ,startPO);
+
 		//*startPO = '\0';
 		printQ(xQueue);
-		printf("xQueueReceive: startPO values: %s \n" ,*startPO );
-		printf("xQueueReceive: pointer %d \n" ,xQueue->pointer);
+
 		//printf("xQueueReceive: queue pointer values: %s \n" ,*(xQueue->pointer) );
 		 if(pvBuffer != NULL){
 			 return E_NO_SS_ERR;

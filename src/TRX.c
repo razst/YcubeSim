@@ -219,7 +219,7 @@ int sendUDPMessage(unsigned char *data, unsigned char length) {
 	}
 	server.sin_family = AF_INET; /* Internet Domain    */
 	server.sin_port = port; /* Server Port        */
-	server.sin_addr.s_addr = inet_addr("192.168.137.186"); /* Server's Address   */
+	server.sin_addr.s_addr = inet_addr("0.0.0.0"); /* Server's Address   */
 
 
 	if (sendto(s, data, (strlen(data) + 1), 0, (struct sockaddr*) &server,
