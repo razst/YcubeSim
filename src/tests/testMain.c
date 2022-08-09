@@ -20,32 +20,32 @@
 int runMainTests(void){
 	startTesting();
 
-	printf("\n/*start TRX test Functions */\n\n");
-	testTRXInit();
+	printf("start TRX test Functions \n");
+	/*testTRXInit();
 	testTRXSendMeesage();
-	printf("\n/*end testTRXSendMeesage */\n\n");
-	testIsisAntS_initialize();
-	testISIStrxvuIdleState();
-	printf("\n/*start TRX test Functions \n\n");
-
-	printf("\n/* EPS test Functions */\n\n");
+	printf("end testTRXSendMeesage \n");
+	testIsisAntS_initialize();*/
+    testISIStrxvuIdleState();
+	printf("end TRX test Functions \n");
+/*
+	printf("\n/EPS test Functions \n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
 	testIsisSolarPanelv2_getState();
 	testIsisSolarPanelv2_Dinitialize();
 	//testGet_eps_temp ();
 	//testINA219();
-	printf("\n/* EPS test Functions */\n\n");
+	printf(" EPS test Functions \n");
 
-	printf("\n/*start TLM test Functions */\n\n");
+	printf("start TLM test Functions \n");
 	 testTLMfs_init();
      testhcc_mem_init();
      testf_enterFS();
      //testf_initvolume();
-	printf("\n/*finish TLM test Functions */\n\n");
+	printf("finish TLM test Functions \n");
 
 
-	printf("\n/*Start OBC test Functions */\n\n");
+	printf("Start OBC test Functions \n");
 	testFRAMstart();
 	testFRAMwrite();
 	testFRAMread();
@@ -53,7 +53,7 @@ int runMainTests(void){
 	testTime_setGetUnixEpoch();
 	testvTaskDelay();
 	finishTesting();
-	printf("\n/*Finish OBC test Functions */\n\n");
-
+	printf("Finish OBC test Functions \n");
+*/
 	return 0;
 }

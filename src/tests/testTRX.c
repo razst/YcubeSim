@@ -100,43 +100,36 @@ void testTRXSendMeesage(void)
 	IsisTrxvu_deinitialize(NULL);
 	int	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NOT_INITIALIZED);
-	printf("testTRXSendMeesage: finish testing if not initialized \n");
 
 	ISIStrxvuFrameLengths Fl;
 		Fl.maxAX25frameLengthRX = 200;
 		Fl.maxAX25frameLengthTX = 200;
-	printf("testTRXSendMeesage: initialize \n");
+
 	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
-	printf("testTRXSendMeesage: data:  %s  \n",&data[0]);
-	printf("testTRXSendMeesage: IsisTrxvu_tcSendAX25DefClSign \n");
+
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
-	printf("testTRXSendMeesage: finish testing if initialized \n");
 
-	printf("testTRXSendMeesage: IsisTrxvu_tcStartReadingQ \n");
 	IsisTrxvu_tcStartReadingQ(0);
-	printf("testTRXSendMeesage: after IsisTrxvu_tcStartReadingQ \n");
 
 	// check that what we got in GCS is the same as the data we sent
     char buffer[MAX_FRAME_LENGTH];
-    printf("testTRXSendMeesage: getUDPMessage\n");
-    printf("testTRXSendMeesage: **************************\n");
+
 	getUDPMessage(&buffer);
 
-	printf("testTRXSendMeesage: after getUDPMessage\n");
 	ASSERT_STR(&data,&buffer)
 	// send one byte less in the length
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-2, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
-	printf("testTRXSendMeesage: finish testing if sending is the same as receiving \n");
 
 	// check what we got in GCS is different than our data
 	getUDPMessage(&buffer);
-	printf(" ______________------------------------------------------------------_the data is %s \n" ,data);
-	printf(" ---------------------------------------------------------------------the buffer is %s \n", buffer );
+
 	ASSERT_NOT_STR(&data,&buffer)
 
 	stopUDPServer();
+
+	printf("testTRXSendMeesage: end \n");
 }
 
 /*
@@ -162,6 +155,7 @@ void testIsisAntS_initialize(void){
     error=IsisAntS_initialize( &adress, 0);
 		ASSERT_INT(error,E_IS_INITIALIZED);
 }
+
 void testISIStrxvuIdleState(void){
 
 	startUDPServer();
@@ -178,16 +172,22 @@ void testISIStrxvuIdleState(void){
 	fl.maxAX25frameLengthRX = 200;
 	fl.maxAX25frameLengthTX = 200;
 	er = IsisTrxvu_initialize(NULL,&fl,NULL,0);
+
 	ASSERT_INT(er,E_NO_SS_ERR);
     er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_on);
 	ASSERT_INT(er,E_NO_SS_ERR);
+	printf("testISIStrxvuIdleState: after 3 tests \n");
 
 	// TODO test that it sends "idle" messages.. + test turning off idle
+
 	getUDPMessage(&buffer);
 	ASSERT_STR(&data,&buffer)
+
     er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_off);
 	ASSERT_INT(er,E_NO_SS_ERR);
 
+
+    printf("testISIStrxvuIdleState: end of test \n");
 
 	stopUDPServer();
 }
@@ -215,6 +215,7 @@ void testIsisTrxvu_tcStartReadingQ(void){
 			getUDPMessage(&buffer);
 				ASSERT_STR(&data,&buffer)
 			stopUDPServer();
+
 }
 
 void testGetframeCount(void){

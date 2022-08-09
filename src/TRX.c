@@ -30,8 +30,9 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 
 	psend=xQueueCreate(10,10);
 	pget=xQueueCreate(10,10);
-	//IsisTrxvu_tcStartReadingQ(50);
 	_initFlag=TRUE;
+	IsisTrxvu_tcStartReadingQ(50);
+
 	return E_NO_SS_ERR;
 }
 
@@ -49,7 +50,7 @@ int sendIdle(void *vargp){
 	while(1==1){
 
 		IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
-		usleep(100000);
+		sleep(10);
 	}
 }
 
@@ -67,14 +68,14 @@ int sendfromQ(){
 
 	printf("sendfromQ:start \n");
 	unsigned char*buffer=malloc(psend->uxItemSize);
-	printf("sendfromQ:starting infinite while loop \n");
+
 	while(2>0){
 		sleep(3);
-		printf("sendfromQ:in loop \n");
+
 		if(xQUsedCount(psend)!=0){
 			printf("sendfromQ:receiving from Q \n");
 			int res=xQueueReceive(psend,buffer,10);
-			printf("sendfromQ:pvBuffer %s\n", buffer);
+
 			int	err=sendUDPMessage(buffer,sizeof(buffer));
 			printf("sendfromQ:after sendUDPMessage %d \n", err);
 
@@ -241,8 +242,16 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 
 	/*sendUDPMessage(data, length);
 	 */
+	char newdata [psend->uxItemSize];
+	for (int i=0;i<length;i++){
+		newdata[i]=data[i];
+	}
+	for (int i=length;i<psend->uxItemSize;i++){
+		newdata[i]=0xff;
+	}
+
 	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
-	xQueueSend(psend,data,100);
+	xQueueSend(psend,newdata,100);
 
 	/*
 
