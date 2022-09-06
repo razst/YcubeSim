@@ -21,10 +21,10 @@ int runMainTests(void){
 	startTesting();
 
 	printf("start TRX test Functions \n");
-	/*testTRXInit();
+	testTRXInit();
 	testTRXSendMeesage();
 	printf("end testTRXSendMeesage \n");
-	testIsisAntS_initialize();*/
+	testIsisAntS_initialize();
     testISIStrxvuIdleState();
 	printf("end TRX test Functions \n");
 /*
