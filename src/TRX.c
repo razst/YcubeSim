@@ -29,8 +29,8 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 	_maxFrameLengths.maxAX25frameLengthRX = maxFrameLengths->maxAX25frameLengthRX;
 	_maxFrameLengths.maxAX25frameLengthTX = maxFrameLengths->maxAX25frameLengthTX;
 
-	psend=xQueueCreate(10,10);
-	pget=xQueueCreate(10,10);
+	psend=xQueueCreate(80,10);
+	pget=xQueueCreate(80,10);
 	_initFlag=TRUE;
 	IsisTrxvu_tcStartReadingQ(50);
 
@@ -67,18 +67,21 @@ int IsisTrxvu_tcSetIdlestate(unsigned char index, ISIStrxvuIdleState state){
 
 int sendfromQ(){
 
-	printf("sendfromQ:start \n");
+	printf("                                            sendfromQ:start \n");
 	unsigned char*buffer=malloc(psend->uxItemSize);
 
 	while(2>0){
 		sleep(3);
 
+      printf("                                           sendfrom Q : the Q SIZE is: %d \n",xQUsedCount(psend));
 		if(xQUsedCount(psend)!=0){
-			printf("sendfromQ:receiving from Q \n");
+			printQ(psend);
+			printf("                                     sendfromQ:receiving from Q \n");
 			int res=xQueueReceive(psend,buffer,10);
-
+            printf("                                     sendfrom q :the data is %s  \n",buffer);
 			int	err=sendUDPMessage(buffer,sizeof(buffer));
-			printf("sendfromQ:after sendUDPMessage %d \n", err);
+			printf("                                     sendfromQ:after sendUDPMessage %d \n", err);
+
 
 		}
 	}

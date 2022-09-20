@@ -25,7 +25,7 @@ int runMainTests(void){
 	testTRXSendMeesage();
 	printf("end testTRXSendMeesage \n");
 	testIsisAntS_initialize();
-    testISIStrxvuIdleState();
+    //testISIStrxvuIdleState();
 	printf("end TRX test Functions \n");
 /*
 	printf("\n/EPS test Functions \n");

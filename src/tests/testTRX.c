@@ -127,7 +127,7 @@ void testTRXSendMeesage(void)
 
 	ASSERT_NOT_STR(&data,&buffer)
 
-
+    clearQ(psend);
 	stopUDPServer();
 
 	printf("testTRXSendMeesage: end \n");

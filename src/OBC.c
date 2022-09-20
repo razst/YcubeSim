@@ -327,10 +327,19 @@ return (count/xQueue->uxItemSize);
 void printQ(XQueue* xQueue){
 	char* p=xQueue->pointer;
 	printf("Queue: \n");
-	for (char i=0;i<=20;i++){
+	for (char i=0;i+1<=xQueue->uxQueueLength;i++){
 
-		printf(" %c _" ,*(p+i));
-			}
-	printf("\n");
+		printf("| %c " ,*(p+i));
+		if((i+1)%10==0)
+			printf("| \n");
+	}
+}
+void clearQ(XQueue* xQueue){
+	char* p=xQueue->pointer;
+/////	p = {'\0'};
+	for (char i;i<xQueue->uxQueueLength;i++){
+		*(p+i)="/0";
+	}
+
 }
 
