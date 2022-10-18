@@ -14,11 +14,5 @@ typedef int Boolean;
 #define FALSE 0x0
 #define NULL ((void *)0)
 
-// custom errors
-#define E_SOCKET -1000
-#define E_SOCKET_OPT -1001
-#define E_FILE	-1002
-#define E_TIME -1003
-
 #endif /* UTILS_H_ */
 

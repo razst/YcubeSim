@@ -30,5 +30,11 @@
 #define QUEUE_FULL              -37 ///< Queue memory full can't assign any more data.
 #define QUEUE_EMPTY             -37 ///< Queue memory is empty.
 
+// custom errors
+#define E_SOCKET -1000
+#define E_SOCKET_OPT -1001
+#define E_FILE	-1002
+#define E_TIME -1003
+
 
 #endif /* ERRORS_H_ */
