@@ -66,6 +66,7 @@ void getUDPMessage(char *buffer){
 
 	len = sizeof(cliaddr);  //len is value/resuslt
 	printf("getUDPMessage: before recvfrom func \n");
+	printf("%d \n",len);
 	printf("getUDPMessage:sockfd- %d \n",sockfd);
 	n = recvfrom(sockfd, (char *)buffer, MAX_FRAME_LENGTH,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
@@ -182,6 +183,7 @@ void testISIStrxvuIdleState(void){
 	// TODO test that it sends "idle" messages.. + test turning off idle
 
 	getUDPMessage(&buffer);
+	printf("after get UDPmassege in test idle \n");
 	ASSERT_STR(&data,&buffer)
 
     er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_off);

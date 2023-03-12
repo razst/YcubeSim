@@ -257,8 +257,10 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	}
 
 	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
+	sleep(15);
+	printf("now");
 	xQueueSend(psend,newdata,100);
-
+	printf("IsisTrxvu_tcSendAX25DefClSign:after xQsend \n");
 	/*
 
 		char  ch[10];
