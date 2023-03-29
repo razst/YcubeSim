@@ -18,7 +18,7 @@
 #include "TRX.h"
 #include "OBC.h"
 #include "Telemetry.h"
-
+#include <time.h>
 
 
 
@@ -60,11 +60,26 @@ int initTelematrey(){
 
 
 
+void testTime(){
+	time_t startTime;
+	time(&startTime);
+	printf("%d\n",startTime);
+	vTaskDelay(2000);
+
+	time_t currTime;
+	time(&currTime);
+	printf("time passed: %d\n",currTime - startTime);
+
+}
+
+
+
 //TODO: change linker to dynamic link CUnit lib to reduce bin size + #IFDEF TESTING
 int main(void) {
 	printf ("Starting YcubeSim...\n");
 //	FRAM_start();//to chek if it has been don
-	runMainTests();
+	testTime();
+//	runMainTests();
 //	FRAM_write(0, 0, 0);
 //	printf ("End YcubeSim...\n");
 	return 0;
