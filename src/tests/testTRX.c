@@ -184,6 +184,8 @@ void testISIStrxvuIdleState(void){
 
 	getUDPMessage(&buffer);
 	printf("after get UDPmassege in test idle \n");
+	printf("%s \n", &buffer);
+	printf("%s \n", &data);
 	ASSERT_STR(&data,&buffer)
 
     er=IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_off);
@@ -254,4 +256,16 @@ void testIsisTrxvu_rcGetCommandFrame(void){
 		ASSERT_INT(flag2,pointer->rx_framedata);
 
 }
+void resetTRXtest(){
 
+	IsisTrxvu_tcStartReadingQ_killThread(0);
+	IsisTrxvu_tcSetIdlestate(0, trxvu_idle_state_off);
+
+	IsisTrxvu_deinitialize(NULL);
+	clearQ(psend);
+	clearQ(pget);
+	resetQ();
+	stopUDPServer();
+
+
+}

@@ -355,4 +355,7 @@ void clearQ(XQueue* xQueue){
 	}
 
 }
+void resetQ(){
+	 n_queues = 0;
+}
 

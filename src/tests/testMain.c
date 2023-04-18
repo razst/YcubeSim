@@ -25,9 +25,10 @@ int runMainTests(void){
 	testTRXSendMeesage();
 	printf("end testTRXSendMeesage \n");
 	testIsisAntS_initialize();
-    testISIStrxvuIdleState();
+	resetQ();  /*seem to be requierd to prevent bugs*/
+   testISIStrxvuIdleState();
 	printf("end TRX test Functions \n");
-/*
+
 	printf("\n/EPS test Functions \n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
@@ -54,6 +55,6 @@ int runMainTests(void){
 	testvTaskDelay();
 	finishTesting();
 	printf("Finish OBC test Functions \n");
-*/
+
 	return 0;
 }
