@@ -6,6 +6,9 @@
 #include "testBasic.h"
 #include "../HW/ina219.h"
 
+
+// how to connect IMA219 - see: https://www.rototron.info/raspberry-pi-ina219-tutorial/
+
 void testISIS_EPS_Init(){
 	ISIS_EPS_t i;
 	i.i2cAddr = 55; //"t";
