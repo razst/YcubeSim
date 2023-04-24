@@ -62,3 +62,4 @@ Release/sources.mk
 Release/src/subdir.mk
 Release/src/tests/subdir.mk
 .settings/language.settings.xml
+.settings/language.settings.xml
