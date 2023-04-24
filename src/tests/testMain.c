@@ -19,7 +19,8 @@
  */
 int runMainTests(void){
 	startTesting();
-
+	testINA219();
+	return 0;
 	printf("start TRX test Functions \n");
 	testTRXInit();
 	testTRXSendMeesage();
@@ -35,7 +36,7 @@ int runMainTests(void){
 	testIsisSolarPanelv2_getState();
 	testIsisSolarPanelv2_Dinitialize();
 	//testGet_eps_temp ();
-	//testINA219();
+
 	printf(" EPS test Functions \n");
 
 	printf("start TLM test Functions \n");
