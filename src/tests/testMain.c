@@ -19,22 +19,24 @@
  */
 int runMainTests(void){
 	startTesting();
-
+	testINA219();
+	return 0;
 	printf("start TRX test Functions \n");
 	testTRXInit();
 	testTRXSendMeesage();
 	printf("end testTRXSendMeesage \n");
 	testIsisAntS_initialize();
-    //testISIStrxvuIdleState();
+	resetQ();  /*seem to be requierd to prevent bugs*/
+   testISIStrxvuIdleState();
 	printf("end TRX test Functions \n");
-/*
+
 	printf("\n/EPS test Functions \n");
 	testISIS_EPS_Init();
 	testIsisSolarPanelv2_initialize();
 	testIsisSolarPanelv2_getState();
 	testIsisSolarPanelv2_Dinitialize();
 	//testGet_eps_temp ();
-	//testINA219();
+
 	printf(" EPS test Functions \n");
 
 	printf("start TLM test Functions \n");
@@ -54,6 +56,6 @@ int runMainTests(void){
 	testvTaskDelay();
 	finishTesting();
 	printf("Finish OBC test Functions \n");
-*/
+
 	return 0;
 }

@@ -73,7 +73,7 @@ int sendfromQ(){
 	while(2>0){
 		sleep(3);
 
-      printf("                                           sendfrom Q : the Q SIZE is: %d \n",xQUsedCount(psend));
+     printf("                                           sendfrom Q : the Q SIZE is: %d \n",xQUsedCount(psend));
 		if(xQUsedCount(psend)!=0){
 			printQ(psend);
 			printf("                                     sendfromQ:receiving from Q \n");
@@ -100,10 +100,11 @@ int IsisTrxvu_tcStartReadingQ(unsigned char index){
 
 int IsisTrxvu_tcStartReadingQ_killThread(unsigned char index){
     printf("IsisTrxvu_tcStartReadingQ_killThread:start \n");
+    if (flag_thread2==TRUE)
+    	pthread_cancel(thread_id2);
+    		flag_thread2=FALSE;
+    return E_NO_SS_ERR;
 
-	pthread_cancel(thread_id2);
-	flag_thread2=FALSE;
-	return E_NO_SS_ERR;
 }
 
 
@@ -257,8 +258,10 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	}
 
 	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
+    sleep(10);
+	printf("now   \n");
 	xQueueSend(psend,newdata,100);
-
+	printf("IsisTrxvu_tcSendAX25DefClSign:after xQsend \n");
 	/*
 
 		char  ch[10];

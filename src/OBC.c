@@ -13,6 +13,7 @@
 #include<stdlib.h>
 #include<sys/time.h>
 #include "string.h"
+#include <time.h>
 
 Boolean _flagF_FRAM_start=FALSE;
 Boolean _flag_Time_start=FALSE;
@@ -171,11 +172,16 @@ void vSemaphoreCreateBinary(xSemaphoreHandle * handle){
 }
 
 Boolean vSemaphoreTake(xSemaphoreHandle handle, TickType_t xTicksToWait){
+	time_t start , end;
+	time(&start);
 
 	while(semaphoreArray[handle] == 1){
 		sleep(0.001);
+	if(time(&end) >=start+xTicksToWait)
+			return(FALSE);
 	}
 	semaphoreArray[handle] = 1;
+	return(TRUE);
 }
 
 void vSemaphoreGive(xSemaphoreHandle handle){
@@ -219,6 +225,9 @@ XQueue* xQueueCreate(int uxQueueLength, int uxItemSize){
 
 void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 {
+	time_t start , end;
+		time(&start);
+
 	printf("xQueueSend: start");
 	if(xQueue == NULL)
 	{
@@ -231,9 +240,11 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 
     int size_tmp = (int)endpo - (int)xQueue->pointer;
 
-    if(size_tmp + xQueue->uxQueueLength >= QUEUE_SIZE){
+    while(size_tmp + xQueue->uxQueueLength >= QUEUE_SIZE){
 		printf("xQueueSend: Queue is full \n");
-		return QUEUE_FULL;
+		sleep(0.01);
+		if( time(&end)>=start+xTicksToWait)
+				return QUEUE_FULL;
 	}
 
 	memcpy(endpo,pvItemToQueue,xQueue->uxItemSize);
@@ -244,7 +255,8 @@ void* xQueueSend(XQueue *xQueue, void* pvItemToQueue, int xTicksToWait)
 
 int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 	printf("xQueueReceive: start \n" );
-
+	time_t start , end;
+		time(&start);
 
 	char* endPO = strchrnul((char*)xQueue->pointer, '\0');
 
@@ -254,6 +266,11 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 
 		memcpy(pvBuffer, xQueue->pointer, xQueue->uxItemSize);
 
+		while(pvBuffer = NULL){
+				 sleep(0.01);
+				 if( time(&end)>=start+xTicksToWait)
+					  return QUEUE_EMPTY;
+				 }
 
 
 		//while (*(sizeof(char)+startPO)) /* Check against NULL char*/
@@ -268,13 +285,9 @@ int xQueueReceive(XQueue* xQueue, void *pvBuffer, TickType_t xTicksToWait) {
 
 
 		//printf("xQueueReceive: queue pointer values: %s \n" ,*(xQueue->pointer) );
-		 if(pvBuffer != NULL){
+
 			 return E_NO_SS_ERR;
-		 }
-		 else{
-			 printf("xQueueReceive: Q is empty \n" );
-			 return QUEUE_EMPTY;
-		 }
+
 	}
 }
 
@@ -341,5 +354,8 @@ void clearQ(XQueue* xQueue){
 		*(p+i)="/0";
 	}
 
+}
+void resetQ(){
+	 n_queues = 0;
 }
 
