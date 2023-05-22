@@ -36,7 +36,7 @@ namespace YcubeSimUDP
 
         private void button2_Click(object sender, EventArgs e)
         {
-            client.Client("192.168.137.163", 27002);
+            client.Client(tbxIP.Text, int.Parse(tbxPort.Text));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace YcubeSimUDP
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            server.Server(27002, this);
+            server.Server(int.Parse(tbxPort.Text), this);
         }
 
         private void button4_Click(object sender, EventArgs e)

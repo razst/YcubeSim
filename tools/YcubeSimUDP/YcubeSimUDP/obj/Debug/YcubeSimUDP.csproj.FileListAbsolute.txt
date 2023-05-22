@@ -18,3 +18,14 @@ E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeS
 E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.CoreCompileInputs.cache
 E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.exe
 E:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.pdb
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe.config
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.exe
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\bin\Debug\YcubeSimUDP.pdb
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.AssemblyReference.cache
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.SuggestedBindingRedirects.cache
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Main.resources
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.Properties.Resources.resources
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.GenerateResource.cache
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.csproj.CoreCompileInputs.cache
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.exe
+C:\dev\workspace_cubesim\YcubeSim\tools\YcubeSimUDP\YcubeSimUDP\obj\Debug\YcubeSimUDP.pdb
