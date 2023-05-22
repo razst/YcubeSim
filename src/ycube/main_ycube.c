@@ -28,5 +28,5 @@ int main_ycube()
 {
 
 	printf ("Starting YcubeSim...\n");
-
+	taskMain();
 }
