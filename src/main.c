@@ -11,11 +11,11 @@
 int main()
 {
 	#ifdef TEST_ON
-	printf("start HAL TEST mode\n");
-	runMainTests();
+		printf("start HAL TEST mode\n");
+		runMainTests();
 	#else
-	printf("start SIM mode\n");
-	main_ycube();
+		printf("start SIM mode\n");
+		main_ycube();
 	#endif
 	return 0;
 }

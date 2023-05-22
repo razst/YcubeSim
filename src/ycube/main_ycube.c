@@ -27,28 +27,6 @@ void taskMain()
 int main_ycube()
 {
 
-		printf ("Starting YcubeSim...\n");
+	printf ("Starting YcubeSim...\n");
 
-//		xTaskHandle taskMainHandle;
-//
-//		TRACE_CONFIGURE_ISP(DBGU_STANDARD, 2000000, BOARD_MCK);
-//		// Enable the Instruction cache of the ARM9 core. Keep the MMU and Data Cache disabled.
-//		CP15_Enable_I_Cache();
-//
-//		// The actual watchdog is already started, this only initializes the watchdog-kick interface.
-//		WDT_start();
-//
-//		// create the main operation task of the satellite
-//		#ifdef TESTING
-//			xTaskGenericCreate(taskTesting, (const signed char*) "taskTesting", 4096,
-//					NULL,
-//					configMAX_PRIORITIES - 2, &taskMainHandle, NULL, NULL);
-//		#else
-//			xTaskGenericCreate(taskMain, (const signed char*) "taskMain", 4096, NULL,
-//					configMAX_PRIORITIES - 2, &taskMainHandle, NULL, NULL);
-//		#endif
-//
-//
-//
-//		vTaskStartScheduler();
 }
