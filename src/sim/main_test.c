@@ -33,10 +33,6 @@ void createDir(){
 
 }
 
-void initEPS(){
-	//ISIS_EPS_Init();
-}
-
 int initTrx(){
 	ISIStrxvuI2CAddress address;
 	address.addressVu_rc = 0; // TODO not in use
