@@ -3,23 +3,34 @@
 #include <stdlib.h>
 #include <../hal/boolean.h>
 
+#include "TRXVU.h"
+#include "EPS.h"
+
 void taskMain()
 {
 //	WDT_startWatchdogKickTask(10 / portTICK_RATE_MS, FALSE);
 //
-//	InitSubsystems();
+	InitSubsystems();
 //
-//	while (TRUE) {
+	while (TRUE) {
 //		EPS_Conditioning();
-//
-//		TRX_Logic();
-//
+
+		TRX_Logic();
+
 //		TelemetryCollectorLogic();
-//
+
 //		Maintenance();
-//
-//		vTaskDelay(10);
-//	}
+
+		vTaskDelay(10);
+		printf("*\n");
+	}
+}
+
+int InitSubsystems()
+{
+	initEPS();
+	initTrxvu();
+	return 0;
 }
 
 
