@@ -65,12 +65,12 @@ void testINA219(){
 
 	printf("time_s,bus_voltage_V,supply_voltage_V,shunt_voltage_mV,current_mA,power_mW\n");
 
-	int c = 0;
-	while(1)
+	int c = 1;
+	while(c < 11)
 	{
+		usleep(1000000); // 1s
 		printf( "time_s = %2.d | bus_voltage_V = %.4f | supply_voltage_V = %.4f | shunt_voltage_mV = %.4f | current_mA = %.4f | power_mW = %.4f\n", c, INA219_voltage(),INA219_supply_voltage(),INA219_shunt_voltage(),INA219_current(),INA219_power());
 		c++;
-		usleep(100000); // 1s
 	}
 
 }
