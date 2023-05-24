@@ -34,7 +34,7 @@ IsisSolarPanelv2_State_t IsisSolarPanelv2_getState(){
 	if (_flagSolarPanelInit == FALSE){
 		return ISIS_SOLAR_PANEL_STATE_NOINIT;
 	}
-	return ISIS_SOLAR_PANEL_STATE_SLEEP;
+	return ISIS_SOLAR_PANEL_STATE_AWAKE;
 }
 //return state or error
 int IsisSolarPanelv2_initialize( SPIslave slave ){
@@ -42,9 +42,9 @@ int IsisSolarPanelv2_initialize( SPIslave slave ){
 		return E_IS_INITIALIZED;
 	}
 
-	if (slave != slave0_spi){
-		return E_INDEX_ERROR;
-	}
+//	if (slave != slave0_spi){
+//		return E_INDEX_ERROR;
+//	}
 
 	 _flagSolarPanelInit = TRUE;
 

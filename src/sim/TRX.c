@@ -33,6 +33,7 @@ int IsisTrxvu_initialize(ISIStrxvuI2CAddress *address, ISIStrxvuFrameLengths *ma
 	pget=xQueueCreate(80,10);
 	_initFlag=TRUE;
 	IsisTrxvu_tcStartReadingQ(50);
+	IsisTrxvu_tcSetIdlestate(0,trxvu_idle_state_on);
 
 	return E_NO_SS_ERR;
 }

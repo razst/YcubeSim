@@ -37,7 +37,15 @@ int hcc_mem_init(){
 	_flaghcc_mem_init = TRUE;
 	return	E_NO_SS_ERR ;
 }
-
+Boolean checkid(){
+	pid_t tid = syscall(SYS_gettid);
+	for (int i=0; i<=100; i++){
+				if (ArraythreadID[i]== tid){
+					return TRUE;
+				}
+	}
+	return FALSE;
+}
 
 int f_enterFS() {
 	if( _flagTelemetryInit){
@@ -94,6 +102,7 @@ int f_initvolume (int drvnumber, F_DRIVERINIT driver_init,  unsigned long driver
 
 F_FILE * f_open (const char * filename,const char * mode ){
 	FILE * pf;
+	if(checkid()){
 	if(_flagF_enterFS){
 		pf = fopen (filename,mode);
 		if (pf == NULL) {
@@ -103,8 +112,10 @@ F_FILE * f_open (const char * filename,const char * mode ){
 		 return pf;
 	}
 }
+}
 
 long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
+	if(checkid()){
 	long items_written=0;
 	if(_flagF_enterFS){
 		items_written=fwrite(buf, size,size_st,filehandle);
@@ -112,37 +123,42 @@ long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
 	}
 	return E_NOT_INITIALIZED;
 }
-
+}
 
 int f_close ( F_FILE * filehandle ){
+	if(checkid()){
 	if(_flagF_enterFS){
 		return fclose(filehandle);
 	}
 	return E_NOT_INITIALIZED;
 }
+}
 
 int f_flush ( F_FILE * filehandle ){
+	if(checkid()){
 	if(_flagF_enterFS){
 		return fflush(filehandle);
 	}
 	return E_NOT_INITIALIZED;
-}
+}}
 
 
 long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
+	if(checkid()){
 	if(_flagF_enterFS){
 		return fread(buf,  size, size_st, filehandle);
 	}
 	return E_NOT_INITIALIZED;
 }
-
+}
 
 int f_getlasterror (){
+	if(checkid()){
 	if(_flagF_enterFS){
 		return errnum;
 	}
 	return E_NOT_INITIALIZED;
 }
-
+}
 
 
