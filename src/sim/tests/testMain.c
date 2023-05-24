@@ -19,7 +19,9 @@
  */
 int runMainTests(void){
 	startTesting();
-	testINA219();
+	testTRXInit();
+	testTRXSendMeesage();
+//	testINA219();
 	return 0;
 	printf("start TRX test Functions \n");
 	testTRXInit();

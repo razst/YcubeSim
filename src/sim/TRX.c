@@ -133,7 +133,7 @@ int sendUDPMessage_old(unsigned char *data, unsigned char length){
     servaddr.sin_family = AF_INET;
     servaddr.sin_port   = htons(DOWN_PORT);
     servaddr.sin_addr.s_addr  = INADDR_BROADCAST;
-    //servaddr.sin_addr.s_addr   = inet_addr("192.168.14.118");
+//    servaddr.sin_addr.s_addr   = inet_addr("192.168.137.1");
     //servaddr.sin_addr.s_addr = INADDR_ANY;
 
 
@@ -221,13 +221,32 @@ int sendUDPMessage(unsigned char *data, unsigned char length) {
 
 	port = htons(DOWN_PORT);
 
+
+
+
 	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 		printf("sdnbhjxn");
 		return 111;
 	}
-	server.sin_family = AF_INET; /* Internet Domain    */
-	server.sin_port = port; /* Server Port        */
-	server.sin_addr.s_addr = inet_addr("0.0.0.0"); /* Server's Address   */
+
+
+	int broadcastEnable = 1;
+	int ret = setsockopt(s, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
+	if (ret) {
+		printf("Unable to set broadcast option\n");
+		close(s);
+		return E_SOCKET_OPT;
+	}
+
+
+	server.sin_family = AF_INET;
+	server.sin_port   = htons(DOWN_PORT);
+	server.sin_addr.s_addr  = INADDR_BROADCAST;
+
+
+//	server.sin_family = AF_INET; /* Internet Domain    */
+//	server.sin_port = port; /* Server Port        */
+//	server.sin_addr.s_addr = inet_addr("0.0.0.0"); /* Server's Address   */
 
 
 	if (sendto(s, data, (strlen(data) + 1), 0, (struct sockaddr*) &server,
