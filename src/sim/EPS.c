@@ -59,7 +59,7 @@ int IsisSolarPanelv2_Dinitialize(){
 //what return get in to the variable
 int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeepingengincdb__from_t *response ){
 	response->fields.temp= (short) get_eps_temp();
-	response->fields.volt_vd0= (int) getamp();
+	response->fields.volt_vd0= (int) getVolt();
 	//response->fields.temp = get_eps_temp();
 	printf ("%d",response->fields.temp);
 	printf ("%d",response->fields.volt_vd0);
@@ -107,39 +107,56 @@ int communication ()
 	return 0; //to change
 }
 
-//converting
-float shunt_to_Amp(int amp)
-{
-	if (amp > 4096){
-	amp=-(8192-amp);
-	}
-	float amp1mv=(163.8/4096)*amp;
-	float Amp = amp1mv*50/75;
-
-	return Amp;
 
 
-	// to change, lines in function less
+float getVolt(){
+	float SHUNT_OHMS = 0.1;
+	float MAX_EXPECTED_AMPS = 3.2;
+
+	INA219_Init(SHUNT_OHMS, MAX_EXPECTED_AMPS, 0x40); // defualt INA219 I2C address is 0x40
+	INA219_configure(RANGE_16V, GAIN_8_320MV, ADC_12BIT, ADC_12BIT);
+
+	INA219_supply_voltage();
+
+	//TODO: add more data to return. see testINA219
 }
 
-unsigned int change_endian(unsigned int x)
-{
-    unsigned char *ptr = (unsigned char *)&x;
-    return ( (ptr[0] << 8) | ptr[1]);
-}
 
-//the function is getting the amper and present it
-float getamp(){
-	//read the shunt from file
-    int shunt1 = wiringPiI2CReadReg16(fd, REG_DATA_ch1);
-    //change endian, strip last 3 bits provide raw value
-    shunt1 = change_endian(shunt1)/8;
-    float shunt1Amp=shunt_to_Amp(shunt1);
-    printf ( "ch1 raw:%d ,ch1 A:%f \n", shunt1 , shunt1Amp);
 
-	//return the amp
-	return shunt1Amp;
-}
+
+////converting
+//float shunt_to_Amp(int amp)
+//{
+//	if (amp > 4096){
+//	amp=-(8192-amp);
+//	}
+//	float amp1mv=(163.8/4096)*amp;
+//	float Amp = amp1mv*50/75;
+//
+//	return Amp;
+//
+//
+//	// to change, lines in function less
+//}
+//
+//unsigned int change_endian(unsigned int x)
+//{
+//    unsigned char *ptr = (unsigned char *)&x;
+//    return ( (ptr[0] << 8) | ptr[1]);
+//}
+//
+////the function is getting the amper and present it
+//float getamp(){
+//	//read the shunt from file
+//    int shunt1 = wiringPiI2CReadReg16(fd, REG_DATA_ch1);
+//    //change endian, strip last 3 bits provide raw value
+//    shunt1 = change_endian(shunt1)/8;
+//    float shunt1Amp=shunt_to_Amp(shunt1);
+//    printf ( "ch1 raw:%d ,ch1 A:%f \n", shunt1 , shunt1Amp);
+//
+//	//return the amp
+//	return shunt1Amp;
+//}
 
 
 

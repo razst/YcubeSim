@@ -177,6 +177,9 @@ int isis_eps__gethousekeepingengincdb__tm( uint8_t index, isis_eps__gethousekeep
 
 double get_eps_temp ();
 
-float getamp();
+/*
+ * return the voltage
+ */
+float getVolt();
 
 #endif /* EPS_H_ */
