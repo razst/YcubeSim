@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0ec1f4f5-d69b-4437-9bd6-1162650cb546": {
+      "ProjectGuid": "0ec1f4f5-d69b-4437-9bd6-1162650cb546",
+      "DisplayName": "YcubeSimUDP",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

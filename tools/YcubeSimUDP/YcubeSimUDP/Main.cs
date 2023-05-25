@@ -63,5 +63,15 @@ namespace YcubeSimUDP
         {
             listBox1.Items.Clear();
         }
+
+        private void tbxIP_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

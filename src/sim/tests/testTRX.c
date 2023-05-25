@@ -107,6 +107,7 @@ void testTRXSendMeesage(void)
 		Fl.maxAX25frameLengthTX = 200;
 
 	IsisTrxvu_initialize(NULL,&Fl,NULL,0);
+	IsisTrxvu_tcSetIdlestate(0, trxvu_idle_state_off);
 
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
@@ -120,18 +121,38 @@ void testTRXSendMeesage(void)
 
 	ASSERT_STR(&data,&buffer)
 	// send one byte less in the length
+
 	err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data)-2, &avail);
 	ASSERT_INT(err,E_NO_SS_ERR);
 
 	// check what we got in GCS is different than our data
 	getUDPMessage(&buffer);
-
+	printf("----------------------0000000000000000000000000000000000000 %s \0 ",buffer);
 	ASSERT_NOT_STR(&data,&buffer)
 
     clearQ(psend);
 	stopUDPServer();
 
 	printf("testTRXSendMeesage: end \n");
+}
+void testTRXGetMeesage(){
+	ISIStrxvuFrameLengths fl;
+		fl.maxAX25frameLengthRX = 200;
+		fl.maxAX25frameLengthTX = 200;
+		IsisTrxvu_initialize(NULL,&fl,NULL,0);
+
+		char buffer[MAX_FRAME_LENGTH];
+		char data[] = "send-12345\0";
+		char avail=0;
+		int err = IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
+			ASSERT_INT(err,E_NO_SS_ERR);
+
+			sleep(10);
+			xQueueReceive(pget,buffer,101);
+			printf("----------------------------------------------------------- %s \0",buffer);
+			ASSERT_INT(12345,buffer);
+
+
 }
 
 /*

@@ -22,7 +22,7 @@
 
 
 
-
+/*
 void createDir(){
 
 	struct stat st = {0};
@@ -33,6 +33,10 @@ void createDir(){
 
 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 int initTrx(){
 	ISIStrxvuI2CAddress address;
 	address.addressVu_rc = 0; // TODO not in use
@@ -48,7 +52,7 @@ int initTrx(){
 	return 0;
 
 }
-
+*/
 
 int initTelematrey(){
 	f_enterFS();

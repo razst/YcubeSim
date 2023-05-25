@@ -52,7 +52,7 @@ int sendIdle(void *vargp){
 	while(1==1){
 
 		IsisTrxvu_tcSendAX25DefClSign(0, data,strlen(data), &avail);
-		sleep(10);
+		sleep(15);
 	}
 }
 
@@ -70,7 +70,7 @@ int sendfromQ(){
 
 	printf("                                            sendfromQ:start \n");
 	unsigned char*buffer=malloc(psend->uxItemSize);
-
+	char buffer2[MAX_FRAME_LENGTH];
 	while(2>0){
 		sleep(3);
 
@@ -83,7 +83,8 @@ int sendfromQ(){
 			int	err=sendUDPMessage(buffer,sizeof(buffer));
 			printf("                                     sendfromQ:after sendUDPMessage %d \n", err);
 
-
+		//getUDPMessage1(buffer2);
+		//xQueueSend(pget,buffer2,100);
 		}
 	}
 }
@@ -270,9 +271,10 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	/*sendUDPMessage(data, length);
 	 */
 	char newdata [psend->uxItemSize];
-	for (int i=0;i<length;i++){
+	for (int i=0;i<length ;i++){
 		newdata[i]=data[i];
 	}
+	printf("%s    \n",newdata );
 	for (int i=length;i<psend->uxItemSize;i++){
 		newdata[i]=0xff;
 	}
@@ -280,7 +282,9 @@ int IsisTrxvu_tcSendAX25DefClSign(unsigned char index, unsigned char *data, unsi
 	printf("IsisTrxvu_tcSendAX25DefClSign:start \n");
     sleep(10);
 	printf("now   \n");
+	printf("%s \n",newdata );
 	xQueueSend(psend,newdata,100);
+	printQ(psend);
 	printf("IsisTrxvu_tcSendAX25DefClSign:after xQsend \n");
 	/*
 
@@ -316,4 +320,30 @@ int IsisTrxvu_rcGetCommandFrame(unsigned char index, ISIStrxvuRxFrame *rx_frame)
 
 int IsisTrxvu_tcSetAx25Bitrate(unsigned char index, ISIStrxvuBitrate bitrate){
 	return E_NO_SS_ERR;
+}
+void getUDPMessage1(char *buffer){
+    struct sockaddr_in     cliaddr;
+    int len, n;
+
+
+    cliaddr.sin_family = AF_INET;
+    cliaddr.sin_port   = htons(DOWN_PORT);
+    cliaddr.sin_addr.s_addr  = INADDR_BROADCAST;
+
+	len = sizeof(cliaddr);  //len is value/resuslt
+
+	n = recvfrom(-1, (char *)buffer, MAX_FRAME_LENGTH,
+				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
+				&len);
+	buffer[n] = '\0';
+	printf("Client sent: %s\n", buffer);
+    memset(&cliaddr, 0, sizeof(cliaddr));
+
+    	for (int i=sizeof(buffer);i<pget->uxItemSize;i++){
+    		buffer[i]=0xff;
+    	}
+
+
+
+
 }

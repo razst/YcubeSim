@@ -34,8 +34,8 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tbxIP = new System.Windows.Forms.TextBox();
@@ -100,6 +100,14 @@
             this.panel1.Size = new System.Drawing.Size(772, 4);
             this.panel1.TabIndex = 9;
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(-1, -46);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(772, 4);
+            this.panel2.TabIndex = 10;
+            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(316, 104);
@@ -109,14 +117,6 @@
             this.button4.Text = "Clear";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(-1, -46);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(772, 4);
-            this.panel2.TabIndex = 10;
             // 
             // panel3
             // 
@@ -142,6 +142,7 @@
             this.tbxIP.Size = new System.Drawing.Size(129, 20);
             this.tbxIP.TabIndex = 12;
             this.tbxIP.Text = "192.168.137.163";
+            this.tbxIP.TextChanged += new System.EventHandler(this.tbxIP_TextChanged);
             // 
             // tbxPort
             // 
@@ -188,6 +189,7 @@
             this.Controls.Add(this.button2);
             this.Name = "Main";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);

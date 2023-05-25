@@ -19,10 +19,9 @@
  */
 int runMainTests(void){
 	startTesting();
-	testTRXInit();
-	testTRXSendMeesage();
+
 //	testINA219();
-	return 0;
+
 	printf("start TRX test Functions \n");
 	testTRXInit();
 	testTRXSendMeesage();
@@ -30,6 +29,8 @@ int runMainTests(void){
 	testIsisAntS_initialize();
 	resetQ();  /*seem to be requierd to prevent bugs*/
    testISIStrxvuIdleState();
+  // resetQ();
+  // testTRXGetMeesage();
 	printf("end TRX test Functions \n");
 
 	printf("\n/EPS test Functions \n");

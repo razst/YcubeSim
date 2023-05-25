@@ -112,6 +112,7 @@ F_FILE * f_open (const char * filename,const char * mode ){
 		 return pf;
 	}
 }
+	return E_NOT_INITIALIZED;
 }
 
 long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
@@ -123,6 +124,7 @@ long f_write ( const void * buf, long size,long size_st, F_FILE * filehandle ){
 	}
 	return E_NOT_INITIALIZED;
 }
+	return E_NOT_INITIALIZED;
 }
 
 int f_close ( F_FILE * filehandle ){
@@ -132,6 +134,7 @@ int f_close ( F_FILE * filehandle ){
 	}
 	return E_NOT_INITIALIZED;
 }
+	return E_NOT_INITIALIZED;
 }
 
 int f_flush ( F_FILE * filehandle ){
@@ -140,7 +143,9 @@ int f_flush ( F_FILE * filehandle ){
 		return fflush(filehandle);
 	}
 	return E_NOT_INITIALIZED;
-}}
+}
+	return E_NOT_INITIALIZED;
+}
 
 
 long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
@@ -150,6 +155,7 @@ long f_read ( void * buf, long size, long size_st, F_FILE * filehandle ){
 	}
 	return E_NOT_INITIALIZED;
 }
+	return E_NOT_INITIALIZED;
 }
 
 int f_getlasterror (){
@@ -159,6 +165,7 @@ int f_getlasterror (){
 	}
 	return E_NOT_INITIALIZED;
 }
+	return E_NOT_INITIALIZED;
 }
 
 
