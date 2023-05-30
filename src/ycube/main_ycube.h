@@ -23,7 +23,6 @@ void taskmain();
  * The main function contains a 'Boot' call which is operated once,
  * and the taskMain thread which is activated repeatedly.
  */
-int main();
 
 #endif /* MAIN_H_ */
 
