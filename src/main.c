@@ -4,7 +4,7 @@
  *  Created on: 16 May 2023
  *      Author: user
  */
-#define TEST_ON
+//#define TEST_ON
 
 #include <stdio.h>
 
