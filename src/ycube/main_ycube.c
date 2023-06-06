@@ -42,7 +42,7 @@ void taskMain()
 //		Maintenance();
 
 		vTaskDelay(10);
-		printf("*\n");
+		printf("n\n");
 	}
 }
 
