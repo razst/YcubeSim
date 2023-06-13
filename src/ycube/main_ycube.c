@@ -3,34 +3,45 @@
 #include <stdlib.h>
 #include <../hal/boolean.h>
 
+#include <string.h>
 #include "TRXVU.h"
 #include "EPS.h"
 #include "ERRORS.h"
-#include <stdio.h>
-#include <time.h>
+#include "utils.h"
 
-
-int LogError(int error, char* msg) //TO DO: enter data into log file.
+void test()
 {
-	//get current time in this format dd/mm/yyyy hh:mm:ss.sss
-	time_t t;
-    t = time(NULL);
-    char time[20] = {0};
-    struct tm *tm = localtime(&t);
-	sprintf(time, "%02d/%02d/%d %02d:%02d:%02d.%03d", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900, tm->tm_hour, tm->tm_min, tm->tm_sec, (int)(t % 1000)); // Extract milliseconds from t
-	/*FILE* F = fopen("ErrorLog.txt", 'w');
-	fprintf(F, strcat(time, str(error));
-	fclose(F);*/
-
-    return error;
+//	for (int i = 0; i < 6; i++)
+//	{
+//	    LogError(logFileName , i, "a");
+//	}
+//
+//    FILE* f = fopen(logFileName , "r");
+//    if (f != NULL) {
+//        char line[30];
+//        while (fgets(line, sizeof(line), f) != NULL)
+//        {
+//            printf("%s", line);
+//        }
+//        fclose(f);
+//        FILE* F = fopen("YcubeSim\ErrorLog.txt", "w");
+//        fclose(F);
+//    }
+//    fclose(logFileName);
 }
+
 
 void taskMain()
 {
-//	WDT_startWatchdogKickTask(10 / portTICK_RATE_MS, FALSE);
-//
+	// WDT_startWatchdogKickTask(10 / portTICK_RATE_MS, FALSE);
+
+	// Opens the log error file for writing
+	// TO DO: Add the current date to the LogError file name and create a new file every day
+
+
+
 	InitSubsystems();
-	LogError(0,"a");
+
 //
 	while (TRUE) {
 //		EPS_Conditioning();
