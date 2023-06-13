@@ -7,23 +7,21 @@
 
 #include "..\sim\TRX.h"
 
-xQueueHandle xDumpQueue = NULL;
 xSemaphoreHandle xDumpLock = NULL;
 xSemaphoreHandle xIsTransmitting = NULL;// mutex on transmission.
 
-void InitTxModule()
+
+void initSemaphores()
 {
+	//create the transmit semaphore
 	if(xIsTransmitting == NULL)
-		vSemaphoreCreateBinary(xIsTransmitting);
-}
+			vSemaphoreCreateBinary(xIsTransmitting);
 
-void InitSemaphores()
-{
-
+	//create the dump semaphore
 	if(xDumpLock == NULL)
 		vSemaphoreCreateBinary(xDumpLock);
-	if(xDumpQueue == NULL)
-		xDumpQueue = xQueueCreate(1, sizeof(Boolean));
+/*	if(xDumpQueue == NULL) TODO
+		xDumpQueue = xQueueCreate(1, sizeof(Boolean));*/
 }
 
 
@@ -50,15 +48,14 @@ int initTrxvu()
 	TRXVUbitrates = trxvu_bitrate_9600;
 
 	//initialize the TRXVU
-	if (logError(IsisTrxvu_initialize(&TRXVUaddress, &TRXVUframeLength,&TRXVUbitrates, 1) ,"InitTrxvu-IsisTrxvu_initialize") ) return -1;
+	//if (logError(IsisTrxvu_initialize(&TRXVUaddress, &TRXVUframeLength,&TRXVUbitrates, 1) ,"InitTrxvu-IsisTrxvu_initialize") ) return -1;
 
 	vTaskDelay(1000); // wait a little
 
 	//initialize the antennas
-	if (logError(IsisAntS_initialize(&antennaAddress, 1),"InitTrxvu-IsisAntS_initialize")) return -1;
+	//if (logError(IsisAntS_initialize(&antennaAddress, 1),"InitTrxvu-IsisAntS_initialize")) return -1;
 
-	InitTxMoudule();
-	InitSemaphores();
+	initSemaphores();
 
 	return 0;
 }

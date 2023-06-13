@@ -8,7 +8,10 @@
 #ifndef YCUBE_TRXUV_H_
 #define YCUBE_TRXUV_H_
 
+void initSemaphore();
+
 int initTrxvu();
+
 int TRX_Logic();
 
 #endif /* YCUBE_TRXUV_H_ */

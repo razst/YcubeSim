@@ -18,7 +18,6 @@
 #include<sys/time.h>
 
 typedef int xSemaphoreHandle;
-typedef int xQueueHandle;
 typedef long TickType_t;
 
 typedef struct __attribute__ ((__packed__)) _Time {
